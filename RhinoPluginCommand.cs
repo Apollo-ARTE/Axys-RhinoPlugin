@@ -25,6 +25,8 @@ namespace RhinoPlugin
 
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
+            RhinoApp.WriteLine("Starting WebSocket server...");
+            WebSocketServerManager.StartServer();
             // TODO: start here modifying the behaviour of your command.
             // ---
             RhinoApp.WriteLine("The {0} command will add a line right now.", EnglishName);
@@ -55,10 +57,12 @@ namespace RhinoPlugin
                 }
                 pt1 = getPointAction.Point();
             }
-
-            doc.Objects.AddLine(pt0, pt1);
+            var lineId = doc.Objects.AddLine(pt0, pt1);
             doc.Views.Redraw();
             RhinoApp.WriteLine("The {0} command added one line to the document.", EnglishName);
+
+            var message = $"Server timestamp: {DateTimeOffset.Now.ToUnixTimeSeconds()} Selected object: Line_{lineId}";
+            WebSocketServerManager.BroadcastMessage(message);
 
             // ---
             return Result.Success;

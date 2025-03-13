@@ -53,6 +53,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Fleck": {
+              "target": "Package",
+              "version": "[1.2.0, )"
+            },
             "RhinoCommon": {
               "include": "Compile, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "target": "Package",
@@ -90,6 +94,10 @@
         "net48": {
           "targetAlias": "net48",
           "dependencies": {
+            "Fleck": {
+              "target": "Package",
+              "version": "[1.2.0, )"
+            },
             "Microsoft.NETFramework.ReferenceAssemblies": {
               "suppressParent": "All",
               "target": "Package",

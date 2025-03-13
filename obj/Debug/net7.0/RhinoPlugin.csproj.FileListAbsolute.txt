@@ -12,3 +12,6 @@
 /Users/guillermokramsky/Documents/RhinoPlugin/obj/Debug/net7.0/RhinoPlugin.pdb
 /Users/guillermokramsky/Documents/RhinoPlugin/obj/Debug/net7.0/RhinoPlugin.genruntimeconfig.cache
 /Users/guillermokramsky/Documents/RhinoPlugin/obj/Debug/net7.0/ref/RhinoPlugin.rhp
+/Users/guillermokramsky/Documents/RhinoPlugin/bin/Debug/net7.0/Fleck.dll
+/Users/guillermokramsky/Documents/RhinoPlugin/obj/Debug/net7.0/RhinoPlugin.sourcelink.json
+/Users/guillermokramsky/Documents/RhinoPlugin/obj/Debug/net7.0/RhinoPlu.D7E6E488.Up2Date

@@ -7,3 +7,6 @@
 /Users/guillermokramsky/Documents/RhinoPlugin/obj/Debug/net48/RhinoPlugin.csproj.CoreCompileInputs.cache
 /Users/guillermokramsky/Documents/RhinoPlugin/obj/Debug/net48/RhinoPlugin.rhp
 /Users/guillermokramsky/Documents/RhinoPlugin/obj/Debug/net48/RhinoPlugin.pdb
+/Users/guillermokramsky/Documents/RhinoPlugin/bin/Debug/net48/Fleck.dll
+/Users/guillermokramsky/Documents/RhinoPlugin/obj/Debug/net48/RhinoPlugin.sourcelink.json
+/Users/guillermokramsky/Documents/RhinoPlugin/obj/Debug/net48/RhinoPlu.D7E6E488.Up2Date
