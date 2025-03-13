@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using Fleck;  
 using Rhino;
+using Rhino.Geometry;
+using Newtonsoft.Json; 
+using Rhino.DocObjects;
 
 namespace RhinoPlugin
 {
@@ -32,7 +35,7 @@ namespace RhinoPlugin
                 socket.OnMessage = message =>
                 {
                     RhinoApp.WriteLine("Received from client: " + message);
-                    // Here you could parse commands sent from the iPad.
+                    ProcessUpdateMessage(message);
                 };
             });
             RhinoApp.WriteLine("WebSocket server started on ws://<your-ip>:8765");
@@ -44,6 +47,61 @@ namespace RhinoPlugin
             {
                 socket.Send(message);
             }
+        }
+
+        public static void ProcessUpdateMessage(string json)
+        {
+            // Use the existing JsonHandler and RhinoObjectData.
+            RhinoObjectData updateMsg = JsonHandler.Deserialize(json);
+            if(updateMsg.Type != "update")
+                return;
+            
+            // Ensure that document updates happen on the main thread.
+            RhinoApp.InvokeOnUiThread((Action)(() =>
+            {
+                // Extract the Guid from the objectId string.
+                // Assuming the objectId is stored as "Sphere_{guid}"
+                string guidString = updateMsg.ObjectId.Replace("Sphere_", "");
+                if(Guid.TryParse(guidString, out Guid sphereGuid))
+                {
+                    RhinoObject obj = RhinoDoc.ActiveDoc.Objects.Find(sphereGuid);
+                    if(obj != null)
+                    {
+                        // Retrieve the stored radius from the user string.
+                        string radiusStr = obj.Attributes.GetUserString("Radius");
+                        if (!double.TryParse(radiusStr, out double sphereRadius))
+                        {
+                            RhinoApp.WriteLine("Failed to retrieve the sphere's radius.");
+                            return;
+                        }
+                        
+                        // Create a new sphere using the updated center and the stored radius.
+                        Point3d newCenter = new Point3d(updateMsg.Center.X, updateMsg.Center.Y, updateMsg.Center.Z);
+                        Sphere newSphere = new Sphere(newCenter, sphereRadius);
+                        
+                        // Replace the existing sphere geometry.
+                        // Note: Since Rhino stores the sphere as a Brep, convert it.
+                        bool replaced = RhinoDoc.ActiveDoc.Objects.Replace(sphereGuid, newSphere.ToBrep());
+                        if (replaced)
+                        {
+                            RhinoDoc.ActiveDoc.Views.Redraw();
+                            RhinoApp.WriteLine("Sphere updated with new center: {0}", newCenter);
+                        }
+                        else
+                        {
+                            RhinoApp.WriteLine("Failed to replace the sphere geometry.");
+                        }
+                    }
+                    else
+                    {
+                        RhinoApp.WriteLine("Sphere with ID {0} not found.", sphereGuid);
+                    }
+                }
+                else
+                {
+                    RhinoApp.WriteLine("Invalid sphere GUID in message.");
+                }
+            }));
         }
     }
 }

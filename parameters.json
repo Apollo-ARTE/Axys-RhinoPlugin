@@ -1,0 +1,12 @@
+{
+    "type": "create",            
+    "objectId": "Sphere_123",    
+    "center": {
+        "x": 10.0,
+        "y": 5.0,
+        "z": 0.0
+    },
+    "radius": 3.5,               
+    "timestamp": 1680000000000   
+}
+  

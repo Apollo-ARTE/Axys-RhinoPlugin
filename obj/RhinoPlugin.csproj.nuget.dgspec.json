@@ -57,6 +57,10 @@
               "target": "Package",
               "version": "[1.2.0, )"
             },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
             "RhinoCommon": {
               "include": "Compile, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "target": "Package",
@@ -103,6 +107,10 @@
               "target": "Package",
               "version": "[1.0.3, )",
               "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             },
             "RhinoCommon": {
               "include": "Compile, Build, Native, ContentFiles, Analyzers, BuildTransitive",
