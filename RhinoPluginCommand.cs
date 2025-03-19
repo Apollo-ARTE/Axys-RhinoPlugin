@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using Rhino;
 using Rhino.Commands;
 using Rhino.Geometry;
 using Rhino.Input;
 using Rhino.Input.Custom;
+using Rhino.DocObjects;
+using Newtonsoft.Json;
 
 namespace RhinoPlugin
 {
@@ -12,60 +13,75 @@ namespace RhinoPlugin
     {
         public RhinoPluginCommand()
         {
-            // Rhino only creates one instance of each command class defined in a
-            // plug-in, so it is safe to store a refence in a static property.
             Instance = this;
         }
 
-        ///<summary>The only instance of this command.</summary>
         public static RhinoPluginCommand Instance { get; private set; }
-
-        ///<returns>The command name as it appears on the Rhino command line.</returns>
         public override string EnglishName => "RhinoPluginCommand";
 
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
             RhinoApp.WriteLine("Starting WebSocket server...");
             WebSocketServerManager.StartServer();
-            // TODO: start here modifying the behaviour of your command.
-            // ---
-            RhinoApp.WriteLine("The {0} command will add a line right now.", EnglishName);
+            RhinoApp.WriteLine("The {0} command will add a sphere now.", EnglishName);
 
-            Point3d pt0;
-            using (GetPoint getPointAction = new GetPoint())
+            // Prompt for sphere center
+            Point3d center;
+            using (GetPoint getCenter = new GetPoint())
             {
-                getPointAction.SetCommandPrompt("Please select the start point");
-                if (getPointAction.Get() != GetResult.Point)
+                getCenter.SetCommandPrompt("Select the center of the sphere");
+                if (getCenter.Get() != GetResult.Point)
                 {
-                    RhinoApp.WriteLine("No start point was selected.");
-                    return getPointAction.CommandResult();
+                    RhinoApp.WriteLine("No center point was selected.");
+                    return getCenter.CommandResult();
                 }
-                pt0 = getPointAction.Point();
+                center = getCenter.Point();
             }
 
-            Point3d pt1;
-            using (GetPoint getPointAction = new GetPoint())
+            double radius = 0;
+            Result rc = RhinoGet.GetNumber("Enter the radius of the sphere", false, ref radius);
+            if (rc != Result.Success)
             {
-                getPointAction.SetCommandPrompt("Please select the end point");
-                getPointAction.SetBasePoint(pt0, true);
-                getPointAction.DynamicDraw +=
-                  (sender, e) => e.Display.DrawLine(pt0, e.CurrentPoint, System.Drawing.Color.DarkRed);
-                if (getPointAction.Get() != GetResult.Point)
-                {
-                    RhinoApp.WriteLine("No end point was selected.");
-                    return getPointAction.CommandResult();
-                }
-                pt1 = getPointAction.Point();
+                RhinoApp.WriteLine("Invalid radius input.");
+                return rc;
             }
-            var lineId = doc.Objects.AddLine(pt0, pt1);
+
+            Sphere sphere = new Sphere(center, radius);
+            Guid sphereId = doc.Objects.AddSphere(sphere);
+            if (sphereId == Guid.Empty)
+            {
+                RhinoApp.WriteLine("Failed to add sphere to document.");
+                return Result.Failure;
+            }
             doc.Views.Redraw();
-            RhinoApp.WriteLine("The {0} command added one line to the document.", EnglishName);
+            RhinoApp.WriteLine("Sphere added with ID: {0}", sphereId);
 
-            var message = $"Server timestamp: {DateTimeOffset.Now.ToUnixTimeSeconds()} Selected object: Line_{lineId}";
-            WebSocketServerManager.BroadcastMessage(message);
+            // Attach metadata to the object
+            RhinoObject obj = doc.Objects.Find(sphereId);
+            if (obj != null)
+            {
+                obj.Attributes.SetUserString("Radius", radius.ToString());
+                obj.CommitChanges();
+            }
 
-            // ---
+            RhinoObjectData sphereData = new RhinoObjectData
+            {
+                Type = "create",
+                ObjectId = $"Sphere_{sphereId}",
+                Center = new Center
+                {
+                    X = center.X,
+                    Y = center.Y,
+                    Z = center.Z
+                },
+                Radius = radius,
+                Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds()
+            };
+            string jsonMessage = JsonHandler.Serialize(sphereData);
+            WebSocketServerManager.BroadcastMessage(jsonMessage);
             return Result.Success;
         }
     }
+
+    
 }
