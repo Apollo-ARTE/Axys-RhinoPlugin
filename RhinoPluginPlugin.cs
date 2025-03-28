@@ -1,5 +1,7 @@
 ﻿using System;
 using Rhino;
+using Rhino.PlugIns;
+using Rhino.Commands;
 
 namespace RhinoPlugin
 {
@@ -20,6 +22,15 @@ namespace RhinoPlugin
         
         ///<summary>Gets the only instance of the RhinoPluginPlugin plug-in.</summary>
         public static RhinoPluginPlugin Instance { get; private set; }
+
+        // protected override LoadReturnType Load(ref string errorMessage)
+        // {
+        //     // Register your custom commands here
+        //     Rhino.Commands.Command.Add(new StartWebSocketServerCommand());
+        //     Rhino.Commands.Command.Add(new TrackObjectCommand());
+
+        //     return LoadReturnType.Success;
+        // }
 
         // You can override methods here to change the plug-in behavior on
         // loading and shut down, add options pages to the Rhino _Option command

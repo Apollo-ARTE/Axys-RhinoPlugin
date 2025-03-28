@@ -1,4 +1,8 @@
 using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Net.NetworkInformation;
+using System.Linq;
 using System.Collections.Generic;
 using Fleck;  
 using Rhino;
@@ -17,7 +21,9 @@ namespace RhinoPlugin
         {
             FleckLog.Level = LogLevel.Info;
             // Bind the server to all network interfaces on port 8765.
-            server = new WebSocketServer("ws://10.20.62.154:8765");
+            string port = "8765";
+            string ip = GetLocalIPAddressOfSelf();
+            server = new WebSocketServer("ws://" + ip + ":" + port);
             server.Start(socket =>
             {
                 socket.OnOpen = () =>
@@ -38,7 +44,17 @@ namespace RhinoPlugin
                     ProcessUpdateMessage(message);
                 };
             });
-            RhinoApp.WriteLine("WebSocket server started on ws://<your-ip>:8765");
+            RhinoApp.WriteLine("WebSocket server started on ws://" + ip + ":" + port);
+        }
+
+        public static bool IsServerRunning()
+        {
+            // Check if the server is not null and has been initialized
+            if (server == null)
+                return false;
+
+            // Check if there are any active socket connections
+            return allSockets.Count > 0;
         }
 
         public static void BroadcastMessage(string message)
@@ -65,49 +81,115 @@ namespace RhinoPlugin
             // Ensure that document updates happen on the main thread.
             RhinoApp.InvokeOnUiThread((Action)(() =>
             {
-                // Extract the Guid from the objectId string.
-                // Assuming the objectId is stored as "Sphere_{guid}"
-                string guidString = updateMsg.ObjectId.Replace("Sphere_", "");
-                if(Guid.TryParse(guidString, out Guid sphereGuid))
+                RhinoDoc doc = RhinoDoc.ActiveDoc;
+
+                ObjectPositionManager positionManager = new ObjectPositionManager(doc);
+
+                try
                 {
-                    RhinoObject obj = RhinoDoc.ActiveDoc.Objects.Find(sphereGuid);
-                    if(obj != null)
+                    // Extract the Guid from the objectId string.
+                    // Assuming the objectId is stored as "Sphere_{guid}"
+                    string guidString = updateMsg.ObjectId.Replace("Object_", "");
+                    if(Guid.TryParse(guidString, out Guid objectGuid))
                     {
-                        // Retrieve the stored radius from the user string.
-                        string radiusStr = obj.Attributes.GetUserString("Radius");
-                        if (!double.TryParse(radiusStr, out double sphereRadius))
+                        // Prepare the new position from the update message
+                        Point3d newPosition = new Point3d(
+                            updateMsg.Center.X*1000, 
+                            updateMsg.Center.Y*-1000, 
+                            updateMsg.Center.Z*1000
+                        );
+                        bool moveSuccess = positionManager.MoveObject(objectGuid, newPosition);
+
+                        if (moveSuccess)
                         {
-                            RhinoApp.WriteLine("Failed to retrieve the sphere's radius.");
-                            return;
-                        }
-                        
-                        // Create a new sphere using the updated center and the stored radius.
-                        Point3d newCenter = new Point3d(updateMsg.Center.X, updateMsg.Center.Y, updateMsg.Center.Z);
-                        Sphere newSphere = new Sphere(newCenter, sphereRadius);
-                        
-                        // Replace the existing sphere geometry.
-                        // Note: Since Rhino stores the sphere as a Brep, convert it.
-                        bool replaced = RhinoDoc.ActiveDoc.Objects.Replace(sphereGuid, newSphere.ToBrep());
-                        if (replaced)
-                        {
-                            RhinoDoc.ActiveDoc.Views.Redraw();
-                            RhinoApp.WriteLine("Sphere updated with new center: {0}", newCenter);
+                            // Log successful movement
+                            RhinoApp.WriteLine($"Successfully moved object {objectGuid} to {newPosition}");
+
+                            // // Optional: Broadcast confirmation back to clients
+                            // BroadcastMessage(JsonHandler.Serialize(new {
+                            //     Type = "move_confirmation",
+                            //     ObjectId = updateMsg.ObjectId,
+                            //     Status = "success"
+                            // }));
                         }
                         else
                         {
-                            RhinoApp.WriteLine("Failed to replace the sphere geometry.");
+                            // Log failed movement
+                            RhinoApp.WriteLine($"Failed to move object {objectGuid}");
+
+                            // // Optional: Broadcast error back to clients
+                            // BroadcastMessage(JsonHandler.Serialize(new {
+                            //     Type = "move_confirmation",
+                            //     ObjectId = updateMsg.ObjectId,
+                            //     Status = "failed"
+                            // }));
                         }
                     }
                     else
                     {
-                        RhinoApp.WriteLine("Sphere with ID {0} not found.", sphereGuid);
+                    RhinoApp.WriteLine($"Invalid object GUID in message: {guidString}");
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    RhinoApp.WriteLine("Invalid sphere GUID in message.");
+                    // Comprehensive error handling
+                    RhinoApp.WriteLine($"Error processing update message: {ex.Message}");
+                    
+                    // // Optional: Broadcast error back to clients
+                    // BroadcastMessage(JsonHandler.Serialize(new {
+                    //     Type = "error",
+                    //     Message = ex.Message
+                    // }));
                 }
             }));
         }
+
+        public static string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("No network adapters with an IPv4 address in the system!");
+        }
+
+            public static string GetLocalIPAddressOfSelf()
+        {
+            // Get all network interfaces
+            var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces()
+                // Filter for active ethernet or wireless interfaces
+                .Where(n => (n.OperationalStatus == OperationalStatus.Up) &&
+                            (n.NetworkInterfaceType == NetworkInterfaceType.Ethernet ||
+                            n.NetworkInterfaceType == NetworkInterfaceType.Wireless80211));
+
+            foreach (var networkInterface in networkInterfaces)
+            {
+                // Get IP properties for the interface
+                var ipProperties = networkInterface.GetIPProperties();
+
+                // Find IPv4 addresses that are not loopback
+                var ipv4Addresses = ipProperties.UnicastAddresses
+                    .Where(ua => ua.Address.AddressFamily == AddressFamily.InterNetwork)
+                    .Select(ua => ua.Address)
+                    .ToList();
+
+                foreach (var address in ipv4Addresses)
+                {
+                    // Skip loopback and link-local addresses
+                    if (!IPAddress.IsLoopback(address) && 
+                        !address.ToString().StartsWith("169.254.") && // Exclude APIPA addresses
+                        !address.IsIPv6LinkLocal)
+                    {
+                        return address.ToString();
+                    }
+                }
+            }
+
+            throw new Exception("No local IP address found on active network interfaces.");
+        }
     }
-}
+}   
