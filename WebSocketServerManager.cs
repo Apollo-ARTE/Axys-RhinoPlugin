@@ -59,6 +59,7 @@ namespace RhinoPlugin
 
         public static void BroadcastMessage(string message)
         {
+            RhinoApp.WriteLine("Sending message: " + message);
             foreach (var socket in allSockets)
             {
                 socket.Send(message);
@@ -157,8 +158,8 @@ namespace RhinoPlugin
             throw new Exception("No network adapters with an IPv4 address in the system!");
         }
 
-            public static string GetLocalIPAddressOfSelf()
-        {
+        public static string GetLocalIPAddressOfSelf()
+            {
             // Get all network interfaces
             var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces()
                 // Filter for active ethernet or wireless interfaces

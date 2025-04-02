@@ -27,6 +27,7 @@ namespace RhinoPlugin
                 RhinoApp.WriteLine("Starting WebSocket server...");
                 WebSocketServerManager.StartServer();
                 RhinoApp.WriteLine("WebSocket server started successfully.");
+                
                 return Result.Success;
             }
             catch (Exception ex)
