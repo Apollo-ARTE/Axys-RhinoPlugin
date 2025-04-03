@@ -96,7 +96,7 @@ namespace RhinoPlugin
                         // Prepare the new position from the update message
                         Point3d newPosition = new Point3d(
                             updateMsg.Center.X*1000, 
-                            updateMsg.Center.Y*-1000, 
+                            updateMsg.Center.Y*1000, 
                             updateMsg.Center.Z*1000
                         );
                         bool moveSuccess = positionManager.MoveObject(objectGuid, newPosition);
