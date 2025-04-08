@@ -79,7 +79,7 @@ public class ObjectPositionManager
             Center = new Center
             {
                 X = worldPosition.X/1000,
-                Y = worldPosition.Y/-1000,
+                Y = worldPosition.Y/1000,
                 Z = worldPosition.Z/1000
             },
             Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds()

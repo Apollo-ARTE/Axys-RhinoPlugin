@@ -13,10 +13,6 @@ namespace RhinoPlugin
     // Command to start the WebSocket server
     public class WebSocketServerStartCommand : Command
     {
-        public WebSocketServerStartCommand()
-        {
-            Instance = this;
-        }
 
         public static WebSocketServerStartCommand Instance { get; private set; }
         public override string EnglishName => "WebSocketServerStart";
@@ -41,11 +37,6 @@ namespace RhinoPlugin
     public class TrackObjectCommand : Command
     {
         public static TrackObjectCommand Instance { get; private set; }
-
-        // public TrackObjectCommand()
-        // {
-        //     Instance = this;
-        // }
 
         public override string EnglishName => "TrackObject";
 
@@ -131,58 +122,6 @@ namespace RhinoPlugin
             return Result.Success;
         }
     }
-
-
-//     public class RhinoPluginCommand : Command
-//     {
-//         // public RhinoPluginCommand()
-//         // {
-//         //     Instance = this;
-//         // }
-
-//         public static RhinoPluginCommand Instance { get; private set; }
-//         public override string EnglishName => "RhinoPluginCommand";
-
-//         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
-//         {
-//             RhinoApp.WriteLine("Starting WebSocket server...");
-//             WebSocketServerManager.StartServer();
-//             RhinoApp.WriteLine("The {0} command will select an object to track now.", EnglishName);
-            
-//             // Create object position manager
-//             var positionManager = new ObjectPositionManager(doc);
-
-//             ObjRef objRef = null;
-//             Result rc = RhinoGet.GetOneObject("Select object to track", false, ObjectType.AnyObject, out objRef);
-
-//             if (rc != Result.Success || objRef == null)
-//             {
-//                 RhinoApp.WriteLine("No object was selected.");
-//                 return rc;
-//             }
-
-//             RhinoObject selectedObj = objRef.Object();
-//             if (selectedObj == null)
-//             {
-//                 RhinoApp.WriteLine("Failed to get the selected object.");
-//                 return Result.Failure;
-//             }
-
-//             Guid objectId = selectedObj.Id;
-//             RhinoApp.WriteLine("Selected object: {0}", objectId);
-            
-//             Point3d worldPosition = positionManager.GetAbsolutePosition(objectId);
-//             RhinoApp.WriteLine($"Start object position: {worldPosition}");
-//             // WebSocketServerManager.BroadcastMessage();
-            
-//             RhinoObjectData objectData = positionManager.CreateObjectData(objectId);
-
-//             string jsonMessage = JsonHandler.Serialize(objectData);
-//             WebSocketServerManager.BroadcastMessage(jsonMessage);
-
-//             return Result.Success;
-//         }
-//     }
 }
 
 public class RhinoObjectInfo
