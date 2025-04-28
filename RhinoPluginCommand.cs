@@ -53,6 +53,7 @@ namespace RhinoPlugin
             }
 
             var positionManager = new ObjectPositionManager(doc);
+            var objectDataArray = new List<RhinoObjectData>();
 
             for (int i = 0; i < objRef.Length; i++)
             {
@@ -72,21 +73,26 @@ namespace RhinoPlugin
                 Point3d worldPosition = positionManager.GetAbsolutePosition(objectId);
                 RhinoApp.WriteLine($"Start object position: {worldPosition}");
 
-                // Prepare and broadcast object data
+                // Prepare single object data
                 RhinoObjectData objectData = positionManager.CreateObjectData(objectId);
-                string jsonMessage = JsonHandler.Serialize(objectData);
-                
-                // Check if WebSocket server is running before broadcasting
-                if (WebSocketServerManager.IsServerRunning())
-                {
-                    WebSocketServerManager.BroadcastMessage(jsonMessage);
-                    RhinoApp.WriteLine("Object tracking information broadcasted.");
-                }
-                else
-                {
-                    RhinoApp.WriteLine("Warning: WebSocket server is not running. Start the server first using StartWebSocketServer command.");
-                    return Result.Failure;
-                }
+
+                // Add object data to batch
+                objectDataArray.Add(objectData);
+            }
+
+            RhinoObjectDataBatch objectDataBatch = positionManager.CreateObjectDataBatch(objectDataArray);
+
+            string jsonMessage = JsonHandler.SerializeBatch(objectDataBatch);                
+            // Check if WebSocket server is running before broadcasting
+            if (WebSocketServerManager.IsServerRunning())
+            {
+                WebSocketServerManager.BroadcastMessage(jsonMessage);
+                RhinoApp.WriteLine("Objects tracking information broadcasted.");
+            }
+            else
+            {
+                RhinoApp.WriteLine("Warning: WebSocket server connection is not established. Start the server first using WebSocketServerStart command and connect to it with the external device.");
+                return Result.Failure;
             }
 
             return Result.Success;

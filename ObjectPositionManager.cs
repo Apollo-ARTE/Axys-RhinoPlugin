@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Rhino;
 using Rhino.Geometry;
 using Rhino.Input;
@@ -71,10 +72,12 @@ public class ObjectPositionManager
     public RhinoObjectData CreateObjectData(Guid objectId)
     {
         Point3d worldPosition = GetAbsolutePosition(objectId);
+        string objectName = _document.Objects.Find(objectId)?.Name ?? "Unnamed";
         
         return new RhinoObjectData
         {
             Type = "create",
+            ObjectName = objectName,
             ObjectId = $"Object_{objectId}",
             Center = new Center
             {
@@ -82,6 +85,16 @@ public class ObjectPositionManager
                 Y = worldPosition.Y/1000,
                 Z = worldPosition.Z/1000
             },
+            Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds()
+        };
+    }
+
+    public RhinoObjectDataBatch CreateObjectDataBatch(List<RhinoObjectData> objectDataList)
+    {
+        return new RhinoObjectDataBatch
+        {
+            Type = "batch_create",
+            Objects = objectDataList,
             Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds()
         };
     }
