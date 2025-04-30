@@ -25,6 +25,7 @@
     <PackageReference Include="Fleck" Version="1.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RhinoCommon" Version="8.0.23304.9001" ExcludeAssets="runtime" />
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   
 </Project>

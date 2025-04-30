@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Rhino;
 using Rhino.Commands;
 using Rhino.Geometry;
@@ -7,6 +6,12 @@ using Rhino.Input;
 using Rhino.Input.Custom;
 using Rhino.DocObjects;
 using Newtonsoft.Json;
+using System.IO;
+using System.Text;
+using System.Linq;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using RhinoPlugin;
 
 namespace RhinoPlugin
 {
@@ -89,37 +94,139 @@ namespace RhinoPlugin
         }
     }
 
-    public class GetObjectList: Command
+    public class ExportToVision: Command
     {
-        public static GetObjectList Instance { get; private set; }
+        public static Guid SelectedObjectId;
+        public static string LastExportedUSDZPath;
+        public ExportToVision()
+        {
+            Instance = this;
+        }
 
-        public override string EnglishName => "GetObjectList";
+        private static RhinoObject DeserializeAndSelectObject(dynamic message, RhinoDoc doc)
+        {
+            dynamic data = JsonConvert.DeserializeObject(message);
+            string commandValue = data.command;
+            RhinoApp.WriteLine("Deserialized command: " + commandValue);
+
+            if (commandValue != "ExportUSDZ")
+            {
+                RhinoApp.WriteLine("Command is not ExportUSDZ.");
+                return null;
+            }
+
+            SelectedObjectId = SelectionObjectManager.EnsureObjectIsSelected(doc, SelectedObjectId);
+            if (SelectedObjectId == Guid.Empty) return null;
+
+            RhinoObject selectedObj = doc.Objects.Find(SelectedObjectId);
+            if (selectedObj != null)
+            {
+                string name = selectedObj.Name ?? "(unnamed)";
+                string layer = doc.Layers[selectedObj.Attributes.LayerIndex].Name;
+                RhinoApp.WriteLine($"[INFO] Selected object details: ID={SelectedObjectId}, Type={selectedObj.ObjectType}, Name={name}, Layer={layer}");
+            }
+            else
+            {
+                RhinoApp.WriteLine("Selected object not found in the document.");
+                return null;
+            }
+
+            return selectedObj;
+        }
+
+        public static ExportToVision Instance { get; private set; }
+        public override string EnglishName => "ExportToVision";
 
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
-            var objects = new List<RhinoObjectInfo>();
-    
-            // Iterate through all objects in the document
-            foreach (var rhinoObject in doc.Objects)
+             // Prompt user to select an object to export
+            Result selResult = RhinoGet.GetOneObject("Select object to export", false, ObjectType.AnyObject, out ObjRef objRef);
+            if (selResult != Result.Success || objRef == null || objRef.Object() == null)
             {
-                // Get the object's attributes which contain the name
-                var attributes = rhinoObject.Attributes;
-                
-                // Create an info object for this Rhino object
-                var info = new RhinoObjectInfo
-                {
-                    Id = rhinoObject.Id,
-                    Name = attributes.Name,
-                    ObjectType = rhinoObject.ObjectType.ToString()
-                };
-                
-                RhinoApp.WriteLine($"Object ID: {info.Id}, Name: {info.Name}, Type: {info.ObjectType}");
-                objects.Add(info);
+                RhinoApp.WriteLine("No valid object selected.");
+                return Result.Cancel;
             }
-            
+
+            SelectedObjectId = objRef.Object().Id;
+            RhinoApp.WriteLine($"[DEBUG] Selected Object ID: {SelectedObjectId}");
+            RhinoApp.WriteLine($"Tracking object with ID: {SelectedObjectId}");
             // // Serialize to JSON
             // return JsonConvert.SerializeObject(objects, Formatting.Indented);
             return Result.Success;
+        }
+
+        // Function called when an export command is received via WebSocket
+        // ✅ CHECKPOINT — Stable export for polylines and block instances (Brep geometry).
+        // Curve support still under development. This code path is considered reliable.
+          public static void ExportUSDZ(dynamic message)
+        {
+            // Execute the entire export routine on the main UI thread to avoid autolayout issues
+            RhinoApp.InvokeOnUiThread(new Action(() => _ = HandleExecuteExportAsync(message)));
+
+        }
+        static byte[] GetUSDZFileBytes()
+        {
+            if (string.IsNullOrEmpty(LastExportedUSDZPath) || !File.Exists(LastExportedUSDZPath))
+            {
+                RhinoApp.WriteLine("❌ No valid exported USDZ file found.");
+                return null;
+            }
+
+            try
+            {
+                byte[] fileBytes = File.ReadAllBytes(LastExportedUSDZPath); // Read the USDZ file as bytes
+                RhinoApp.WriteLine($"✅ USDZ file loaded successfully. Size: {fileBytes.Length} bytes"); // Log the success
+                return fileBytes; // Return the byte array of the USDZ file
+            }
+            catch (Exception ex) // Catch any error that occurs while reading the file
+            {
+                RhinoApp.WriteLine($"❌ Error reading USDZ file: {ex.Message}"); // Log the error message
+                return null; // Return null in case of an error
+            }
+        }
+
+        private static async Task HandleExecuteExportAsync(dynamic message)
+        {
+            var doc = RhinoDoc.ActiveDoc;
+            RhinoObject selectedObj = DeserializeAndSelectObject(message, doc);
+            if (selectedObj == null) return;
+
+            int materialIndex = 0;
+            MaterialManager.ApplyMaterialIfMissing(selectedObj, doc, materialIndex);
+
+            GeometryBase geometry = GeometryManager.PrepareGeometryForExport(doc, selectedObj);
+            if (geometry == null)
+            {
+                RhinoApp.WriteLine($"Geometry preparation failed. Type: {selectedObj.Geometry?.GetType().Name ?? "null"}");
+                return;
+            }
+            else
+            {
+                RhinoApp.WriteLine($"Geometry prepared successfully. Type: {geometry.GetType().Name}");
+            }
+
+            Guid copyId = GeometryManager.AddTemporaryGeometryToDoc(doc, geometry);
+
+            // Delay briefly to ensure the export completes before attempting to read the file
+            System.Threading.Thread.Sleep(500); // Optional: increase if file isn't found in time
+
+            // Attempt to load and send the exported USDZ file
+            byte[] fileBytes = GetUSDZFileBytes();
+            if (fileBytes != null)
+            {
+                await USDZExportManager.ExecuteExportAsync(fileBytes, LastExportedUSDZPath);
+            }
+            else
+            {
+                RhinoApp.WriteLine("⚠️ USDZ file could not be broadcasted (missing or unreadable).");
+            }
+            RhinoApp.WriteLine($"✅ Export attempted to: {LastExportedUSDZPath}");
+
+            if (copyId != Guid.Empty)
+            {
+                doc.Objects.Delete(copyId, true);
+                RhinoApp.WriteLine("🧹 Temporary object deleted after export.");
+            }
         }
     }
 }
