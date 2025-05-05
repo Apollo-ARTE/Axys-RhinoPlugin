@@ -260,8 +260,12 @@ namespace RhinoPlugin
             // 1. Compute the geometry's bounding box in its current world-space.
             var bbox = geometry.GetBoundingBox(true);
             // 2. Compute translation that moves the BOX CENTER to the origin
-            var center = bbox.Center;
-            var offset = new Vector3d(-center.X, -center.Y, -center.Z);
+            var baseCenter = new Point3d(
+    (bbox.Min.X + bbox.Max.X) / 2.0,
+    (bbox.Min.Y + bbox.Max.Y) / 2.0,
+    bbox.Min.Z
+);
+            var offset = new Vector3d(-baseCenter.X, -baseCenter.Y, -baseCenter.Z);
             var xformToOrigin = Transform.Translation(offset);
 
             // 3. Apply translation
@@ -286,17 +290,68 @@ namespace RhinoPlugin
             {
                 RhinoApp.WriteLine("✅ Temporary object added for export. Proceeding...");
             }
-            
+            return copyId;
+        }
+        //Needs testing, it's not clear if this is the right way to delete the temporary object
+        public static void DeleteTemporaryGeometry(RhinoDoc doc, Guid copyId)
+        {
+            if (copyId != Guid.Empty)
+            {
+                var obj = doc.Objects.Find(copyId);
+                if (obj != null)
+                {
+                    doc.Objects.Delete(obj, true);
+                    RhinoApp.WriteLine($"[DEBUG] Temporary object {copyId} deleted.");
+                }
+                else
+                {
+                    RhinoApp.WriteLine($"[DEBUG] Temporary object {copyId} not found for deletion.");
+                }
+            }
+            else
+            {
+                RhinoApp.WriteLine("[DEBUG] No temporary object to delete.");
+            }
+        }
 
+
+
+        public struct ExportResult
+        {
+            public bool Success;
+            public string Path;
+            public Guid TemporaryCopyId;
+        }
+        public static ExportResult ExportSelectedObjectToUSDZ(RhinoDoc doc, GeometryBase preparedGeometry)
+        {
             Guid exportId = Guid.NewGuid();
-            string path = $"/Users/guillermokramsky/Downloads/export_{exportId}.usdz";
+
+            string path = $"/Users/salvatoreflauto/Desktop/Palle/export_{exportId}.usdz";
             RhinoApp.WriteLine($"[DEBUG] Exporting object {ExportToVision.SelectedObjectId} to path: {path}");
             ExportToVision.LastExportedUSDZPath = path;
-            
-            var script = string.Format("_-Export \"{0}\" _Enter", path);
+
+            //Setting the origin to the center of the bounding box
+            var bbox = preparedGeometry.GetBoundingBox(true);
+            var origin = new Point3d(
+    (bbox.Min.X + bbox.Max.X) / 2.0,
+    (bbox.Min.Y + bbox.Max.Y) / 2.0,
+    bbox.Min.Z
+);
+            string originString = $"{origin.X},{origin.Y},{origin.Z}";
+
+            doc.Objects.UnselectAll();
+            doc.Objects.Select(ExportToVision.SelectedObjectId);
+            doc.Views.Redraw();
+
+            string script = string.Format(
+    "_-ExportWithOrigin {0} \"{1}\" _Enter _Enter",
+    originString, path);
+
             RhinoApp.WriteLine($"[DEBUG] Export script command: {script}");
             RhinoApp.RunScript(script, false);
-            if (File.Exists(path))
+
+            bool fileExists = File.Exists(path);
+            if (fileExists)
             {
                 RhinoApp.WriteLine($"[DEBUG] File found after export: {path}");
             }
@@ -304,7 +359,17 @@ namespace RhinoPlugin
             {
                 RhinoApp.WriteLine($"[DEBUG] File NOT found after export: {path}");
             }
-            return copyId;
+
+            // Optional: track the ID if an object was created for export; otherwise use Guid.Empty
+            Guid tempCopyId = ExportToVision.SelectedObjectId; //not in use, is the real object id
+
+
+            return new ExportResult
+            {
+                Success = fileExists,
+                Path = path,
+                TemporaryCopyId = Guid.Empty
+            };
         }
     }
 }

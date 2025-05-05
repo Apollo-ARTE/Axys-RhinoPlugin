@@ -28,7 +28,7 @@ namespace RhinoPlugin
                 RhinoApp.WriteLine("Starting WebSocket server...");
                 WebSocketServerManager.StartServer();
                 RhinoApp.WriteLine("WebSocket server started successfully.");
-                
+
                 return Result.Success;
             }
             catch (Exception ex)
@@ -50,7 +50,7 @@ namespace RhinoPlugin
             // Prompt user to select an object
             ObjRef objRef = null;
             Result rc = RhinoGet.GetOneObject("Select object to track", false, ObjectType.AnyObject, out objRef);
-            
+
             if (rc != Result.Success || objRef == null)
             {
                 RhinoApp.WriteLine("No object was selected.");
@@ -67,9 +67,9 @@ namespace RhinoPlugin
             // Create object position manager
             var positionManager = new ObjectPositionManager(doc);
             Guid objectId = selectedObj.Id;
-            
+
             RhinoApp.WriteLine($"Selected object: {objectId}");
-            
+
             // Get the object's current world position
             Point3d worldPosition = positionManager.GetAbsolutePosition(objectId);
             RhinoApp.WriteLine($"Start object position: {worldPosition}");
@@ -77,7 +77,7 @@ namespace RhinoPlugin
             // Prepare and broadcast object data
             RhinoObjectData objectData = positionManager.CreateObjectData(objectId);
             string jsonMessage = JsonHandler.Serialize(objectData);
-            
+
             // Check if WebSocket server is running before broadcasting
             if (WebSocketServerManager.IsServerRunning())
             {
@@ -94,7 +94,7 @@ namespace RhinoPlugin
         }
     }
 
-    public class ExportToVision: Command
+    public class ExportToVision : Command
     {
         public static Guid SelectedObjectId;
         public static string LastExportedUSDZPath;
@@ -139,7 +139,7 @@ namespace RhinoPlugin
 
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
-             // Prompt user to select an object to export
+            // Prompt user to select an object to export
             Result selResult = RhinoGet.GetOneObject("Select object to export", false, ObjectType.AnyObject, out ObjRef objRef);
             if (selResult != Result.Success || objRef == null || objRef.Object() == null)
             {
@@ -158,7 +158,7 @@ namespace RhinoPlugin
         // Function called when an export command is received via WebSocket
         // ✅ CHECKPOINT — Stable export for polylines and block instances (Brep geometry).
         // Curve support still under development. This code path is considered reliable.
-          public static void ExportUSDZ(dynamic message)
+        public static void ExportUSDZ(dynamic message)
         {
             // Execute the entire export routine on the main UI thread to avoid autolayout issues
             RhinoApp.InvokeOnUiThread(new Action(() => _ = HandleExecuteExportAsync(message)));
@@ -205,26 +205,19 @@ namespace RhinoPlugin
                 RhinoApp.WriteLine($"Geometry prepared successfully. Type: {geometry.GetType().Name}");
             }
 
-            Guid copyId = GeometryManager.AddTemporaryGeometryToDoc(doc, geometry);
-
-            // Delay briefly to ensure the export completes before attempting to read the file
-            System.Threading.Thread.Sleep(500); // Optional: increase if file isn't found in time
-
-            // Attempt to load and send the exported USDZ file
-            byte[] fileBytes = GetUSDZFileBytes();
-            if (fileBytes != null)
+            //IN TESTING: This is a temporary copy of the object to be exported
+            var exportResult = GeometryManager.ExportSelectedObjectToUSDZ(doc, geometry);
+            if (!exportResult.Success)
             {
-                await USDZExportManager.ExecuteExportAsync(fileBytes, LastExportedUSDZPath);
+                RhinoApp.WriteLine("Export failed. No USDZ file generated.");
+                return;
             }
-            else
-            {
-                RhinoApp.WriteLine("⚠️ USDZ file could not be broadcasted (missing or unreadable).");
-            }
-            RhinoApp.WriteLine($"✅ Export attempted to: {LastExportedUSDZPath}");
+            byte[] fileBytes = File.ReadAllBytes(exportResult.Path);
+            await USDZExportManager.ExecuteExportAsync(fileBytes, exportResult.Path);
 
-            if (copyId != Guid.Empty)
+            if (exportResult.TemporaryCopyId != Guid.Empty)
             {
-                doc.Objects.Delete(copyId, true);
+                doc.Objects.Delete(exportResult.TemporaryCopyId, true);
                 RhinoApp.WriteLine("🧹 Temporary object deleted after export.");
             }
         }
