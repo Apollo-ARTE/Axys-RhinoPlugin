@@ -114,7 +114,8 @@ namespace RhinoPlugin
                 RhinoApp.WriteLine("Command is not ExportUSDZ.");
                 return null;
             }
-
+            // Prepare the object for export assignin id
+            RhinoApp.RunScript("!_ExportToVision", false);
             SelectedObjectId = SelectionObjectManager.EnsureObjectIsSelected(doc, SelectedObjectId);
             if (SelectedObjectId == Guid.Empty) return null;
 
@@ -206,7 +207,7 @@ namespace RhinoPlugin
             }
 
             //IN TESTING: This is a temporary copy of the object to be exported
-            var exportResult = GeometryManager.ExportSelectedObjectToUSDZ(doc, geometry);
+            var exportResult = GeometryManager.ExportSelectedObjectToUSDZ(doc, geometry, selectedObj.Id);
             if (!exportResult.Success)
             {
                 RhinoApp.WriteLine("Export failed. No USDZ file generated.");

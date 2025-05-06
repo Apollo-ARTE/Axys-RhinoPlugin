@@ -322,30 +322,58 @@ namespace RhinoPlugin
             public string Path;
             public Guid TemporaryCopyId;
         }
-        public static ExportResult ExportSelectedObjectToUSDZ(RhinoDoc doc, GeometryBase preparedGeometry)
+        public static ExportResult ExportSelectedObjectToUSDZ(RhinoDoc doc, GeometryBase preparedGeometry, Guid objectId)
         {
             Guid exportId = Guid.NewGuid();
 
             string path = $"/Users/salvatoreflauto/Desktop/Palle/export_{exportId}.usdz";
-            RhinoApp.WriteLine($"[DEBUG] Exporting object {ExportToVision.SelectedObjectId} to path: {path}");
+            RhinoApp.WriteLine($"[DEBUG] Exporting object {objectId} to path: {path}");
             ExportToVision.LastExportedUSDZPath = path;
 
-            //Setting the origin to the center of the bounding box
-            var bbox = preparedGeometry.GetBoundingBox(true);
-            var origin = new Point3d(
-    (bbox.Min.X + bbox.Max.X) / 2.0,
-    (bbox.Min.Y + bbox.Max.Y) / 2.0,
-    bbox.Min.Z
-);
+            // Origin calculation block
+            Point3d origin;
+            var rhinoObj = doc.Objects.Find(objectId);
+            if (rhinoObj is InstanceObject)
+            {
+                origin = CalcolaOrigineIstanzaBlocco(rhinoObj);
+                RhinoApp.WriteLine($"[DEBUG] Origin from block instance center: {origin}");
+            }
+            else
+            {
+                var bbox = preparedGeometry.GetBoundingBox(true);
+                double centerX = (bbox.Min.X + bbox.Max.X) / 2.0;
+                double centerY = (bbox.Min.Y + bbox.Max.Y) / 2.0;
+                double minZ = double.MaxValue;
+                var vertices = new List<Point3d>();
+
+                if (preparedGeometry is Brep brep)
+                {
+                    foreach (var v in brep.DuplicateVertices())
+                        vertices.Add(v);
+                }
+                else if (preparedGeometry is Mesh mesh)
+                {
+                    vertices.AddRange(mesh.Vertices.ToPoint3dArray());
+                }
+
+                if (vertices.Count > 0)
+                {
+                    minZ = vertices.Min(v => v.Z);
+                }
+
+                origin = new Point3d(centerX, centerY, minZ);
+                RhinoApp.WriteLine($"[DEBUG] Origin from geometry bounding box: {origin}");
+            }
+
             string originString = $"{origin.X},{origin.Y},{origin.Z}";
 
             doc.Objects.UnselectAll();
-            doc.Objects.Select(ExportToVision.SelectedObjectId);
+            doc.Objects.Select(objectId);
             doc.Views.Redraw();
 
             string script = string.Format(
-    "_-ExportWithOrigin {0} \"{1}\" _Enter _Enter",
-    originString, path);
+                "_-ExportWithOrigin {0} \"{1}\" _Enter _Enter",
+                originString, path);
 
             RhinoApp.WriteLine($"[DEBUG] Export script command: {script}");
             RhinoApp.RunScript(script, false);
@@ -360,16 +388,55 @@ namespace RhinoPlugin
                 RhinoApp.WriteLine($"[DEBUG] File NOT found after export: {path}");
             }
 
-            // Optional: track the ID if an object was created for export; otherwise use Guid.Empty
-            Guid tempCopyId = ExportToVision.SelectedObjectId; //not in use, is the real object id
-
-
             return new ExportResult
             {
                 Success = fileExists,
                 Path = path,
                 TemporaryCopyId = Guid.Empty
             };
+        }
+
+        public static Point3d CalcolaOrigineIstanzaBlocco(RhinoObject obj)
+        {
+            if (!(obj is InstanceObject instanceObj))
+            {
+                RhinoApp.WriteLine("L'oggetto selezionato non è un'istanza di blocco.");
+                return Point3d.Unset;
+            }
+
+            var instanceDef = instanceObj.InstanceDefinition;
+            if (instanceDef == null)
+            {
+                RhinoApp.WriteLine("Impossibile recuperare la definizione del blocco.");
+                return Point3d.Unset;
+            }
+
+            var geometrieTrasformate = new List<GeometryBase>();
+            foreach (var objId in instanceDef.GetObjectIds())
+            {
+                var rhinoObj = instanceObj.Document.Objects.Find(objId);
+                if (rhinoObj == null) continue;
+
+                var geo = rhinoObj.Geometry?.Duplicate();
+                if (geo == null) continue;
+
+                geo.Transform(instanceObj.InstanceXform);
+                geometrieTrasformate.Add(geo);
+            }
+
+            if (geometrieTrasformate.Count == 0)
+            {
+                RhinoApp.WriteLine("Nessuna geometria trovata nella definizione del blocco.");
+                return Point3d.Unset;
+            }
+
+            BoundingBox bboxCombinata = geometrieTrasformate[0].GetBoundingBox(true);
+            for (int i = 1; i < geometrieTrasformate.Count; i++)
+            {
+                bboxCombinata.Union(geometrieTrasformate[i].GetBoundingBox(true));
+            }
+
+            return bboxCombinata.Center;
         }
     }
 }
