@@ -9,6 +9,8 @@ using Rhino;
 using Rhino.Geometry;
 using Newtonsoft.Json; 
 using Rhino.DocObjects;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RhinoPlugin
 {
@@ -42,6 +44,7 @@ namespace RhinoPlugin
                 {
                     RhinoApp.WriteLine("Received from client: " + message);
                     ProcessUpdateMessage(message);
+                    ExportToVision.ExportUSDZ(message);
                 };
             });
             RhinoApp.WriteLine("WebSocket server started on ws://" + ip + ":" + port);
@@ -191,6 +194,29 @@ namespace RhinoPlugin
             }
 
             throw new Exception("No local IP address found on active network interfaces.");
+        }
+        public static async Task BroadcastBinary(byte[] data)
+        {
+            if (data == null || data.Length == 0)
+            {
+                RhinoApp.WriteLine("[WARN] Attempted to broadcast empty binary data.");
+                return;
+            }
+
+            foreach (var socket in allSockets)
+            {
+                if (socket.IsAvailable)
+                {
+                    try
+                    {
+                        await socket.Send(data);
+                    }
+                    catch (Exception ex)
+                    {
+                        RhinoApp.WriteLine($"[ERROR] Failed to send binary data: {ex.Message}");
+                    }
+                }
+            }
         }
     }
 }   
