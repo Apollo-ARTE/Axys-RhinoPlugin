@@ -43,45 +43,55 @@ namespace RhinoPlugin
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
             // Prompt user to select an object
-            ObjRef objRef = null;
-            Result rc = RhinoGet.GetOneObject("Select object to track", false, ObjectType.AnyObject, out objRef);
+            ObjRef[] objRef;
+            Result rc = RhinoGet.GetMultipleObjects("Select object to track", false, ObjectType.AnyObject, out objRef);
             
-            if (rc != Result.Success || objRef == null)
+            if (rc != Result.Success || objRef.Length == 0)
             {
                 RhinoApp.WriteLine("No object was selected.");
                 return Result.Cancel;
             }
 
-            RhinoObject selectedObj = objRef.Object();
-            if (selectedObj == null)
+            var positionManager = new ObjectPositionManager(doc);
+            var objectDataArray = new List<RhinoObjectData>();
+
+            for (int i = 0; i < objRef.Length; i++)
             {
-                RhinoApp.WriteLine("Failed to get the selected object.");
-                return Result.Failure;
+                RhinoObject selectedObj = objRef[i].Object();
+                if (selectedObj == null)
+                {
+                    RhinoApp.WriteLine("Failed to get the selected object.");
+                    return Result.Failure;
+                }
+
+                // Create object position manager
+                Guid objectId = selectedObj.Id;
+                
+                RhinoApp.WriteLine($"Selected object: {objectId}");
+                
+                // Get the object's current world position
+                Point3d worldPosition = positionManager.GetAbsolutePosition(objectId);
+                RhinoApp.WriteLine($"Start object position: {worldPosition}");
+
+                // Prepare single object data
+                RhinoObjectData objectData = positionManager.CreateObjectData(objectId);
+
+                // Add object data to batch
+                objectDataArray.Add(objectData);
             }
 
-            // Create object position manager
-            var positionManager = new ObjectPositionManager(doc);
-            Guid objectId = selectedObj.Id;
-            
-            RhinoApp.WriteLine($"Selected object: {objectId}");
-            
-            // Get the object's current world position
-            Point3d worldPosition = positionManager.GetAbsolutePosition(objectId);
-            RhinoApp.WriteLine($"Start object position: {worldPosition}");
+            RhinoObjectDataBatch objectDataBatch = positionManager.CreateObjectDataBatch(objectDataArray);
 
-            // Prepare and broadcast object data
-            RhinoObjectData objectData = positionManager.CreateObjectData(objectId);
-            string jsonMessage = JsonHandler.Serialize(objectData);
-            
+            string jsonMessage = JsonHandler.SerializeBatch(objectDataBatch);                
             // Check if WebSocket server is running before broadcasting
             if (WebSocketServerManager.IsServerRunning())
             {
                 WebSocketServerManager.BroadcastMessage(jsonMessage);
-                RhinoApp.WriteLine("Object tracking information broadcasted.");
+                RhinoApp.WriteLine("Objects tracking information broadcasted.");
             }
             else
             {
-                RhinoApp.WriteLine("Warning: WebSocket server is not running. Start the server first using StartWebSocketServer command.");
+                RhinoApp.WriteLine("Warning: WebSocket server connection is not established. Start the server first using WebSocketServerStart command and connect to it with the external device.");
                 return Result.Failure;
             }
 
@@ -99,7 +109,7 @@ namespace RhinoPlugin
         {
             var objects = new List<RhinoObjectInfo>();
     
-            // Iterate through all objects in the document
+            // Iterate through all objects in the document, does not display blocks
             foreach (var rhinoObject in doc.Objects)
             {
                 // Get the object's attributes which contain the name
