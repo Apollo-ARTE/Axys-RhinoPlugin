@@ -9,7 +9,7 @@ namespace RhinoPlugin
 {
     public static class USDZExportManager
     {
-        public static async Task ExecuteExportAsync(byte[] fileBytes, string filePath)
+        public static async Task ExecuteExportAsync(byte[] fileBytes, string path, Guid exportId)
         {
             RhinoApp.WriteLine($"[DEBUG] Preparing to send {fileBytes.Length} bytes via WebSocket.");
                 // Chunk and send the file via WebSocket
@@ -38,7 +38,7 @@ namespace RhinoPlugin
                     offset += currentChunkSize;
                 }
                 // Also send metadata with the export (e.g., file size, name)
-                string fileName = Path.GetFileName(filePath);
+                string fileName = $"Object_{exportId}.usdz";
                 string metadata = JsonConvert.SerializeObject(new
                 {
                     type = "usdz_metadata",

@@ -223,8 +223,14 @@ namespace RhinoPlugin
                 RhinoApp.WriteLine("Export failed. No USDZ file generated.");
                 return;
             }
+
+            // Use the exported object's ID for VisionOS client
+            var positionManager = new ObjectPositionManager(doc);
+            var objectData = positionManager.CreateObjectData(exportResult.TemporaryCopyId);
+            // (You may want to send objectData as needed here)
+
             byte[] fileBytes = File.ReadAllBytes(exportResult.Path);
-            await USDZExportManager.ExecuteExportAsync(fileBytes, exportResult.Path);
+            await USDZExportManager.ExecuteExportAsync(fileBytes, exportResult.Path, exportResult.TemporaryCopyId);
 
             if (exportResult.TemporaryCopyId != Guid.Empty)
             {

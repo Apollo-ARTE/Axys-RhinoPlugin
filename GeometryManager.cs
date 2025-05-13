@@ -196,6 +196,14 @@ namespace RhinoPlugin
                         return null;
                     }
                     geometry = joinedPipe;
+                    // Mesh conversion logic
+                    var pipeMeshes = Mesh.CreateFromBrep(joinedPipe, MeshingParameters.Default);
+                    if (pipeMeshes == null || pipeMeshes.Length == 0)
+                    {
+                        RhinoApp.WriteLine("❌ Failed to mesh the pipe brep.");
+                        return null;
+                    }
+                    geometry = pipeMeshes[0];
                 }
                 else if (breps.Count > 0)
                 {
@@ -225,6 +233,14 @@ namespace RhinoPlugin
                         return null;
                     }
                     geometry = joinedPipe;
+                    // Mesh conversion logic
+                    var pipeMeshes2 = Mesh.CreateFromBrep(joinedPipe, MeshingParameters.Default);
+                    if (pipeMeshes2 == null || pipeMeshes2.Length == 0)
+                    {
+                        RhinoApp.WriteLine("❌ Failed to mesh the pipe brep.");
+                        return null;
+                    }
+                    geometry = pipeMeshes2[0];
                 }
                 else if (geometry is Curve singleCurve)
                 {
@@ -238,6 +254,14 @@ namespace RhinoPlugin
                         return null;
                     }
                     geometry = pipe[0];
+                    // Mesh conversion logic
+                    var pipeMeshes3 = Mesh.CreateFromBrep(pipe[0], MeshingParameters.Default);
+                    if (pipeMeshes3 == null || pipeMeshes3.Length == 0)
+                    {
+                        RhinoApp.WriteLine("❌ Failed to mesh the single pipe brep.");
+                        return null;
+                    }
+                    geometry = pipeMeshes3[0];
                 }
                 else
                 {
@@ -325,12 +349,26 @@ namespace RhinoPlugin
         public static ExportResult ExportSelectedObjectToUSDZ(RhinoDoc doc, GeometryBase preparedGeometry, Guid objectId)
         {
             Guid exportId = Guid.NewGuid();
+            RhinoApp.WriteLine($"[DEBUG] Generated exportId: {exportId}");
 
-            string path = $"/Users/salvatoreflauto/Desktop/Palle/export_{exportId}.usdz";
+            string tempDir = Path.Combine(Path.GetTempPath(), "RhinoExportTemp");
+            Directory.CreateDirectory(tempDir);
+            string fileName = $"Object_{exportId}.usdz";
+            string path = Path.Combine(tempDir, fileName);
+            RhinoApp.WriteLine($"[DEBUG] File will be saved as: {fileName}");
+
             RhinoApp.WriteLine($"[DEBUG] Exporting object {objectId} to path: {path}");
+            RhinoApp.WriteLine($"[DEBUG] fileName: {fileName} ← should match objectId exactly");
             ExportToVision.LastExportedUSDZPath = path;
 
-            // Origin calculation block
+            // Geometry preparation and origin calculation block
+            GeometryBase exportGeometry = preparedGeometry ?? GeometryManager.PrepareGeometryForExport(doc, doc.Objects.Find(objectId));
+            if (exportGeometry == null)
+            {
+                RhinoApp.WriteLine("[DEBUG] Geometry preparation inside export failed.");
+                return new ExportResult { Success = false, Path = "", TemporaryCopyId = Guid.Empty };
+            }
+
             Point3d origin;
             var rhinoObj = doc.Objects.Find(objectId);
             if (rhinoObj is InstanceObject)
@@ -340,18 +378,18 @@ namespace RhinoPlugin
             }
             else
             {
-                var bbox = preparedGeometry.GetBoundingBox(true);
+                var bbox = exportGeometry.GetBoundingBox(true);
                 double centerX = (bbox.Min.X + bbox.Max.X) / 2.0;
                 double centerY = (bbox.Min.Y + bbox.Max.Y) / 2.0;
                 double minZ = double.MaxValue;
                 var vertices = new List<Point3d>();
 
-                if (preparedGeometry is Brep brep)
+                if (exportGeometry is Brep brep)
                 {
                     foreach (var v in brep.DuplicateVertices())
                         vertices.Add(v);
                 }
-                else if (preparedGeometry is Mesh mesh)
+                else if (exportGeometry is Mesh mesh)
                 {
                     vertices.AddRange(mesh.Vertices.ToPoint3dArray());
                 }
@@ -388,11 +426,12 @@ namespace RhinoPlugin
                 RhinoApp.WriteLine($"[DEBUG] File NOT found after export: {path}");
             }
 
+            RhinoApp.WriteLine($"[DEBUG] Returning ExportResult with TemporaryCopyId: {exportId}");
             return new ExportResult
             {
                 Success = fileExists,
                 Path = path,
-                TemporaryCopyId = Guid.Empty
+                TemporaryCopyId = exportId
             };
         }
 
