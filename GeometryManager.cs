@@ -326,7 +326,7 @@ namespace RhinoPlugin
         {
             Guid exportId = Guid.NewGuid();
 
-            string path = $"/Users/salvatoreflauto/Desktop/Palle/export_{exportId}.usdz";
+            string path = $"/Users/iliadev/Downloads/Object_{objectId}.usdz";
             RhinoApp.WriteLine($"[DEBUG] Exporting object {objectId} to path: {path}");
             ExportToVision.LastExportedUSDZPath = path;
 

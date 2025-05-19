@@ -36,7 +36,7 @@ namespace ExportToUsdzCommand
             }
 
             // Specifica il percorso del file USDZ di destinazione
-            string filePath = "/Users/guillermokramsky/Downloads/export_{exportId}.usdz";
+            string filePath = "/Users/iliadev/Downloads/Object_{objectId}.usdz";
 
             // Costruisce il comando di esportazione
             string exportCommand = $"-_Export \"{filePath}\" _Enter";
