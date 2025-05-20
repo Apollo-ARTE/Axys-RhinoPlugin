@@ -354,11 +354,11 @@ namespace RhinoPlugin
         public static ExportResult ExportSelectedObjectToUSDZ(RhinoDoc doc, GeometryBase preparedGeometry, Guid objectId)
         {
             Guid exportId = Guid.NewGuid();
-            RhinoApp.WriteLine($"[DEBUG] Generated exportId: {exportId}");
+            RhinoApp.WriteLine($"[DEBUG] Generated objectId: {objectId}");
 
             string tempDir = Path.Combine(Path.GetTempPath(), "RhinoExportTemp");
             Directory.CreateDirectory(tempDir);
-            string fileName = $"Object_{exportId}.usdz";
+            string fileName = $"Object_{objectId}.usdz";
             string path = Path.Combine(tempDir, fileName);
             RhinoApp.WriteLine($"[DEBUG] File will be saved as: {fileName}");
 
