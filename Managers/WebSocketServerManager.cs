@@ -11,6 +11,8 @@ using Newtonsoft.Json;
 using Rhino.DocObjects;
 using System.Threading;
 using System.Threading.Tasks;
+using RhinoPlugin.Utilities;
+using Rhino.Commands;
 
 namespace RhinoPlugin
 {
@@ -43,8 +45,29 @@ namespace RhinoPlugin
                 socket.OnMessage = message =>
                 {
                     RhinoApp.WriteLine("Received from client: " + message);
-                    ProcessUpdateMessage(message);
-                    ExportToVision.ExportUSDZ(message);
+                    dynamic data = JsonConvert.DeserializeObject(message);
+                    string commandValue = data.command;
+                    if (commandValue == "TrackObject") 
+                    {
+                        RhinoApp.InvokeOnUiThread((Action)(() =>
+                        {
+                            var doc = RhinoDoc.ActiveDoc;
+                            var result = CommandUtilities.ExecuteTrackObjectLogic(doc);
+                            if (result == Result.Success)
+                            {
+                                RhinoApp.WriteLine("TrackObject logic executed successfully via WebSocket.");
+                            }
+                            else
+                            {
+                                RhinoApp.WriteLine("TrackObject logic failed via WebSocket.");
+                            }
+                        }));
+                    } else {
+                        ExportToVision.ExportUSDZ(message);
+                        ProcessUpdateMessage(message);
+
+                    }
+                    // TrackObjectCommand.TrackObject(message);
                 };
             });
             RhinoApp.WriteLine("WebSocket server started on ws://" + ip + ":" + port);
