@@ -35,7 +35,7 @@ namespace RhinoPlugin
                     RhinoApp.WriteLine("WebSocket client connected.");
                     allSockets.Add(socket);
                     // Send a welcome message with a timestamp
-                    socket.Send($"Server timestamp: {DateTimeOffset.Now.ToUnixTimeSeconds()} Selected object: Welcome");
+                    BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "info", description: "Connection successful"));
                 };
                 socket.OnClose = () =>
                 {
@@ -47,30 +47,43 @@ namespace RhinoPlugin
                     RhinoApp.WriteLine("Received from client: " + message);
                     dynamic data = JsonConvert.DeserializeObject(message);
                     string commandValue = data.command;
-                    if (commandValue == "TrackObject") 
-                    {
-                        RhinoApp.InvokeOnUiThread((Action)(() =>
+                    if (commandValue == "TrackObject") {
+                        try {
+                            RhinoApp.InvokeOnUiThread((Action)(() =>
+                            {
+                                var doc = RhinoDoc.ActiveDoc;
+                                var result = CommandUtilities.ExecuteTrackObjectLogic(doc);
+                                if (result == Result.Success)
+                                {
+                                    RhinoApp.WriteLine("Object tracking information transmitted");
+                                    // BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "info", description: "Object tracking information transmitted"));
+                                }
+                                else
+                                {
+                                    RhinoApp.WriteLine("Failed to track object");
+                                    BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: "Failed to track object"));
+                                }
+                            }));
+                        } catch (Exception ex) {
+                            RhinoApp.WriteLine($"Error processing TrackObject command: {ex.Message}");
+                            BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: $"Error processing TrackObject command: {ex.Message}"));
+                        }
+                    } if (commandValue == "ExportUSDZ") {
+                        var result = ExportToVision.ExportUSDZ(message);
+                        if (result == Result.Success)
                         {
-                            var doc = RhinoDoc.ActiveDoc;
-                            var result = CommandUtilities.ExecuteTrackObjectLogic(doc);
-                            if (result == Result.Success)
-                            {
-                                RhinoApp.WriteLine("TrackObject logic executed successfully via WebSocket.");
-                            }
-                            else
-                            {
-                                RhinoApp.WriteLine("TrackObject logic failed via WebSocket.");
-                            }
-                        }));
+                            RhinoApp.WriteLine("Exported USDZ successfully");                        }
+                        else
+                        {
+                            RhinoApp.WriteLine("Failed to export USDZ");
+                            BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: "Failed to export USDZ"));
+                        }
                     } else {
-                        ExportToVision.ExportUSDZ(message);
                         ProcessUpdateMessage(message);
-
                     }
-                    // TrackObjectCommand.TrackObject(message);
                 };
             });
-            RhinoApp.WriteLine("WebSocket server started on ws://" + ip + ":" + port);
+            RhinoApp.WriteLine("WebSocket server started on ws://" + ip + ":" + port + ", awaiting for connection...");
         }
 
         public static bool IsServerRunning()
@@ -85,18 +98,12 @@ namespace RhinoPlugin
 
         public static void BroadcastMessage(string message)
         {
-            RhinoApp.WriteLine("Sending message: " + message);
+            // RhinoApp.WriteLine("Sending message: " + message);
             foreach (var socket in allSockets)
             {
                 socket.Send(message);
             }
         }
-
-        // public static void RegisterTrackedObject(string objectId);
-        // {
-        //     object obj = RhinoDoc.ActiveDoc.Objects.Find(objectId);
-            
-        // }
 
         public static void ProcessUpdateMessage(string json)
         {
