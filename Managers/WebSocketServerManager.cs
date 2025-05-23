@@ -85,7 +85,6 @@ namespace RhinoPlugin
             });
             RhinoApp.WriteLine("WebSocket server started on ws://" + ip + ":" + port + ", awaiting for connection...");
         }
-
         public static bool IsServerRunning()
         {
             // Check if the server is not null and has been initialized
@@ -95,7 +94,6 @@ namespace RhinoPlugin
             // Check if there are any active socket connections
             return allSockets.Count > 0;
         }
-
         public static void BroadcastMessage(string message)
         {
             // RhinoApp.WriteLine("Sending message: " + message);
@@ -116,9 +114,7 @@ namespace RhinoPlugin
             RhinoApp.InvokeOnUiThread((Action)(() =>
             {
                 RhinoDoc doc = RhinoDoc.ActiveDoc;
-
                 ObjectPositionManager positionManager = new ObjectPositionManager(doc);
-
                 try
                 {
                     // Extract the Guid from the objectId string.
@@ -177,7 +173,6 @@ namespace RhinoPlugin
                 }
             }));
         }
-
         public static string GetLocalIPAddress()
         {
             var host = Dns.GetHostEntry(Dns.GetHostName());
@@ -190,7 +185,6 @@ namespace RhinoPlugin
             }
             throw new Exception("No network adapters with an IPv4 address in the system!");
         }
-
         public static string GetLocalIPAddressOfSelf()
             {
             // Get all network interfaces
@@ -199,18 +193,15 @@ namespace RhinoPlugin
                 .Where(n => (n.OperationalStatus == OperationalStatus.Up) &&
                             (n.NetworkInterfaceType == NetworkInterfaceType.Ethernet ||
                             n.NetworkInterfaceType == NetworkInterfaceType.Wireless80211));
-
             foreach (var networkInterface in networkInterfaces)
             {
                 // Get IP properties for the interface
                 var ipProperties = networkInterface.GetIPProperties();
-
                 // Find IPv4 addresses that are not loopback
                 var ipv4Addresses = ipProperties.UnicastAddresses
                     .Where(ua => ua.Address.AddressFamily == AddressFamily.InterNetwork)
                     .Select(ua => ua.Address)
                     .ToList();
-
                 foreach (var address in ipv4Addresses)
                 {
                     // Skip loopback and link-local addresses
@@ -222,7 +213,6 @@ namespace RhinoPlugin
                     }
                 }
             }
-
             throw new Exception("No local IP address found on active network interfaces.");
         }
         public static async Task BroadcastBinary(byte[] data)
@@ -232,7 +222,6 @@ namespace RhinoPlugin
                 RhinoApp.WriteLine("[WARN] Attempted to broadcast empty binary data.");
                 return;
             }
-
             foreach (var socket in allSockets)
             {
                 if (socket.IsAvailable)
