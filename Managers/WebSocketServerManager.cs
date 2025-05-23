@@ -67,7 +67,6 @@ namespace RhinoPlugin
                         ProcessUpdateMessage(message);
 
                     }
-                    // TrackObjectCommand.TrackObject(message);
                 };
             });
             RhinoApp.WriteLine("WebSocket server started on ws://" + ip + ":" + port);
