@@ -154,6 +154,46 @@ namespace RhinoPlugin
             }
             RhinoApp.WriteLine("Geometry duplicated successfully. Type: " + geometry.GetType().Name);
 
+            // Handle direct curve or polycurve exports first
+            if (geometry is Curve || geometry is PolyCurve)
+            {
+                RhinoApp.WriteLine($"[DEBUG] Converting selected curve type {geometry.GetType().Name} to mesh via pipe.");
+                // Build a list of curves
+                var curvesList = new List<Curve>();
+                if (geometry is PolyCurve pc) 
+                    curvesList.AddRange(pc.Explode().OfType<Curve>());
+                else 
+                    curvesList.Add((Curve)geometry);
+                // Create joint pipe Brep and mesh it
+                double pipeRadius = 0.1;
+                var brep = ConvertMultipleCurvesToJoinedPipe(curvesList, doc, pipeRadius);
+                if (brep == null)
+                {
+                    RhinoApp.WriteLine("Failed to generate pipe geometry from curves.");
+                    return null;
+                }
+                var meshes = Mesh.CreateFromBrep(brep, MeshingParameters.Default);
+                if (meshes == null || meshes.Length == 0)
+                {
+                    RhinoApp.WriteLine("❌ Failed to mesh the pipe brep from curves.");
+                    return null;
+                }
+                return meshes[0];
+            }
+
+            // Handle direct extrusion selection by converting to Brep
+            if (geometry is Extrusion directExt)
+            {
+                RhinoApp.WriteLine("[DEBUG] Converting direct Extrusion to Brep.");
+                var directBrep = directExt.ToBrep();
+                if (directBrep == null)
+                {
+                    RhinoApp.WriteLine("⚠️ Failed to convert direct Extrusion to Brep.");
+                    return null;
+                }
+                return directBrep;
+            }
+
             if (geometry is InstanceReferenceGeometry instanceRef)
             {
                 var instanceDef = SelectionObjectManager.FindInstanceDefinitionByGuid(doc, instanceRef.ParentIdefId);
@@ -183,6 +223,15 @@ namespace RhinoPlugin
                         breps.Add(b);
                     else if (geo is Mesh m)
                         meshes.Add(m);
+                    else if (geo is Extrusion ext)
+                    {
+                        RhinoApp.WriteLine("[DEBUG] Converting block Extrusion to Brep.");
+                        var extrusionBrep = ext.ToBrep();
+                        if (extrusionBrep != null)
+                            breps.Add(extrusionBrep);
+                        else
+                            RhinoApp.WriteLine("⚠️ Failed to convert Extrusion to Brep.");
+                    }
                 }
 
                 if (curves.Count > 0)
@@ -196,6 +245,14 @@ namespace RhinoPlugin
                         return null;
                     }
                     geometry = joinedPipe;
+                    // Mesh conversion logic
+                    var pipeMeshes = Mesh.CreateFromBrep(joinedPipe, MeshingParameters.Default);
+                    if (pipeMeshes == null || pipeMeshes.Length == 0)
+                    {
+                        RhinoApp.WriteLine("❌ Failed to mesh the pipe brep.");
+                        return null;
+                    }
+                    geometry = pipeMeshes[0];
                 }
                 else if (breps.Count > 0)
                 {
@@ -214,36 +271,8 @@ namespace RhinoPlugin
             }
             else if (!(geometry is Brep) && !(geometry is Mesh))
             {
-                RhinoApp.WriteLine($"Geometry type before conversion: {geometry.GetType().Name}");
-                if (geometry is PolyCurve polyCurve)
-                {
-                    double pipeRadius = 0.1;
-                    Brep joinedPipe = ConvertPolyCurveToBrep(polyCurve, doc, pipeRadius);
-                    if (joinedPipe == null)
-                    {
-                        RhinoApp.WriteLine("Failed to convert polycurve to pipe brep.");
-                        return null;
-                    }
-                    geometry = joinedPipe;
-                }
-                else if (geometry is Curve singleCurve)
-                {
-                    double pipeRadius = 0.1;
-                    Brep[] pipe = Brep.CreatePipe(
-                        singleCurve, pipeRadius, false, PipeCapMode.Round, false,
-                        doc.ModelAbsoluteTolerance, doc.ModelAngleToleranceRadians);
-                    if (pipe == null || pipe.Length == 0)
-                    {
-                        RhinoApp.WriteLine("Failed to convert single curve to pipe.");
-                        return null;
-                    }
-                    geometry = pipe[0];
-                }
-                else
-                {
-                    RhinoApp.WriteLine("Selected geometry is not supported for export.");
-                    return null;
-                }
+                RhinoApp.WriteLine("Selected geometry is not supported for export.");
+                return null;
             }
 
             return geometry;
@@ -325,12 +354,26 @@ namespace RhinoPlugin
         public static ExportResult ExportSelectedObjectToUSDZ(RhinoDoc doc, GeometryBase preparedGeometry, Guid objectId)
         {
             Guid exportId = Guid.NewGuid();
+            RhinoApp.WriteLine($"[DEBUG] Generated objectId: {objectId}");
 
-            string path = $"/Users/iliadev/Downloads/Object_{objectId}.usdz";
+            string tempDir = Path.Combine(Path.GetTempPath(), "RhinoExportTemp");
+            Directory.CreateDirectory(tempDir);
+            string fileName = $"Object_{objectId}.usdz";
+            string path = Path.Combine(tempDir, fileName);
+            RhinoApp.WriteLine($"[DEBUG] File will be saved as: {fileName}");
+
             RhinoApp.WriteLine($"[DEBUG] Exporting object {objectId} to path: {path}");
+            RhinoApp.WriteLine($"[DEBUG] fileName: {fileName} ← should match objectId exactly");
             ExportToVision.LastExportedUSDZPath = path;
 
-            // Origin calculation block
+            // Geometry preparation and origin calculation block
+            GeometryBase exportGeometry = preparedGeometry ?? GeometryManager.PrepareGeometryForExport(doc, doc.Objects.Find(objectId));
+            if (exportGeometry == null)
+            {
+                RhinoApp.WriteLine("[DEBUG] Geometry preparation inside export failed.");
+                return new ExportResult { Success = false, Path = "", TemporaryCopyId = Guid.Empty };
+            }
+
             Point3d origin;
             var rhinoObj = doc.Objects.Find(objectId);
             if (rhinoObj is InstanceObject)
@@ -340,18 +383,18 @@ namespace RhinoPlugin
             }
             else
             {
-                var bbox = preparedGeometry.GetBoundingBox(true);
+                var bbox = exportGeometry.GetBoundingBox(true);
                 double centerX = (bbox.Min.X + bbox.Max.X) / 2.0;
                 double centerY = (bbox.Min.Y + bbox.Max.Y) / 2.0;
                 double minZ = double.MaxValue;
                 var vertices = new List<Point3d>();
 
-                if (preparedGeometry is Brep brep)
+                if (exportGeometry is Brep brep)
                 {
                     foreach (var v in brep.DuplicateVertices())
                         vertices.Add(v);
                 }
-                else if (preparedGeometry is Mesh mesh)
+                else if (exportGeometry is Mesh mesh)
                 {
                     vertices.AddRange(mesh.Vertices.ToPoint3dArray());
                 }
@@ -388,11 +431,12 @@ namespace RhinoPlugin
                 RhinoApp.WriteLine($"[DEBUG] File NOT found after export: {path}");
             }
 
+            RhinoApp.WriteLine($"[DEBUG] Returning ExportResult with TemporaryCopyId: {exportId}");
             return new ExportResult
             {
                 Success = fileExists,
                 Path = path,
-                TemporaryCopyId = Guid.Empty
+                TemporaryCopyId = exportId
             };
         }
 
