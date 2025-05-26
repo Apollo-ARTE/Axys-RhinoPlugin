@@ -97,13 +97,34 @@ namespace RhinoPlugin
 
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
-            // Prompt user to select an object to export
             Result selResult = RhinoGet.GetOneObject("Select object to export", false, ObjectType.AnyObject, out ObjRef objRef);
-            if (selResult != Result.Success || objRef == null || objRef.Object() == null)
-            {
-                RhinoApp.WriteLine("No valid object selected.");
-                return Result.Cancel;
-            }
+if (selResult != Result.Success || objRef == null || objRef.Object() == null)
+{
+    RhinoApp.WriteLine("No valid object selected. Launching ScriptPipeMeshBlock…");
+
+    // esegui il comando che crea pipe→mesh→block
+    RhinoApp.RunScript("_ScriptPipeMeshBlock", false);
+
+    // prova a recuperare il blocco più recente creato
+    var recentBlock = doc.Objects.GetObjectList(ObjectType.InstanceReference)
+                                 .OrderByDescending(o => o.RuntimeSerialNumber)
+                                 .FirstOrDefault();
+
+    if (recentBlock == null)
+    {
+        RhinoApp.WriteLine("Fallback failed: no block instance found.");
+        return Result.Cancel;
+    }
+
+    SelectedObjectId = recentBlock.Id;
+    RhinoApp.WriteLine($"[DEBUG] Fallback OK. Selected block ID: {SelectedObjectId}");
+    return Result.Success;   // prosegue l’export con il nuovo blocco
+}
+
+// se l’utente ha selezionato un oggetto valido
+SelectedObjectId = objRef.Object().Id;
+RhinoApp.WriteLine($"[DEBUG] Selected Object ID: {SelectedObjectId}");
+return Result.Success;
 
             SelectedObjectId = objRef.Object().Id;
             RhinoApp.WriteLine($"[DEBUG] Selected Object ID: {SelectedObjectId}");
