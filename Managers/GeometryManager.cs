@@ -160,9 +160,9 @@ namespace RhinoPlugin
                 RhinoApp.WriteLine($"[DEBUG] Converting selected curve type {geometry.GetType().Name} to mesh via pipe.");
                 // Build a list of curves
                 var curvesList = new List<Curve>();
-                if (geometry is PolyCurve pc) 
+                if (geometry is PolyCurve pc)
                     curvesList.AddRange(pc.Explode().OfType<Curve>());
-                else 
+                else
                     curvesList.Add((Curve)geometry);
                 // Create joint pipe Brep and mesh it
                 double pipeRadius = 0.1;
@@ -503,6 +503,72 @@ namespace RhinoPlugin
             }
 
             return bboxCombinata.Center;
+        }
+
+        public class ScriptPipeMeshBlockCommand : Command
+        {
+            public static ScriptPipeMeshBlockCommand Instance { get; private set; }
+
+            public override string EnglishName => "ScriptPipeMeshBlock";
+
+            protected override Result RunCommand(RhinoDoc doc, RunMode mode)
+{
+    // 1. Seleziona una o più curve
+    ObjRef[] objRefs;
+    Result rc = RhinoGet.GetMultipleObjects(
+        "Select curves to pipe, mesh, and block",
+        false,
+        ObjectType.Curve,
+        out objRefs);
+
+    if (rc != Result.Success || objRefs == null || objRefs.Length == 0)
+    {
+        RhinoApp.WriteLine("No valid curves selected.");
+        return Result.Cancel;
+    }
+
+    // 2. Pulisci la selezione precedente
+    doc.Objects.UnselectAll();
+
+    // 3. Seleziona le curve appena scelte
+    foreach (var o in objRefs)
+        doc.Objects.Select(o.ObjectId);
+
+    doc.Views.Redraw();
+
+    // 4. Pipe (raggio 0.3 → personalizza se serve)
+    RhinoApp.RunScript("-_Pipe 0.3 0.3 _Enter _Enter", false);
+
+    // 5. Mesh
+    RhinoApp.RunScript("-_Mesh _Enter _Enter", false);
+
+    // 6. Raccogli i mesh creati di recente (assumiamo tanti quanti le curve)
+    int expectedMeshes = objRefs.Length;
+    var meshObjs = doc.Objects.GetObjectList(ObjectType.Mesh)
+        .OrderByDescending(o => o.RuntimeSerialNumber)
+        .Take(expectedMeshes)
+        .ToList();
+
+    if (meshObjs.Count == 0)
+    {
+        RhinoApp.WriteLine("No meshes found for block creation.");
+        return Result.Failure;
+    }
+
+    // 7. Seleziona i mesh
+    doc.Objects.UnselectAll();
+    foreach (var m in meshObjs)
+        doc.Objects.Select(m.Id);
+
+    // 8. Crea il blocco
+    var basePt = new Point3d(0, 0, 0);
+    string idList = string.Join(" ", meshObjs.Select(m => m.Id));
+    RhinoApp.RunScript($"-_Block {idList} {basePt.X},{basePt.Y},{basePt.Z} _Enter", false);
+
+    RhinoApp.WriteLine("✅ Pipe → Mesh → Block completed.");
+
+    return Result.Success;
+}
         }
     }
 }
