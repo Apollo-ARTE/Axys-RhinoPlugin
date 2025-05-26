@@ -28,8 +28,6 @@ namespace RhinoPlugin
             {
                 RhinoApp.WriteLine("Starting WebSocket server...");
                 WebSocketServerManager.StartServer();
-                RhinoApp.WriteLine("WebSocket server started successfully.");
-
                 return Result.Success;
             }
             catch (Exception ex)
@@ -87,6 +85,7 @@ namespace RhinoPlugin
             else
             {
                 RhinoApp.WriteLine("Selected object not found in the document.");
+                WebSocketServerManager.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", "Selected object not found in the document."));
                 return null;
             }
 
@@ -138,29 +137,33 @@ return Result.Success;
         // Function called when an export command is received via WebSocket
         // ✅ CHECKPOINT — Stable export for polylines and block instances (Brep geometry).
         // Curve support still under development. This code path is considered reliable.
-        public static void ExportUSDZ(dynamic message)
+        public static Result ExportUSDZ(dynamic message)
         {
             // Execute the entire export routine on the main UI thread to avoid autolayout issues
             RhinoApp.InvokeOnUiThread(new Action(() => _ = HandleExecuteExportAsync(message)));
-
+            return Result.Success;
         }
         static byte[] GetUSDZFileBytes()
         {
             if (string.IsNullOrEmpty(LastExportedUSDZPath) || !File.Exists(LastExportedUSDZPath))
             {
-                RhinoApp.WriteLine("❌ No valid exported USDZ file found.");
+                RhinoApp.WriteLine("No valid exported USDZ file found.");
+                WebSocketServerManager.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", "No valid exported USDZ file found."));
+
                 return null;
             }
 
             try
             {
                 byte[] fileBytes = File.ReadAllBytes(LastExportedUSDZPath); // Read the USDZ file as bytes
-                RhinoApp.WriteLine($"✅ USDZ file loaded successfully. Size: {fileBytes.Length} bytes"); // Log the success
+                RhinoApp.WriteLine($"USDZ file loaded successfully. Size: {fileBytes.Length} bytes"); // Log the success
                 return fileBytes; // Return the byte array of the USDZ file
             }
             catch (Exception ex) // Catch any error that occurs while reading the file
             {
-                RhinoApp.WriteLine($"❌ Error reading USDZ file: {ex.Message}"); // Log the error message
+                RhinoApp.WriteLine($"Error reading USDZ file: {ex.Message}"); // Log the error message
+                WebSocketServerManager.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", $"Error reading USDZ file: {ex.Message}"));
+
                 return null; // Return null in case of an error
             }
         }
@@ -178,6 +181,7 @@ return Result.Success;
             if (geometry == null)
             {
                 RhinoApp.WriteLine($"Geometry preparation failed. Type: {selectedObj.Geometry?.GetType().Name ?? "null"}");
+                WebSocketServerManager.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", $"Geometry preparation failed. Type: {selectedObj.Geometry?.GetType().Name ?? "null"}"));
                 return;
             }
             else
@@ -190,6 +194,7 @@ return Result.Success;
             if (!exportResult.Success)
             {
                 RhinoApp.WriteLine("Export failed. No USDZ file generated.");
+                WebSocketServerManager.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", "Export failed. No USDZ file generated."));
                 return;
             }
             byte[] fileBytes = File.ReadAllBytes(exportResult.Path);
@@ -198,7 +203,7 @@ return Result.Success;
             if (exportResult.TemporaryCopyId != Guid.Empty)
             {
                 doc.Objects.Delete(exportResult.TemporaryCopyId, true);
-                RhinoApp.WriteLine("🧹 Temporary object deleted after export.");
+                RhinoApp.WriteLine("Temporary object deleted after export.");
             }
         }
     }

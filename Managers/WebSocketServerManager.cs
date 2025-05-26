@@ -35,7 +35,7 @@ namespace RhinoPlugin
                     RhinoApp.WriteLine("WebSocket client connected.");
                     allSockets.Add(socket);
                     // Send a welcome message with a timestamp
-                    socket.Send($"Server timestamp: {DateTimeOffset.Now.ToUnixTimeSeconds()} Selected object: Welcome");
+                    BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "info", description: "Connection successful"));
                 };
                 socket.OnClose = () =>
                 {
@@ -47,29 +47,43 @@ namespace RhinoPlugin
                     RhinoApp.WriteLine("Received from client: " + message);
                     dynamic data = JsonConvert.DeserializeObject(message);
                     string commandValue = data.command;
-                    if (commandValue == "TrackObject") 
-                    {
-                        RhinoApp.InvokeOnUiThread((Action)(() =>
+                    if (commandValue == "TrackObject") {
+                        try {
+                            RhinoApp.InvokeOnUiThread((Action)(() =>
+                            {
+                                var doc = RhinoDoc.ActiveDoc;
+                                var result = CommandUtilities.ExecuteTrackObjectLogic(doc);
+                                if (result == Result.Success)
+                                {
+                                    RhinoApp.WriteLine("Object tracking information transmitted");
+                                    // BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "info", description: "Object tracking information transmitted"));
+                                }
+                                else
+                                {
+                                    RhinoApp.WriteLine("Failed to track object");
+                                    BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: "Failed to track object"));
+                                }
+                            }));
+                        } catch (Exception ex) {
+                            RhinoApp.WriteLine($"Error processing TrackObject command: {ex.Message}");
+                            BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: $"Error processing TrackObject command: {ex.Message}"));
+                        }
+                    } if (commandValue == "ExportUSDZ") {
+                        var result = ExportToVision.ExportUSDZ(message);
+                        if (result == Result.Success)
                         {
-                            var doc = RhinoDoc.ActiveDoc;
-                            var result = CommandUtilities.ExecuteTrackObjectLogic(doc);
-                            if (result == Result.Success)
-                            {
-                                RhinoApp.WriteLine("TrackObject logic executed successfully via WebSocket.");
-                            }
-                            else
-                            {
-                                RhinoApp.WriteLine("TrackObject logic failed via WebSocket.");
-                            }
-                        }));
+                            RhinoApp.WriteLine("Exported USDZ successfully");                        }
+                        else
+                        {
+                            RhinoApp.WriteLine("Failed to export USDZ");
+                            BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: "Failed to export USDZ"));
+                        }
                     } else {
-                        ExportToVision.ExportUSDZ(message);
                         ProcessUpdateMessage(message);
-
                     }
                 };
             });
-            RhinoApp.WriteLine("WebSocket server started on ws://" + ip + ":" + port);
+            RhinoApp.WriteLine("WebSocket server started on ws://" + ip + ":" + port + ", awaiting for connection...");
         }
         public static bool IsServerRunning()
         {
@@ -82,12 +96,13 @@ namespace RhinoPlugin
         }
         public static void BroadcastMessage(string message)
         {
-            RhinoApp.WriteLine("Sending message: " + message);
+            // RhinoApp.WriteLine("Sending message: " + message);
             foreach (var socket in allSockets)
             {
                 socket.Send(message);
             }
         }
+
         public static void ProcessUpdateMessage(string json)
         {
             // Use the existing JsonHandler and RhinoObjectData.
@@ -103,7 +118,6 @@ namespace RhinoPlugin
                 try
                 {
                     // Extract the Guid from the objectId string.
-                    // Assuming the objectId is stored as "Sphere_{guid}"
                     string guidString = updateMsg.ObjectId.Replace("Object_", "");
                     if(Guid.TryParse(guidString, out Guid objectGuid))
                     {
@@ -119,42 +133,26 @@ namespace RhinoPlugin
                         {
                             // Log successful movement
                             RhinoApp.WriteLine($"Successfully moved object {objectGuid} to {newPosition}");
-
-                            // // Optional: Broadcast confirmation back to clients
-                            // BroadcastMessage(JsonHandler.Serialize(new {
-                            //     Type = "move_confirmation",
-                            //     ObjectId = updateMsg.ObjectId,
-                            //     Status = "success"
-                            // }));
+                            BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "info", description: $"Successfully moved object {objectGuid} to {newPosition}"));
                         }
                         else
                         {
                             // Log failed movement
                             RhinoApp.WriteLine($"Failed to move object {objectGuid}");
-
-                            // // Optional: Broadcast error back to clients
-                            // BroadcastMessage(JsonHandler.Serialize(new {
-                            //     Type = "move_confirmation",
-                            //     ObjectId = updateMsg.ObjectId,
-                            //     Status = "failed"
-                            // }));
+                            BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: $"Failed to move object {objectGuid}"));
                         }
                     }
                     else
                     {
                     RhinoApp.WriteLine($"Invalid object GUID in message: {guidString}");
+                    BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: $"Invalid object GUID in message: {guidString}"));
                     }
                 }
                 catch (Exception ex)
                 {
                     // Comprehensive error handling
                     RhinoApp.WriteLine($"Error processing update message: {ex.Message}");
-                    
-                    // // Optional: Broadcast error back to clients
-                    // BroadcastMessage(JsonHandler.Serialize(new {
-                    //     Type = "error",
-                    //     Message = ex.Message
-                    // }));
+                    BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: $"Error processing update message: {ex.Message}"));
                 }
             }));
         }
@@ -204,7 +202,8 @@ namespace RhinoPlugin
         {
             if (data == null || data.Length == 0)
             {
-                RhinoApp.WriteLine("[WARN] Attempted to broadcast empty binary data.");
+                RhinoApp.WriteLine("Attempted to broadcast empty binary data.");
+                BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: "Attempted to broadcast empty binary data."));
                 return;
             }
             foreach (var socket in allSockets)
