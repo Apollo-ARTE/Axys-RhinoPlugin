@@ -118,7 +118,6 @@ namespace RhinoPlugin
                 try
                 {
                     // Extract the Guid from the objectId string.
-                    // Assuming the objectId is stored as "Sphere_{guid}"
                     string guidString = updateMsg.ObjectId.Replace("Object_", "");
                     if(Guid.TryParse(guidString, out Guid objectGuid))
                     {
@@ -134,42 +133,26 @@ namespace RhinoPlugin
                         {
                             // Log successful movement
                             RhinoApp.WriteLine($"Successfully moved object {objectGuid} to {newPosition}");
-
-                            // // Optional: Broadcast confirmation back to clients
-                            // BroadcastMessage(JsonHandler.Serialize(new {
-                            //     Type = "move_confirmation",
-                            //     ObjectId = updateMsg.ObjectId,
-                            //     Status = "success"
-                            // }));
+                            BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "info", description: $"Successfully moved object {objectGuid} to {newPosition}"));
                         }
                         else
                         {
                             // Log failed movement
                             RhinoApp.WriteLine($"Failed to move object {objectGuid}");
-
-                            // // Optional: Broadcast error back to clients
-                            // BroadcastMessage(JsonHandler.Serialize(new {
-                            //     Type = "move_confirmation",
-                            //     ObjectId = updateMsg.ObjectId,
-                            //     Status = "failed"
-                            // }));
+                            BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: $"Failed to move object {objectGuid}"));
                         }
                     }
                     else
                     {
                     RhinoApp.WriteLine($"Invalid object GUID in message: {guidString}");
+                    BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: $"Invalid object GUID in message: {guidString}"));
                     }
                 }
                 catch (Exception ex)
                 {
                     // Comprehensive error handling
                     RhinoApp.WriteLine($"Error processing update message: {ex.Message}");
-                    
-                    // // Optional: Broadcast error back to clients
-                    // BroadcastMessage(JsonHandler.Serialize(new {
-                    //     Type = "error",
-                    //     Message = ex.Message
-                    // }));
+                    BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: $"Error processing update message: {ex.Message}"));
                 }
             }));
         }
@@ -219,7 +202,8 @@ namespace RhinoPlugin
         {
             if (data == null || data.Length == 0)
             {
-                RhinoApp.WriteLine("[WARN] Attempted to broadcast empty binary data.");
+                RhinoApp.WriteLine("Attempted to broadcast empty binary data.");
+                BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: "Attempted to broadcast empty binary data."));
                 return;
             }
             foreach (var socket in allSockets)
