@@ -160,9 +160,9 @@ namespace RhinoPlugin
                 RhinoApp.WriteLine($"[DEBUG] Converting selected curve type {geometry.GetType().Name} to mesh via pipe.");
                 // Build a list of curves
                 var curvesList = new List<Curve>();
-                if (geometry is PolyCurve pc) 
+                if (geometry is PolyCurve pc)
                     curvesList.AddRange(pc.Explode().OfType<Curve>());
-                else 
+                else
                     curvesList.Add((Curve)geometry);
                 // Create joint pipe Brep and mesh it
                 double pipeRadius = 0.1;
@@ -271,8 +271,48 @@ namespace RhinoPlugin
             }
             else if (!(geometry is Brep) && !(geometry is Mesh))
             {
-                RhinoApp.WriteLine("Selected geometry is not supported for export.");
-                return null;
+                RhinoApp.WriteLine($"Geometry type before conversion: {geometry.GetType().Name}");
+                if (geometry is PolyCurve polyCurve)
+                {
+                    double pipeRadius = 0.1;
+                    Brep joinedPipe = ConvertPolyCurveToBrep(polyCurve, doc, pipeRadius);
+                    if (joinedPipe == null)
+                    {
+                        RhinoApp.WriteLine("Failed to convert polycurve to pipe brep.");
+                        return null;
+                    }
+                    var pipeMeshes2 = Mesh.CreateFromBrep(joinedPipe, MeshingParameters.Default);
+                    if (pipeMeshes2 == null || pipeMeshes2.Length == 0)
+                    {
+                        RhinoApp.WriteLine("❌ Failed to mesh the pipe brep.");
+                        return null;
+                    }
+                    return pipeMeshes2[0];
+                }
+                else if (geometry is Curve singleCurve)
+                {
+                    double pipeRadius = 0.1;
+                    Brep[] pipe = Brep.CreatePipe(
+                        singleCurve, pipeRadius, false, PipeCapMode.Round, false,
+                        doc.ModelAbsoluteTolerance, doc.ModelAngleToleranceRadians);
+                    if (pipe == null || pipe.Length == 0)
+                    {
+                        RhinoApp.WriteLine("Failed to convert single curve to pipe.");
+                        return null;
+                    }
+                    var pipeMeshes3 = Mesh.CreateFromBrep(pipe[0], MeshingParameters.Default);
+                    if (pipeMeshes3 == null || pipeMeshes3.Length == 0)
+                    {
+                        RhinoApp.WriteLine("❌ Failed to mesh the single pipe brep.");
+                        return null;
+                    }
+                    return pipeMeshes3[0];
+                }
+                else
+                {
+                    RhinoApp.WriteLine("Selected geometry is not supported for export.");
+                    return null;
+                }
             }
 
             return geometry;
@@ -354,16 +394,14 @@ namespace RhinoPlugin
         public static ExportResult ExportSelectedObjectToUSDZ(RhinoDoc doc, GeometryBase preparedGeometry, Guid objectId)
         {
             Guid exportId = Guid.NewGuid();
-            RhinoApp.WriteLine($"[DEBUG] Generated objectId: {objectId}");
 
+            // Save the exported file in a dedicated temp directory
             string tempDir = Path.Combine(Path.GetTempPath(), "RhinoExportTemp");
             Directory.CreateDirectory(tempDir);
             string fileName = $"Object_{objectId}.usdz";
             string path = Path.Combine(tempDir, fileName);
             RhinoApp.WriteLine($"[DEBUG] File will be saved as: {fileName}");
-
-            RhinoApp.WriteLine($"[DEBUG] Exporting object {objectId} to path: {path}");
-            RhinoApp.WriteLine($"[DEBUG] fileName: {fileName} ← should match objectId exactly");
+            RhinoApp.WriteLine($"[DEBUG] Exporting object {objectId} to temporary path: {path}");
             ExportToVision.LastExportedUSDZPath = path;
 
             // Geometry preparation and origin calculation block
@@ -481,6 +519,72 @@ namespace RhinoPlugin
             }
 
             return bboxCombinata.Center;
+        }
+
+        public class ScriptPipeMeshBlockCommand : Command
+        {
+            public static ScriptPipeMeshBlockCommand Instance { get; private set; }
+
+            public override string EnglishName => "ScriptPipeMeshBlock";
+
+            protected override Result RunCommand(RhinoDoc doc, RunMode mode)
+{
+    // 1. Seleziona una o più curve
+    ObjRef[] objRefs;
+    Result rc = RhinoGet.GetMultipleObjects(
+        "Select curves to pipe, mesh, and block",
+        false,
+        ObjectType.Curve,
+        out objRefs);
+
+    if (rc != Result.Success || objRefs == null || objRefs.Length == 0)
+    {
+        RhinoApp.WriteLine("No valid curves selected.");
+        return Result.Cancel;
+    }
+
+    // 2. Pulisci la selezione precedente
+    doc.Objects.UnselectAll();
+
+    // 3. Seleziona le curve appena scelte
+    foreach (var o in objRefs)
+        doc.Objects.Select(o.ObjectId);
+
+    doc.Views.Redraw();
+
+    // 4. Pipe (raggio 0.3 → personalizza se serve)
+    RhinoApp.RunScript("-_Pipe 0.3 0.3 _Enter _Enter", false);
+
+    // 5. Mesh
+    RhinoApp.RunScript("-_Mesh _Enter _Enter", false);
+
+    // 6. Raccogli i mesh creati di recente (assumiamo tanti quanti le curve)
+    int expectedMeshes = objRefs.Length;
+    var meshObjs = doc.Objects.GetObjectList(ObjectType.Mesh)
+        .OrderByDescending(o => o.RuntimeSerialNumber)
+        .Take(expectedMeshes)
+        .ToList();
+
+    if (meshObjs.Count == 0)
+    {
+        RhinoApp.WriteLine("No meshes found for block creation.");
+        return Result.Failure;
+    }
+
+    // 7. Seleziona i mesh
+    doc.Objects.UnselectAll();
+    foreach (var m in meshObjs)
+        doc.Objects.Select(m.Id);
+
+    // 8. Crea il blocco
+    var basePt = new Point3d(0, 0, 0);
+    string idList = string.Join(" ", meshObjs.Select(m => m.Id));
+    RhinoApp.RunScript($"-_Block {idList} {basePt.X},{basePt.Y},{basePt.Z} _Enter", false);
+
+    RhinoApp.WriteLine("✅ Pipe → Mesh → Block completed.");
+
+    return Result.Success;
+}
         }
     }
 }
