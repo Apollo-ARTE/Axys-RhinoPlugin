@@ -14,6 +14,7 @@ namespace Axys
     ///</summary>
     public class AxysPlugin : Rhino.PlugIns.PlugIn
     {
+        private static ILogger<AxysPlugin> _logger;
         public AxysPlugin()
         {
             Instance = this;
@@ -28,7 +29,7 @@ namespace Axys
             {
                 // Initialize logging first
                 LoggingSetup.Initialize();
-                _logger = LoggingSetup.GetLogger<AxysRhinoPlugin>();
+                _logger = LoggingSetup.GetLogger<AxysPlugin>();
 
                 _logger.LogInformation("Plugin loading started");
 
