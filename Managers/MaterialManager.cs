@@ -2,9 +2,9 @@ using Rhino;
 using Rhino.DocObjects;
 using Rhino.Input.Custom;
 using System.Drawing;
-using RhinoPlugin;
+using Axys;
 
-namespace RhinoPlugin
+namespace Axys
 {
 public class MaterialManager
 {

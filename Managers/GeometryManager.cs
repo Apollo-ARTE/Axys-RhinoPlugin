@@ -8,10 +8,13 @@ using Rhino.Commands;
 using Rhino.DocObjects;
 using Rhino.Geometry;
 using Rhino.Input;
-using RhinoPlugin;
+using Axys;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 
-namespace RhinoPlugin
+namespace Axys
 {
     public class GeometryManager
     {

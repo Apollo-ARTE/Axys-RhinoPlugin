@@ -10,7 +10,7 @@ using Rhino.PlugIns;
 [assembly: PlugInDescription(DescriptionType.Email, "")]
 [assembly: PlugInDescription(DescriptionType.Phone, "")]
 [assembly: PlugInDescription(DescriptionType.Fax, "")]
-[assembly: PlugInDescription(DescriptionType.Organization, "")]
+[assembly: PlugInDescription(DescriptionType.Organization, "Axys")]
 [assembly: PlugInDescription(DescriptionType.UpdateUrl, "")]
 [assembly: PlugInDescription(DescriptionType.WebSite, "")]
 
