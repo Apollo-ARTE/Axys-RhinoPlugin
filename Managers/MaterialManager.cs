@@ -13,7 +13,6 @@ public class MaterialManager
     // rhObj - The RhinoObject to apply the material to.
     // doc - The active Rhino document.
     // materialIndex - The material index to assign.
-    // Enhanced method to apply material
     public static void ApplyMaterialIfMissing(RhinoObject rhObj, RhinoDoc doc, int materialIndex)
     {
         // An object has valid material if:
