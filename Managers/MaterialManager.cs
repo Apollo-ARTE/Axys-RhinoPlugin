@@ -44,7 +44,7 @@ public class MaterialManager
             // Make sure the material index is valid
             if (materialIndex < 0 || materialIndex >= doc.Materials.Count)
             {
-                RhinoApp.WriteLine("Invalid material index, using default material (index 0).");
+                Logger.LogWarning("Invalid material index, using default material (index 0).");
                 materialIndex = 0;
             }
 
@@ -52,11 +52,11 @@ public class MaterialManager
             attr.MaterialIndex = materialIndex;
             attr.MaterialSource = ObjectMaterialSource.MaterialFromObject;
             doc.Objects.ModifyAttributes(rhObj, attr, true);
-            RhinoApp.WriteLine($"Applied material (index {materialIndex}) to object.");
+            Logger.LogInfo($"Applied material (index {materialIndex}) to object.");
         }
         else
         {
-            RhinoApp.WriteLine("Object already has a valid material assigned.");
+            Logger.LogDebug("Object already has a valid material assigned.");
         }
     }
 

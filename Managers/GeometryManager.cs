@@ -43,29 +43,30 @@ namespace Axys
                 if (pipeBreps != null && pipeBreps.Length > 0)
                 {
                     breps.AddRange(pipeBreps);
+                    Logger.LogDebug($"Created {pipeBreps.Length} pipe breps from subcurve.");
+
                 }
                 else
                 {
-                    Logger.LogWarning($"Created {pipeBreps.Length} pipe breps from subcurve.");
-                    RhinoApp.WriteLine($"Created {pipeBreps.Length} pipe breps from subcurve.");
+                    Logger.LogWarning($"Failed to create pipe for subcurve: {subCurve.GetType().Name}");
                 }
             }
 
             if (breps.Count == 0)
             {
-                RhinoApp.WriteLine("No breps were created from subcurves.");
+                Logger.LogWarning("No breps were created from subcurves.");
                 return null;
             }
 
             var joined = Brep.JoinBreps(breps, doc.ModelAbsoluteTolerance);
             if (joined == null || joined.Length == 0)
             {
-                RhinoApp.WriteLine("JoinBreps failed: no joined breps returned.");
+                Logger.LogWarning("JoinBreps failed: no joined breps returned.");
                 return null;
             }
             else
             {
-                RhinoApp.WriteLine($"Successfully joined {joined.Length} breps into a single brep.");
+                Logger.LogDebug($"Successfully joined {joined.Length} breps into a single brep.");
             }
             return joined[0];
         }
@@ -97,7 +98,7 @@ namespace Axys
                 }
                 else
                 {
-                    RhinoApp.WriteLine("⚠️ Failed to create pipe for one of the curves.");
+                    Logger.LogWarning("⚠️ Failed to create pipe for one of the curves.");
                 }
             }
 
@@ -110,18 +111,19 @@ namespace Axys
 
         public static GeometryBase PrepareGeometryForExport(RhinoDoc doc, RhinoObject selectedObj)
         {
+
             GeometryBase geometry = selectedObj.Geometry?.Duplicate();
             if (geometry == null)
             {
-                RhinoApp.WriteLine("Geometry duplication failed. Type: " + (selectedObj.Geometry?.GetType().Name ?? "null"));
+                Logger.LogError("Geometry duplication failed. Type: " + (selectedObj.Geometry?.GetType().Name ?? "null"));
                 return null;
             }
-            RhinoApp.WriteLine("Geometry duplicated successfully. Type: " + geometry.GetType().Name);
+            Logger.LogDebug("Geometry duplicated successfully. Type: " + geometry.GetType().Name);
 
             // Handle direct curve or polycurve exports first
             if (geometry is Curve || geometry is PolyCurve)
             {
-                RhinoApp.WriteLine($"[DEBUG] Converting selected curve type {geometry.GetType().Name} to mesh via pipe.");
+                Logger.LogError($"Converting selected curve type {geometry.GetType().Name} to mesh via pipe.");
                 // Build a list of curves
                 var curvesList = new List<Curve>();
                 if (geometry is PolyCurve pc)
@@ -133,13 +135,13 @@ namespace Axys
                 var brep = ConvertMultipleCurvesToJoinedPipe(curvesList, doc, pipeRadius);
                 if (brep == null)
                 {
-                    RhinoApp.WriteLine("Failed to generate pipe geometry from curves.");
+                    Logger.LogError("Failed to generate pipe geometry from curves.");
                     return null;
                 }
                 var meshes = Mesh.CreateFromBrep(brep, MeshingParameters.Default);
                 if (meshes == null || meshes.Length == 0)
                 {
-                    RhinoApp.WriteLine("❌ Failed to mesh the pipe brep from curves.");
+                    Logger.LogError("Failed to mesh the pipe brep from curves.");
                     return null;
                 }
                 return meshes[0];
@@ -148,11 +150,11 @@ namespace Axys
             // Handle direct extrusion selection by converting to Brep
             if (geometry is Extrusion directExt)
             {
-                RhinoApp.WriteLine("[DEBUG] Converting direct Extrusion to Brep.");
+                Logger.LogDebug("Converting direct Extrusion to Brep.");
                 var directBrep = directExt.ToBrep();
                 if (directBrep == null)
                 {
-                    RhinoApp.WriteLine("⚠️ Failed to convert direct Extrusion to Brep.");
+                    Logger.LogError("Failed to convert direct Extrusion to Brep.");
                     return null;
                 }
                 return directBrep;
@@ -163,7 +165,7 @@ namespace Axys
                 var instanceDef = SelectionObjectManager.FindInstanceDefinitionByGuid(doc, instanceRef.ParentIdefId);
                 if (instanceDef == null)
                 {
-                    RhinoApp.WriteLine("Failed to retrieve instance definition.");
+                    Logger.LogError("Failed to retrieve instance definition.");
                     return null;
                 }
 
@@ -171,13 +173,13 @@ namespace Axys
                 var breps = new List<Brep>();
                 var meshes = new List<Mesh>();
 
-                RhinoApp.WriteLine("[DEBUG] Contents of instance definition:");
+                Logger.LogDebug("Contents of instance definition:");
                 foreach (var objId in instanceDef.GetObjectIds())
                 {
                     var obj = doc.Objects.Find(objId);
                     if (obj == null) continue;
                     var geo = obj.Geometry;
-                    RhinoApp.WriteLine($"  - Type: {geo.GetType().Name}");
+                    Logger.LogDebug($"  - Type: {geo.GetType().Name}");
 
                     if (geo is Curve c)
                         curves.Add(c);
@@ -189,23 +191,23 @@ namespace Axys
                         meshes.Add(m);
                     else if (geo is Extrusion ext)
                     {
-                        RhinoApp.WriteLine("[DEBUG] Converting block Extrusion to Brep.");
+                        Logger.LogDebug("Converting block Extrusion to Brep.");
                         var extrusionBrep = ext.ToBrep();
                         if (extrusionBrep != null)
                             breps.Add(extrusionBrep);
                         else
-                            RhinoApp.WriteLine("⚠️ Failed to convert Extrusion to Brep.");
+                            Logger.LogError("Failed to convert Extrusion to Brep.");
                     }
                 }
 
                 if (curves.Count > 0)
                 {
-                    RhinoApp.WriteLine($"[DEBUG] {curves.Count} curve(s) found in block definition. Proceeding with pipe generation.");
+                    Logger.LogDebug($"{curves.Count} curve(s) found in block definition. Proceeding with pipe generation.");
                     double pipeRadius = 0.1;
                     Brep joinedPipe = ConvertMultipleCurvesToJoinedPipe(curves, doc, pipeRadius);
                     if (joinedPipe == null)
                     {
-                        RhinoApp.WriteLine("Failed to generate pipe geometry from block curves.");
+                        Logger.LogError("Failed to generate pipe geometry from block curves.");
                         return null;
                     }
                     geometry = joinedPipe;
@@ -220,27 +222,27 @@ namespace Axys
                 }
                 else
                 {
-                    RhinoApp.WriteLine($"[DEBUG] Curve count: {curves.Count}, Brep count: {breps.Count}, Mesh count: {meshes.Count}");
-                    RhinoApp.WriteLine("No supported geometry found in block definition.");
+                    Logger.LogDebug($"Curve count: {curves.Count}, Brep count: {breps.Count}, Mesh count: {meshes.Count}");
+                    Logger.LogDebug("No supported geometry found in block definition.");
                     return null;
                 }
             }
             else if (!(geometry is Brep) && !(geometry is Mesh))
             {
-                RhinoApp.WriteLine($"Geometry type before conversion: {geometry.GetType().Name}");
+                Logger.LogDebug($"Geometry type before conversion: {geometry.GetType().Name}");
                 if (geometry is PolyCurve polyCurve)
                 {
                     double pipeRadius = 0.1;
                     Brep joinedPipe = ConvertPolyCurveToBrep(polyCurve, doc, pipeRadius);
                     if (joinedPipe == null)
                     {
-                        RhinoApp.WriteLine("Failed to convert polycurve to pipe brep.");
+                        Logger.LogError("Failed to convert polycurve to pipe brep.");
                         return null;
                     }
                     var pipeMeshes2 = Mesh.CreateFromBrep(joinedPipe, MeshingParameters.Default);
                     if (pipeMeshes2 == null || pipeMeshes2.Length == 0)
                     {
-                        RhinoApp.WriteLine("❌ Failed to mesh the pipe brep.");
+                        Logger.LogError("Failed to mesh the pipe brep.");
                         return null;
                     }
                     return pipeMeshes2[0];
@@ -253,20 +255,20 @@ namespace Axys
                         doc.ModelAbsoluteTolerance, doc.ModelAngleToleranceRadians);
                     if (pipe == null || pipe.Length == 0)
                     {
-                        RhinoApp.WriteLine("Failed to convert single curve to pipe.");
+                        Logger.LogError("Failed to convert single curve to pipe.");
                         return null;
                     }
                     var pipeMeshes3 = Mesh.CreateFromBrep(pipe[0], MeshingParameters.Default);
                     if (pipeMeshes3 == null || pipeMeshes3.Length == 0)
                     {
-                        RhinoApp.WriteLine("❌ Failed to mesh the single pipe brep.");
+                        Logger.LogError("Failed to mesh the single pipe brep.");
                         return null;
                     }
                     return pipeMeshes3[0];
                 }
                 else
                 {
-                    RhinoApp.WriteLine("Selected geometry is not supported for export.");
+                    Logger.LogError("Selected geometry is not supported for export.");
                     return null;
                 }
             }
@@ -278,7 +280,7 @@ namespace Axys
         {
             if (geometry == null)
             {
-                RhinoApp.WriteLine("❌ Failed to prepare geometry for export.");
+                Logger.LogError("Failed to prepare geometry for export.");
                 return Guid.Empty;
             }
 
@@ -286,16 +288,16 @@ namespace Axys
             var bbox = geometry.GetBoundingBox(true);
             // 2. Compute translation that moves the BOX CENTER to the origin
             var baseCenter = new Point3d(
-    (bbox.Min.X + bbox.Max.X) / 2.0,
-    (bbox.Min.Y + bbox.Max.Y) / 2.0,
-    bbox.Min.Z
-);
+                (bbox.Min.X + bbox.Max.X) / 2.0,
+                (bbox.Min.Y + bbox.Max.Y) / 2.0,
+                bbox.Min.Z
+            );
             var offset = new Vector3d(-baseCenter.X, -baseCenter.Y, -baseCenter.Z);
             var xformToOrigin = Transform.Translation(offset);
 
             // 3. Apply translation
             geometry.Transform(xformToOrigin);
-            RhinoApp.WriteLine($"[DEBUG] Geometry translated by {offset} to place its center at origin.");
+            Logger.LogDebug($"Geometry translated by {offset} to place its center at origin.");
 
             Guid copyId = Guid.Empty;
             if (geometry is Brep brep)
@@ -309,11 +311,11 @@ namespace Axys
 
             if (copyId == Guid.Empty)
             {
-                RhinoApp.WriteLine("⚠️ Temporary copy creation failed. Attempting export with original geometry.");
+                Logger.LogWarning("Temporary copy creation failed. Attempting export with original geometry.");
             }
             else
             {
-                RhinoApp.WriteLine("✅ Temporary object added for export. Proceeding...");
+                Logger.LogInfo("Temporary object added for export. Proceeding...");
             }
             return copyId;
         }
@@ -326,16 +328,16 @@ namespace Axys
                 if (obj != null)
                 {
                     doc.Objects.Delete(obj, true);
-                    RhinoApp.WriteLine($"[DEBUG] Temporary object {copyId} deleted.");
+                    Logger.LogDebug($"Temporary object {copyId} deleted.");
                 }
                 else
                 {
-                    RhinoApp.WriteLine($"[DEBUG] Temporary object {copyId} not found for deletion.");
+                    Logger.LogWarning($"Temporary object {copyId} not found for deletion.");
                 }
             }
             else
             {
-                RhinoApp.WriteLine("[DEBUG] No temporary object to delete.");
+                Logger.LogDebug("No temporary object to delete.");
             }
         }
 
@@ -356,8 +358,8 @@ namespace Axys
             Directory.CreateDirectory(tempDir);
             string fileName = $"Object_{objectId}.usdz";
             string path = Path.Combine(tempDir, fileName);
-            RhinoApp.WriteLine($"[DEBUG] File will be saved as: {fileName}");
-            RhinoApp.WriteLine($"[DEBUG] Exporting object {objectId} to temporary path: {path}");
+            Logger.LogDebug($"File will be saved as: {fileName}");
+            Logger.LogDebug($"Exporting object {objectId} to temporary path: {path}");
             ExportToVision.LastExportedUSDZPath = path;
 
             // Origin calculation block
@@ -365,8 +367,9 @@ namespace Axys
             var rhinoObj = doc.Objects.Find(objectId);
             if (rhinoObj is InstanceObject)
             {
-                origin = CalcolaOrigineIstanzaBlocco(rhinoObj);
-                RhinoApp.WriteLine($"[DEBUG] Origin from block instance center: {origin}");
+                origin = CalculateBlockInstanceOrigin
+    (rhinoObj);
+                Logger.LogDebug($"Origin from block instance center: {origin}");
             }
             else
             {
@@ -392,7 +395,7 @@ namespace Axys
                 }
 
                 origin = new Point3d(centerX, centerY, minZ);
-                RhinoApp.WriteLine($"[DEBUG] Origin from geometry bounding box: {origin}");
+                Logger.LogDebug($"Origin from geometry bounding box: {origin}");
             }
 
             string originString = $"{origin.X},{origin.Y},{origin.Z}";
@@ -405,17 +408,17 @@ namespace Axys
                 "_-ExportWithOrigin {0} \"{1}\" _Enter _Enter",
                 originString, path);
 
-            RhinoApp.WriteLine($"[DEBUG] Export script command: {script}");
+            Logger.LogDebug($"Export script command: {script}");
             RhinoApp.RunScript(script, false);
 
             bool fileExists = File.Exists(path);
             if (fileExists)
             {
-                RhinoApp.WriteLine($"[DEBUG] File found after export: {path}");
+                Logger.LogDebug($"File found after export: {path}");
             }
             else
             {
-                RhinoApp.WriteLine($"[DEBUG] File NOT found after export: {path}");
+                Logger.LogWarning($"File NOT found after export: {path}");
             }
 
             return new ExportResult
@@ -426,22 +429,22 @@ namespace Axys
             };
         }
 
-        public static Point3d CalcolaOrigineIstanzaBlocco(RhinoObject obj)
+        public static Point3d CalculateBlockInstanceOrigin(RhinoObject obj)
         {
             if (!(obj is InstanceObject instanceObj))
             {
-                RhinoApp.WriteLine("L'oggetto selezionato non è un'istanza di blocco.");
+                Logger.LogWarning("Selected object is not an block.");
                 return Point3d.Unset;
             }
 
             var instanceDef = instanceObj.InstanceDefinition;
             if (instanceDef == null)
             {
-                RhinoApp.WriteLine("Impossibile recuperare la definizione del blocco.");
+                Logger.LogWarning("Impossible to find the instance definition for the selected block.");
                 return Point3d.Unset;
             }
 
-            var geometrieTrasformate = new List<GeometryBase>();
+            var geometryTrasformate = new List<GeometryBase>();
             foreach (var objId in instanceDef.GetObjectIds())
             {
                 var rhinoObj = instanceObj.Document.Objects.Find(objId);
@@ -451,22 +454,22 @@ namespace Axys
                 if (geo == null) continue;
 
                 geo.Transform(instanceObj.InstanceXform);
-                geometrieTrasformate.Add(geo);
+                geometryTrasformate.Add(geo);
             }
 
-            if (geometrieTrasformate.Count == 0)
+            if (geometryTrasformate.Count == 0)
             {
-                RhinoApp.WriteLine("Nessuna geometria trovata nella definizione del blocco.");
+                Logger.LogWarning("No geometry found in the block instance definition.");
                 return Point3d.Unset;
             }
 
-            BoundingBox bboxCombinata = geometrieTrasformate[0].GetBoundingBox(true);
-            for (int i = 1; i < geometrieTrasformate.Count; i++)
+            BoundingBox bboxCombination = geometryTrasformate[0].GetBoundingBox(true);
+            for (int i = 1; i < geometryTrasformate.Count; i++)
             {
-                bboxCombinata.Union(geometrieTrasformate[i].GetBoundingBox(true));
+                bboxCombination.Union(geometryTrasformate[i].GetBoundingBox(true));
             }
 
-            return bboxCombinata.Center;
+            return bboxCombination.Center;
         }
 
         public class ScriptPipeMeshBlockCommand : Command
@@ -476,63 +479,63 @@ namespace Axys
             public override string EnglishName => "ScriptPipeMeshBlock";
 
             protected override Result RunCommand(RhinoDoc doc, RunMode mode)
-{
-    // 1. Seleziona una o più curve
-    ObjRef[] objRefs;
-    Result rc = RhinoGet.GetMultipleObjects(
-        "Select curves to pipe, mesh, and block",
-        false,
-        ObjectType.Curve,
-        out objRefs);
+            {
+                // Select curves
+                ObjRef[] objRefs;
+                Result rc = RhinoGet.GetMultipleObjects(
+                    "Select curves to pipe, mesh, and block",
+                    false,
+                    ObjectType.Curve,
+                    out objRefs);
 
-    if (rc != Result.Success || objRefs == null || objRefs.Length == 0)
-    {
-        RhinoApp.WriteLine("No valid curves selected.");
-        return Result.Cancel;
-    }
+                if (rc != Result.Success || objRefs == null || objRefs.Length == 0)
+                {
+                    Logger.LogWarning("No valid curves selected.");
+                    return Result.Cancel;
+                }
 
-    // 2. Pulisci la selezione precedente
-    doc.Objects.UnselectAll();
+                // Clear previous selections
+                doc.Objects.UnselectAll();
 
-    // 3. Seleziona le curve appena scelte
-    foreach (var o in objRefs)
-        doc.Objects.Select(o.ObjectId);
+                // Select the chosen curves
+                foreach (var o in objRefs)
+                    doc.Objects.Select(o.ObjectId);
 
-    doc.Views.Redraw();
+                doc.Views.Redraw();
 
-    // 4. Pipe (raggio 0.3 → personalizza se serve)
-    RhinoApp.RunScript("-_Pipe 0.3 0.3 _Enter _Enter", false);
+                // Pipe each curve
+                RhinoApp.RunScript("-_Pipe 0.3 0.3 _Enter _Enter", false);
 
-    // 5. Mesh
-    RhinoApp.RunScript("-_Mesh _Enter _Enter", false);
+                // Mesh
+                RhinoApp.RunScript("-_Mesh _Enter _Enter", false);
 
-    // 6. Raccogli i mesh creati di recente (assumiamo tanti quanti le curve)
-    int expectedMeshes = objRefs.Length;
-    var meshObjs = doc.Objects.GetObjectList(ObjectType.Mesh)
-        .OrderByDescending(o => o.RuntimeSerialNumber)
-        .Take(expectedMeshes)
-        .ToList();
+                // Retrieve the last created mesh objects
+                int expectedMeshes = objRefs.Length;
+                var meshObjs = doc.Objects.GetObjectList(ObjectType.Mesh)
+                    .OrderByDescending(o => o.RuntimeSerialNumber)
+                    .Take(expectedMeshes)
+                    .ToList();
 
-    if (meshObjs.Count == 0)
-    {
-        RhinoApp.WriteLine("No meshes found for block creation.");
-        return Result.Failure;
-    }
+                if (meshObjs.Count == 0)
+                {
+                    Logger.LogError("No meshes found for block creation.");
+                    return Result.Failure;
+                }
 
-    // 7. Seleziona i mesh
-    doc.Objects.UnselectAll();
-    foreach (var m in meshObjs)
-        doc.Objects.Select(m.Id);
+                // Select the created meshes
+                doc.Objects.UnselectAll();
+                foreach (var m in meshObjs)
+                    doc.Objects.Select(m.Id);
 
-    // 8. Crea il blocco
-    var basePt = new Point3d(0, 0, 0);
-    string idList = string.Join(" ", meshObjs.Select(m => m.Id));
-    RhinoApp.RunScript($"-_Block {idList} {basePt.X},{basePt.Y},{basePt.Z} _Enter", false);
+                // Create a block from the selected meshes
+                var basePt = new Point3d(0, 0, 0);
+                string idList = string.Join(" ", meshObjs.Select(m => m.Id));
+                RhinoApp.RunScript($"-_Block {idList} {basePt.X},{basePt.Y},{basePt.Z} _Enter", false);
 
-    RhinoApp.WriteLine("✅ Pipe → Mesh → Block completed.");
+                Logger.LogDebug("Pipe → Mesh → Block pipeline completed.");
 
-    return Result.Success;
-}
+                return Result.Success;
+            }
         }
     }
 }

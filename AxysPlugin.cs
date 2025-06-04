@@ -13,7 +13,6 @@ namespace Axys
     /// "Show All Files" to see it in the "Solution Explorer" window).</para>
     ///</summary>
     public class AxysPlugin : Rhino.PlugIns.PlugIn
-    public class AxysPlugin : Rhino.PlugIns.PlugIn
     {
         public AxysPlugin()
         {
@@ -21,7 +20,6 @@ namespace Axys
         }
 
         ///<summary>Gets the only instance of the AxysRhinoPlugin plug-in.</summary>
-        public static AxysPlugin Instance { get; private set; }
         public static AxysPlugin Instance { get; private set; }
 
         protected override LoadReturnCode OnLoad(ref string errorMessage)

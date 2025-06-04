@@ -26,13 +26,13 @@ namespace Axys
         {
             try
             {
-                RhinoApp.WriteLine("Starting Axys...");
+                Logger.LogInfo("Starting Axys...");
                 WebSocketServerManager.StartServer();
                 return Result.Success;
             }
             catch (Exception ex)
             {
-                RhinoApp.WriteLine($"Failed to start Axys: {ex.Message}");
+                Logger.LogError($"Failed to start Axys: {ex.Message}");
                 return Result.Failure;
             }
         }
@@ -63,11 +63,11 @@ namespace Axys
         {
             dynamic data = JsonConvert.DeserializeObject(message);
             string commandValue = data.command;
-            RhinoApp.WriteLine("Deserialized command: " + commandValue);
+            Logger.LogInfo("Deserialized command: " + commandValue);
 
             if (commandValue != "ExportUSDZ")
             {
-                RhinoApp.WriteLine("Command is not ExportUSDZ.");
+                Logger.LogWarning("Command is not ExportUSDZ.");
                 return null;
             }
             // Prepare the object for export assignin id
@@ -80,11 +80,11 @@ namespace Axys
             {
                 string name = selectedObj.Name ?? "(unnamed)";
                 string layer = doc.Layers[selectedObj.Attributes.LayerIndex].Name;
-                RhinoApp.WriteLine($"[INFO] Selected object details: ID={SelectedObjectId}, Type={selectedObj.ObjectType}, Name={name}, Layer={layer}");
+                Logger.LogInfo($"Selected object details: ID={SelectedObjectId}, Type={selectedObj.ObjectType}, Name={name}, Layer={layer}");
             }
             else
             {
-                RhinoApp.WriteLine("Selected object not found in the document.");
+                Logger.LogError("Selected object not found in the document.");
                 WebSocketServerManager.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", "Selected object not found in the document."));
                 return null;
             }
@@ -98,44 +98,32 @@ namespace Axys
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
             Result selResult = RhinoGet.GetOneObject("Select object to export", false, ObjectType.AnyObject, out ObjRef objRef);
-if (selResult != Result.Success || objRef == null || objRef.Object() == null)
-{
-    RhinoApp.WriteLine("No valid object selected. Launching ScriptPipeMeshBlock…");
+            if (selResult != Result.Success || objRef == null || objRef.Object() == null)
+            {
+                Logger.LogInfo("No valid object selected. Launching ScriptPipeMeshBlock…");
+                RhinoApp.RunScript("_ScriptPipeMeshBlock", false);
 
-    // esegui il comando che crea pipe→mesh→block
-    RhinoApp.RunScript("_ScriptPipeMeshBlock", false);
+                var recentBlock = doc.Objects.GetObjectList(ObjectType.InstanceReference)
+                                            .OrderByDescending(o => o.RuntimeSerialNumber)
+                                            .FirstOrDefault();
 
-    // prova a recuperare il blocco più recente creato
-    var recentBlock = doc.Objects.GetObjectList(ObjectType.InstanceReference)
-                                 .OrderByDescending(o => o.RuntimeSerialNumber)
-                                 .FirstOrDefault();
+                if (recentBlock == null)
+                {
+                    Logger.LogError("Fallback failed: no block instance found.");
+                    return Result.Cancel;
+                }
 
-    if (recentBlock == null)
-    {
-        RhinoApp.WriteLine("Fallback failed: no block instance found.");
-        return Result.Cancel;
-    }
-
-    SelectedObjectId = recentBlock.Id;
-    RhinoApp.WriteLine($"[DEBUG] Fallback OK. Selected block ID: {SelectedObjectId}");
-    return Result.Success;   // prosegue l’export con il nuovo blocco
-}
-
-// se l’utente ha selezionato un oggetto valido
-SelectedObjectId = objRef.Object().Id;
-RhinoApp.WriteLine($"[DEBUG] Selected Object ID: {SelectedObjectId}");
-return Result.Success;
+                SelectedObjectId = recentBlock.Id;
+                Logger.LogDebug($" Fallback OK. Selected block ID: {SelectedObjectId}");
+                return Result.Success;
+            }
 
             SelectedObjectId = objRef.Object().Id;
-            RhinoApp.WriteLine($"[DEBUG] Selected Object ID: {SelectedObjectId}");
-            RhinoApp.WriteLine($"Tracking object with ID: {SelectedObjectId}");
-            // // Serialize to JSON
-            // return JsonConvert.SerializeObject(objects, Formatting.Indented);
+            Logger.LogDebug($"Tracking object with ID: {SelectedObjectId}");
             return Result.Success;
         }
 
         // Function called when an export command is received via WebSocket
-        // ✅ CHECKPOINT — Stable export for polylines and block instances (Brep geometry).
         // Curve support still under development. This code path is considered reliable.
         public static Result ExportUSDZ(dynamic message)
         {
@@ -147,7 +135,7 @@ return Result.Success;
         {
             if (string.IsNullOrEmpty(LastExportedUSDZPath) || !File.Exists(LastExportedUSDZPath))
             {
-                RhinoApp.WriteLine("No valid exported USDZ file found.");
+                Logger.LogError("No valid exported USDZ file found.");
                 WebSocketServerManager.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", "No valid exported USDZ file found."));
 
                 return null;
@@ -156,12 +144,12 @@ return Result.Success;
             try
             {
                 byte[] fileBytes = File.ReadAllBytes(LastExportedUSDZPath); // Read the USDZ file as bytes
-                RhinoApp.WriteLine($"USDZ file loaded successfully. Size: {fileBytes.Length} bytes"); // Log the success
+                Logger.LogDebug($"USDZ file loaded successfully. Size: {fileBytes.Length} bytes"); // Log the success
                 return fileBytes; // Return the byte array of the USDZ file
             }
             catch (Exception ex) // Catch any error that occurs while reading the file
             {
-                RhinoApp.WriteLine($"Error reading USDZ file: {ex.Message}"); // Log the error message
+                Logger.LogError($"Error reading USDZ file: {ex.Message}"); // Log the error message
                 WebSocketServerManager.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", $"Error reading USDZ file: {ex.Message}"));
 
                 return null; // Return null in case of an error
@@ -180,20 +168,20 @@ return Result.Success;
             GeometryBase geometry = GeometryManager.PrepareGeometryForExport(doc, selectedObj);
             if (geometry == null)
             {
-                RhinoApp.WriteLine($"Geometry preparation failed. Type: {selectedObj.Geometry?.GetType().Name ?? "null"}");
+                Logger.LogError($"Geometry preparation failed. Type: {selectedObj.Geometry?.GetType().Name ?? "null"}");
                 WebSocketServerManager.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", $"Geometry preparation failed. Type: {selectedObj.Geometry?.GetType().Name ?? "null"}"));
                 return;
             }
             else
             {
-                RhinoApp.WriteLine($"Geometry prepared successfully. Type: {geometry.GetType().Name}");
+                Logger.LogInfo($"Geometry prepared successfully. Type: {geometry.GetType().Name}");
             }
 
             //IN TESTING: This is a temporary copy of the object to be exported
             var exportResult = GeometryManager.ExportSelectedObjectToUSDZ(doc, geometry, selectedObj.Id);
             if (!exportResult.Success)
             {
-                RhinoApp.WriteLine("Export failed. No USDZ file generated.");
+                Logger.LogError("Export failed. No USDZ file generated.");
                 WebSocketServerManager.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", "Export failed. No USDZ file generated."));
                 return;
             }
@@ -203,7 +191,7 @@ return Result.Success;
             if (exportResult.TemporaryCopyId != Guid.Empty)
             {
                 doc.Objects.Delete(exportResult.TemporaryCopyId, true);
-                RhinoApp.WriteLine("Temporary object deleted after export.");
+                Logger.LogDebug("Temporary object deleted after export.");
             }
         }
     }
@@ -228,7 +216,7 @@ namespace Axys.Utilities
 
             if (rc != Result.Success || objRef.Length == 0)
             {
-                RhinoApp.WriteLine("No object was selected.");
+                Logger.LogError("No object was selected.");
                 return Result.Cancel;
             }
 
@@ -240,15 +228,15 @@ namespace Axys.Utilities
                 RhinoObject selectedObj = objRef[i].Object();
                 if (selectedObj == null)
                 {
-                    RhinoApp.WriteLine("Failed to get the selected object.");
+                    Logger.LogError("Failed to get the selected object.");
                     return Result.Failure;
                 }
 
                 Guid objectId = selectedObj.Id;
-                RhinoApp.WriteLine($"Selected object: {objectId}");
+                Logger.LogInfo($"Selected object: {objectId}");
 
                 Point3d worldPosition = positionManager.GetAbsolutePosition(objectId);
-                RhinoApp.WriteLine($"Start object position: {worldPosition}");
+                Logger.LogDebug($"Start object position: {worldPosition}");
 
                 RhinoObjectData objectData = positionManager.CreateObjectData(objectId);
                 objectDataArray.Add(objectData);
@@ -260,11 +248,11 @@ namespace Axys.Utilities
             if (WebSocketServerManager.IsServerRunning())
             {
                 WebSocketServerManager.BroadcastMessage(jsonMessage);
-                RhinoApp.WriteLine("Objects tracking information broadcasted.");
+                Logger.LogInfo("Objects tracking information broadcasted.");
             }
             else
             {
-                RhinoApp.WriteLine("Warning: WebSocket server connection is not established. Start the server first using WebSocketServerStart command and connect to it with the external device.");
+                Logger.LogError("Warning: WebSocket server connection is not established. Start the server first using Axys command and connect to it with the external device.");
                 return Result.Failure;
             }
 

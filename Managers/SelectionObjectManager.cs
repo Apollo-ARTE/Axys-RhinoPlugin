@@ -16,20 +16,18 @@ namespace Axys
         {
             if (currentId == Guid.Empty)
             {
-                RhinoApp.WriteLine("No preselected object found. Attempting fallback user selection...");
-                RhinoApp.WriteLine($"[DEBUG BEFORE FALLBACK] Current SelectedObjectId: {currentId}");
+                Logger.LogWarning("No preselected object found. Attempting fallback user selection...");
 
                 var rc = RhinoGet.GetOneObject("Select object to export", false, ObjectType.AnyObject, out ObjRef fallbackRef);
                 if (rc == Result.Success && fallbackRef?.Object() != null)
                 {
                     var fallbackId = fallbackRef.Object().Id;
-                    RhinoApp.WriteLine($"[DEBUG] Fallback selection ID: {fallbackId}");
-                    RhinoApp.WriteLine("Selected object via fallback: " + fallbackId);
+                    Logger.LogInfo($" Selected object via fallback: {fallbackId}");
                     return fallbackId;
                 }
 
-                RhinoApp.WriteLine($"[DEBUG] RhinoGet.GetOneObject result: {rc}");
-                RhinoApp.WriteLine("Fallback selection failed.");
+                Logger.LogDebug($" RhinoGet.GetOneObject result: {rc}");
+                Logger.LogError("Fallback selection failed.");
                 return currentId;
             }
             return currentId;
