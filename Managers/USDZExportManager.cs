@@ -3,15 +3,15 @@ using System.IO;
 using Newtonsoft.Json;
 using Rhino;
 using System.Threading.Tasks;
-using RhinoPlugin;
+using Axys;
 
-namespace RhinoPlugin
+namespace Axys
 {
     public static class USDZExportManager
     {
         public static async Task ExecuteExportAsync(byte[] fileBytes, string filePath)
         {
-            RhinoApp.WriteLine($"[DEBUG] Preparing to send {fileBytes.Length} bytes via WebSocket.");
+            RhinoApp.WriteLine($"[DEBUG] Preparing to send {fileBytes.Length} bytes via Axys.");
                 // Chunk and send the file via WebSocket
                 int chunkSize = 1024 * 32; // 32 KB
                 int offset = 0;
@@ -48,7 +48,7 @@ namespace RhinoPlugin
                 });
                 RhinoApp.WriteLine($"[DEBUG] Sending metadata: {metadata}");
                 WebSocketServerManager.BroadcastMessage(metadata);
-                RhinoApp.WriteLine("📤 USDZ file broadcasted to WebSocket clients.");
+                RhinoApp.WriteLine("📤 USDZ file broadcasted to Axys clients.");
             
         }
     }

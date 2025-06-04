@@ -11,10 +11,10 @@ using Newtonsoft.Json;
 using Rhino.DocObjects;
 using System.Threading;
 using System.Threading.Tasks;
-using RhinoPlugin.Utilities;
+using Axys.Utilities;
 using Rhino.Commands;
 
-namespace RhinoPlugin
+namespace Axys
 {
     public static class WebSocketServerManager
     {
@@ -32,14 +32,14 @@ namespace RhinoPlugin
             {
                 socket.OnOpen = () =>
                 {
-                    RhinoApp.WriteLine("WebSocket client connected.");
+                    RhinoApp.WriteLine("Axys client connected.");
                     allSockets.Add(socket);
                     // Send a welcome message with a timestamp
                     BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "info", description: "Connection successful"));
                 };
                 socket.OnClose = () =>
                 {
-                    RhinoApp.WriteLine("WebSocket client disconnected.");
+                    RhinoApp.WriteLine("Axys client disconnected.");
                     allSockets.Remove(socket);
                 };
                 socket.OnMessage = message =>
@@ -83,7 +83,7 @@ namespace RhinoPlugin
                     }
                 };
             });
-            RhinoApp.WriteLine("WebSocket server started on ws://" + ip + ":" + port + ", awaiting for connection...");
+            RhinoApp.WriteLine("Axys started on ws://" + ip + ":" + port + ", awaiting for connection...");
         }
         public static bool IsServerRunning()
         {

@@ -3,7 +3,7 @@ using Rhino;
 using Rhino.PlugIns;
 using Rhino.Commands;
 
-namespace RhinoPlugin
+namespace Axys
 {
     ///<summary>
     /// <para>Every RhinoCommon .rhp assembly must have one and only one PlugIn-derived
@@ -13,15 +13,15 @@ namespace RhinoPlugin
     /// attributes in AssemblyInfo.cs (you might need to click "Project" ->
     /// "Show All Files" to see it in the "Solution Explorer" window).</para>
     ///</summary>
-    public class RhinoPluginPlugin : Rhino.PlugIns.PlugIn
+    public class AxysPlugin : Rhino.PlugIns.PlugIn
     {
-        public RhinoPluginPlugin()
+        public AxysPlugin()
         {
             Instance = this;
         }
         
         ///<summary>Gets the only instance of the RhinoPluginPlugin plug-in.</summary>
-        public static RhinoPluginPlugin Instance { get; private set; }
+        public static AxysPlugin Instance { get; private set; }
 
     }
 }
