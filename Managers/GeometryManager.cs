@@ -1,58 +1,26 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 using Rhino;
 using Rhino.Commands;
 using Rhino.DocObjects;
 using Rhino.Geometry;
 using Rhino.Input;
 using RhinoPlugin;
-using System;
-using System.Collections.Generic;
-using System.IO;
 
 
 namespace RhinoPlugin
 {
-    public static class GeometryManager
+    public class GeometryManager
     {
-        // New method: Attempts to get a joined Brep from user selection.
-        public static Brep GetJoinedBrepFromSelection(RhinoDoc doc)
+        private readonly ILogger<GeometryManager> _logger;
+
+        public GeometryManager(ILogger<GeometryManager> logger)
         {
-            ObjRef[] objRefs;
-            Result rc = RhinoGet.GetMultipleObjects("Select objects to display in VisionPRO", false, ObjectType.Surface | ObjectType.PolysrfFilter, out objRefs);
-
-            if (rc != Result.Success || objRefs == null || objRefs.Length == 0)
-            {
-                RhinoApp.WriteLine("No objects were selected.");
-                return null;
-            }
-
-            var breps = objRefs.Select(o => o.Brep()).Where(b => b != null).ToList();
-
-            if (breps.Count == 1)
-            {
-                RhinoApp.WriteLine("Single brep selected.");
-                return breps[0];
-            }
-            else if (breps.Count > 1)
-            {
-                double tol = doc.ModelAbsoluteTolerance;
-                var joined = Brep.JoinBreps(breps, tol);
-                if (joined != null && joined.Length > 0)
-                {
-                    RhinoApp.WriteLine($"Successfully joined into {joined.Length} brep(s).");
-                    return joined[0];
-                }
-                else
-                {
-                    RhinoApp.WriteLine("Failed to join breps.");
-                    return null;
-                }
-            }
-
-            return null;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
-
-
 
         // Converts a PolyCurve into a joined Brep pipe. Each segment is piped and joined together.
         // polyCurve - The PolyCurve to convert.
@@ -81,6 +49,7 @@ namespace RhinoPlugin
                 }
                 else
                 {
+                    // _logger.LogWarning($"Created {pipeBreps.Length} pipe breps from subcurve.");
                     RhinoApp.WriteLine($"Created {pipeBreps.Length} pipe breps from subcurve.");
                 }
             }
@@ -103,8 +72,6 @@ namespace RhinoPlugin
             }
             return joined[0];
         }
-
-
 
         // Converts a list of Curve objects into a single joined Brep pipe.
         // curves - The list of curves to pipe.
