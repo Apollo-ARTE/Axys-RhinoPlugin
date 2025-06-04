@@ -2,7 +2,7 @@
 using Rhino.PlugIns;
 using Microsoft.Extensions.Logging;
 
-namespace RhinoPlugin
+namespace Axys
 {
     ///<summary>
     /// <para>Every RhinoCommon .rhp assembly must have one and only one PlugIn-derived
@@ -12,36 +12,27 @@ namespace RhinoPlugin
     /// attributes in AssemblyInfo.cs (you might need to click "Project" ->
     /// "Show All Files" to see it in the "Solution Explorer" window).</para>
     ///</summary>
-    public class AxysRhinoPlugin : Rhino.PlugIns.PlugIn
+    public class AxysPlugin : Rhino.PlugIns.PlugIn
     {
-        private static ILogger<AxysRhinoPlugin> _logger;
-        public AxysRhinoPlugin()
+        public AxysPlugin()
         {
             Instance = this;
         }
 
         ///<summary>Gets the only instance of the AxysRhinoPlugin plug-in.</summary>
-        public static AxysRhinoPlugin Instance { get; private set; }
+        public static AxysPlugin Instance { get; private set; }
 
         protected override LoadReturnCode OnLoad(ref string errorMessage)
         {
             try
             {
-                // Initialize logging first
-                LoggingSetup.Initialize();
-                _logger = LoggingSetup.GetLogger<AxysRhinoPlugin>();
-
-                _logger.LogInformation("Plugin loading started");
-
-                // Your other initialization code here
-
-                _logger.LogInformation("Plugin loaded successfully");
+                Logger.LogInfo("Plugin loaded successfully");
                 return LoadReturnCode.Success;
             }
             catch (Exception ex)
             {
                 errorMessage = $"Failed to load plugin: {ex.Message}";
-                _logger?.LogError(ex, "Plugin failed to load");
+                Logger.LogError(ex, "Plugin failed to load");
                 return LoadReturnCode.ErrorShowDialog;
             }
         }
@@ -53,13 +44,12 @@ namespace RhinoPlugin
         {
             try
             {
-                _logger?.LogInformation("Plugin shutting down");
-                LoggingSetup.Cleanup();
+                Logger.LogInfo("Plugin shutting down");
             }
             catch (Exception ex)
             {
                 // Log if possible, but don't throw during shutdown
-                _logger?.LogError(ex, "Error during plugin shutdown");
+                Logger.LogError(ex, "Error during plugin shutdown");
             }
             finally
             {

@@ -15,12 +15,6 @@ namespace RhinoPlugin
 {
     public class GeometryManager
     {
-        private readonly ILogger<GeometryManager> _logger;
-
-        public GeometryManager(ILogger<GeometryManager> logger)
-        {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        }
 
         // Converts a PolyCurve into a joined Brep pipe. Each segment is piped and joined together.
         // polyCurve - The PolyCurve to convert.
@@ -49,7 +43,7 @@ namespace RhinoPlugin
                 }
                 else
                 {
-                    // _logger.LogWarning($"Created {pipeBreps.Length} pipe breps from subcurve.");
+                    Logger.LogWarning($"Created {pipeBreps.Length} pipe breps from subcurve.");
                     RhinoApp.WriteLine($"Created {pipeBreps.Length} pipe breps from subcurve.");
                 }
             }
