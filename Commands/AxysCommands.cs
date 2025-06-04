@@ -11,28 +11,28 @@ using System.Text;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using RhinoPlugin;
-using RhinoPlugin.Utilities;
+using Axys;
+using Axys.Utilities;
 
-namespace RhinoPlugin
+namespace Axys
 {
-    // Command to start the WebSocket server
-    public class WebSocketServerStartCommand : Command
+    // Command to start the WebSocket server that allows axys to connect and receive data.
+    public class StartAxysCommand : Command
     {
 
-        public static WebSocketServerStartCommand Instance { get; private set; }
-        public override string EnglishName => "WebSocketServerStart";
+        public static StartAxysCommand Instance { get; private set; }
+        public override string EnglishName => "Axys";
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
             try
             {
-                RhinoApp.WriteLine("Starting WebSocket server...");
+                RhinoApp.WriteLine("Starting Axys...");
                 WebSocketServerManager.StartServer();
                 return Result.Success;
             }
             catch (Exception ex)
             {
-                RhinoApp.WriteLine($"Failed to start WebSocket server: {ex.Message}");
+                RhinoApp.WriteLine($"Failed to start Axys: {ex.Message}");
                 return Result.Failure;
             }
         }
@@ -216,7 +216,7 @@ public class RhinoObjectInfo
     public string ObjectType { get; set; }
 }
 
-namespace RhinoPlugin.Utilities
+namespace Axys.Utilities
 {
     public static class CommandUtilities
     {

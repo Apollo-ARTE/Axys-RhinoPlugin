@@ -16,9 +16,9 @@
   <PropertyGroup>
     <!-- Specifies information for Assembly and Yak -->
     <Version>1.0</Version>
-    <Title>RhinoPlugin</Title>
-    <Company>RhinoPlugin Authors</Company>
-    <Description>Description of RhinoPlugin</Description>
+    <Title>Axys</Title>
+    <Company>Apollo</Company>
+    <Description>Description of Axys</Description>
   </PropertyGroup>
   
   <ItemGroup>

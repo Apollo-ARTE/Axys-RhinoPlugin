@@ -2,7 +2,7 @@
 using Rhino.PlugIns;
 using Microsoft.Extensions.Logging;
 
-namespace RhinoPlugin
+namespace Axys
 {
     ///<summary>
     /// <para>Every RhinoCommon .rhp assembly must have one and only one PlugIn-derived
@@ -12,16 +12,16 @@ namespace RhinoPlugin
     /// attributes in AssemblyInfo.cs (you might need to click "Project" ->
     /// "Show All Files" to see it in the "Solution Explorer" window).</para>
     ///</summary>
-    public class AxysRhinoPlugin : Rhino.PlugIns.PlugIn
+    public class AxysPlugin : Rhino.PlugIns.PlugIn
     {
-        private static ILogger<AxysRhinoPlugin> _logger;
-        public AxysRhinoPlugin()
+        private static ILogger<AxysPlugin> _logger;
+        public AxysPlugin()
         {
             Instance = this;
         }
 
         ///<summary>Gets the only instance of the AxysRhinoPlugin plug-in.</summary>
-        public static AxysRhinoPlugin Instance { get; private set; }
+        public static AxysPlugin Instance { get; private set; }
 
         protected override LoadReturnCode OnLoad(ref string errorMessage)
         {
@@ -29,7 +29,7 @@ namespace RhinoPlugin
             {
                 // Initialize logging first
                 LoggingSetup.Initialize();
-                _logger = LoggingSetup.GetLogger<AxysRhinoPlugin>();
+                _logger = LoggingSetup.GetLogger<AxysPlugin>();
 
                 _logger.LogInformation("Plugin loading started");
 
