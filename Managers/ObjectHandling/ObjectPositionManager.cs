@@ -5,8 +5,11 @@ using Rhino.Geometry;
 using Rhino.Input;
 using Rhino.Input.Custom;
 using Rhino.DocObjects;
-public class ObjectPositionManager 
+
+namespace Axys.Managers.ObjectHandling
 {
+    public class ObjectPositionManager
+    {
 
     private RhinoDoc _document;
 
@@ -99,4 +102,5 @@ public class ObjectPositionManager
         };
     }
 
+    }
 }

@@ -6,8 +6,9 @@ using Microsoft.Extensions.Logging;
 using Rhino;
 using Rhino.DocObjects;
 using Rhino.Geometry;
+using Axys.Managers.ObjectHandling;
 
-namespace Axys
+namespace Axys.Managers.Geometry
 {
     public static class GeometryConversion
     {

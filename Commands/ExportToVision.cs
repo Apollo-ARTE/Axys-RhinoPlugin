@@ -9,6 +9,9 @@ using Rhino.DocObjects;
 using Rhino.Geometry;
 using Rhino.Input;
 using Axys;
+using Axys.Managers.Geometry;
+using Axys.Managers.Networking;
+using Axys.Managers.ObjectHandling;
 
 namespace Axys.Commands
 {

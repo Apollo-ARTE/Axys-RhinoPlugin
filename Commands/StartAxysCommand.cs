@@ -2,6 +2,7 @@ using System;
 using Axys;
 using Rhino;
 using Rhino.Commands;
+using Axys.Managers.Networking;
 
 namespace Axys.Commands
 {
