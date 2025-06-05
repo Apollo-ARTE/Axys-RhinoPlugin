@@ -6,6 +6,9 @@ using Microsoft.Extensions.Logging.Console;
 using Microsoft.Extensions.Configuration;
 using Rhino;
 
+/// <summary>
+/// Simple wrapper around <see cref="ILogger"/> that also writes errors to the Rhino command line.
+/// </summary>
 public static class Logger
 {
     private static readonly ILogger _logger;

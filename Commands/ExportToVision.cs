@@ -1,64 +1,50 @@
-﻿using System;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Rhino;
 using Rhino.Commands;
+using Rhino.DocObjects;
 using Rhino.Geometry;
 using Rhino.Input;
-using Rhino.Input.Custom;
-using Rhino.DocObjects;
-using Newtonsoft.Json;
-using System.IO;
-using System.Text;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Axys;
-using Axys.Utilities;
+using Axys.Managers.Geometry;
+using Axys.Managers.Networking;
+using Axys.Managers.ObjectHandling;
 
-namespace Axys
+namespace Axys.Commands
 {
-    // Command to start the WebSocket server that allows axys to connect and receive data.
-    public class StartAxysCommand : Command
-    {
-
-        public static StartAxysCommand Instance { get; private set; }
-        public override string EnglishName => "Axys";
-        protected override Result RunCommand(RhinoDoc doc, RunMode mode)
-        {
-            try
-            {
-                Logger.LogInfo("Starting Axys...");
-                WebSocketServerManager.StartServer();
-                return Result.Success;
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError($"Failed to start Axys: {ex.Message}");
-                return Result.Failure;
-            }
-        }
-    }
-
-    public class TrackObjectCommand : Command
-    {
-        public static TrackObjectCommand Instance { get; private set; }
-
-        public override string EnglishName => "TrackObject";
-
-        protected override Result RunCommand(RhinoDoc doc, RunMode mode)
-        {
-            return CommandUtilities.ExecuteTrackObjectLogic(doc);
-        }
-    }
-
+    /// <summary>
+    /// Exports geometry to USDZ format and streams the file to connected Axys
+    /// clients via WebSocket.
+    /// </summary>
     public class ExportToVision : Command
     {
+        /// <summary>
+        /// Identifier of the object last selected for export.
+        /// </summary>
         public static Guid SelectedObjectId;
+        /// <summary>
+        /// File path of the most recently exported USDZ file.
+        /// </summary>
         public static string LastExportedUSDZPath;
+
+        /// <summary>
+        /// Initializes a new instance of the command and stores it in
+        /// <see cref="Instance"/> for access from script commands.
+        /// </summary>
         public ExportToVision()
         {
             Instance = this;
         }
 
+        /// <summary>
+        /// Parses an incoming WebSocket message and selects the object to export.
+        /// </summary>
+        /// <param name="message">JSON message containing the export command.</param>
+        /// <param name="doc">Active Rhino document.</param>
+        /// <returns>The <see cref="RhinoObject"/> to export or <c>null</c> if not found.</returns>
         private static RhinoObject DeserializeAndSelectObject(dynamic message, RhinoDoc doc)
         {
             dynamic data = JsonConvert.DeserializeObject(message);
@@ -92,9 +78,20 @@ namespace Axys
             return selectedObj;
         }
 
+        /// <summary>
+        /// Singleton instance created by Rhino so other classes can invoke the command.
+        /// </summary>
         public static ExportToVision Instance { get; private set; }
         public override string EnglishName => "ExportToVision";
 
+        /// <summary>
+        /// Prompts the user for an object selection and stores the identifier
+        /// for export. If no object is selected the command attempts to create
+        /// a pipe → mesh → block and selects the resulting instance.
+        /// </summary>
+        /// <param name="doc">Active Rhino document.</param>
+        /// <param name="mode">Execution mode.</param>
+        /// <returns><see cref="Result.Success"/> when an object is selected.</returns>
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
             Result selResult = RhinoGet.GetOneObject("Select object to export", false, ObjectType.AnyObject, out ObjRef objRef);
@@ -123,14 +120,22 @@ namespace Axys
             return Result.Success;
         }
 
-        // Function called when an export command is received via WebSocket
-        // Curve support still under development. This code path is considered reliable.
+        /// <summary>
+        /// Handles the <c>ExportUSDZ</c> command received from a WebSocket connection.
+        /// </summary>
+        /// <param name="message">JSON payload describing the export request.</param>
+        /// <returns><see cref="Result.Success"/> if the request is dispatched.</returns>
+        /// <remarks>Execution is marshalled onto the Rhino UI thread.</remarks>
         public static Result ExportUSDZ(dynamic message)
         {
-            // Execute the entire export routine on the main UI thread to avoid autolayout issues
             RhinoApp.InvokeOnUiThread(new Action(() => _ = HandleExecuteExportAsync(message)));
             return Result.Success;
         }
+
+        /// <summary>
+        /// Reads the last exported USDZ file from disk.
+        /// </summary>
+        /// <returns>Byte array of the USDZ file or <c>null</c> if the file cannot be read.</returns>
         static byte[] GetUSDZFileBytes()
         {
             if (string.IsNullOrEmpty(LastExportedUSDZPath) || !File.Exists(LastExportedUSDZPath))
@@ -156,6 +161,10 @@ namespace Axys
             }
         }
 
+        /// <summary>
+        /// Performs the export and network transmission of the selected object.
+        /// </summary>
+        /// <param name="message">Original message that triggered the export.</param>
         private static async Task HandleExecuteExportAsync(dynamic message)
         {
             var doc = RhinoDoc.ActiveDoc;
@@ -165,7 +174,7 @@ namespace Axys
             int materialIndex = 0;
             MaterialManager.ApplyMaterialIfMissing(selectedObj, doc, materialIndex);
 
-            GeometryBase geometry = GeometryManager.PrepareGeometryForExport(doc, selectedObj);
+            GeometryBase geometry = GeometryConversion.PrepareGeometryForExport(doc, selectedObj);
             if (geometry == null)
             {
                 Logger.LogError($"Geometry preparation failed. Type: {selectedObj.Geometry?.GetType().Name ?? "null"}");
@@ -177,8 +186,8 @@ namespace Axys
                 Logger.LogInfo($"Geometry prepared successfully. Type: {geometry.GetType().Name}");
             }
 
-            //IN TESTING: This is a temporary copy of the object to be exported
-            var exportResult = GeometryManager.ExportSelectedObjectToUSDZ(doc, geometry, selectedObj.Id);
+            // Export the selected object to USDZ
+            var exportResult = ExportHelpers.ExportSelectedObjectToUSDZ(doc, geometry, selectedObj.Id);
             if (!exportResult.Success)
             {
                 Logger.LogError("Export failed. No USDZ file generated.");
@@ -188,75 +197,6 @@ namespace Axys
             byte[] fileBytes = File.ReadAllBytes(exportResult.Path);
             await USDZExportManager.ExecuteExportAsync(fileBytes, exportResult.Path);
 
-            if (exportResult.TemporaryCopyId != Guid.Empty)
-            {
-                doc.Objects.Delete(exportResult.TemporaryCopyId, true);
-                Logger.LogDebug("Temporary object deleted after export.");
-            }
-        }
-    }
-}
-
-public class RhinoObjectInfo
-{
-    public Guid Id { get; set; }
-    public string Name { get; set; }
-    public string ObjectType { get; set; }
-}
-
-namespace Axys.Utilities
-{
-    public static class CommandUtilities
-    {
-        public static Result ExecuteTrackObjectLogic(RhinoDoc doc)
-        {
-            // Prompt user to select an object
-            ObjRef[] objRef;
-            Result rc = RhinoGet.GetMultipleObjects("Select object to track", false, ObjectType.AnyObject, out objRef);
-
-            if (rc != Result.Success || objRef.Length == 0)
-            {
-                Logger.LogError("No object was selected.");
-                return Result.Cancel;
-            }
-
-            var positionManager = new ObjectPositionManager(doc);
-            var objectDataArray = new List<RhinoObjectData>();
-
-            for (int i = 0; i < objRef.Length; i++)
-            {
-                RhinoObject selectedObj = objRef[i].Object();
-                if (selectedObj == null)
-                {
-                    Logger.LogError("Failed to get the selected object.");
-                    return Result.Failure;
-                }
-
-                Guid objectId = selectedObj.Id;
-                Logger.LogInfo($"Selected object: {objectId}");
-
-                Point3d worldPosition = positionManager.GetAbsolutePosition(objectId);
-                Logger.LogDebug($"Start object position: {worldPosition}");
-
-                RhinoObjectData objectData = positionManager.CreateObjectData(objectId);
-                objectDataArray.Add(objectData);
-            }
-
-            RhinoObjectDataBatch objectDataBatch = positionManager.CreateObjectDataBatch(objectDataArray);
-            string jsonMessage = JsonHandler.SerializeBatch(objectDataBatch);
-
-            if (WebSocketServerManager.IsServerRunning())
-            {
-                WebSocketServerManager.BroadcastMessage(jsonMessage);
-                Logger.LogInfo("Objects tracking information broadcasted.");
-            }
-            else
-            {
-                Logger.LogError("Warning: WebSocket server connection is not established. Start the server first using Axys command and connect to it with the external device.");
-                return Result.Failure;
-            }
-
-            return Result.Success;
         }
     }
 }

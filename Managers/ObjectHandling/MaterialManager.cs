@@ -4,15 +4,19 @@ using Rhino.Input.Custom;
 using System.Drawing;
 using Axys;
 
-namespace Axys
+namespace Axys.Managers.ObjectHandling
 {
-public class MaterialManager
-{
-    // Applies a material to the given object only if it doesn't already have one.
-
-    // rhObj - The RhinoObject to apply the material to.
-    // doc - The active Rhino document.
-    // materialIndex - The material index to assign.
+    /// <summary>
+    /// Utility functions for assigning and selecting materials on Rhino objects.
+    /// </summary>
+    public class MaterialManager
+    {
+    /// <summary>
+    /// Applies a material to the given object if it does not already have one.
+    /// </summary>
+    /// <param name="rhObj">Rhino object to modify.</param>
+    /// <param name="doc">Active Rhino document.</param>
+    /// <param name="materialIndex">Index of the material to assign.</param>
     public static void ApplyMaterialIfMissing(RhinoObject rhObj, RhinoDoc doc, int materialIndex)
     {
         // An object has valid material if:
@@ -61,7 +65,12 @@ public class MaterialManager
     }
 
 
-    // Method to show a material selector dialog
+    /// <summary>
+    /// Displays a Rhino UI prompt allowing the user to choose a material.
+    /// Creates a default material when none exist.
+    /// </summary>
+    /// <param name="doc">Active Rhino document.</param>
+    /// <returns>Index of the chosen material.</returns>
     public static int SelectMaterial(RhinoDoc doc)
     {
         // Get all materials from the document
