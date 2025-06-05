@@ -10,8 +10,16 @@ using Axys.Managers.ObjectHandling;
 
 namespace Axys.Utilities
 {
+    /// <summary>
+    /// Shared command implementations that can be invoked from multiple entry points.
+    /// </summary>
     public static class CommandUtilities
     {
+        /// <summary>
+        /// Tracks selected objects and broadcasts their positions via WebSocket.
+        /// </summary>
+        /// <param name="doc">Active Rhino document.</param>
+        /// <returns>Command result indicating success or failure.</returns>
         public static Result ExecuteTrackObjectLogic(RhinoDoc doc)
         {
             // Prompt user to select an object

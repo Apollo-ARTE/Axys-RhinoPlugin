@@ -15,16 +15,36 @@ using Axys.Managers.ObjectHandling;
 
 namespace Axys.Commands
 {
+    /// <summary>
+    /// Exports geometry to USDZ format and streams the file to connected Axys
+    /// clients via WebSocket.
+    /// </summary>
     public class ExportToVision : Command
     {
+        /// <summary>
+        /// Identifier of the object last selected for export.
+        /// </summary>
         public static Guid SelectedObjectId;
+        /// <summary>
+        /// File path of the most recently exported USDZ file.
+        /// </summary>
         public static string LastExportedUSDZPath;
 
+        /// <summary>
+        /// Initializes a new instance of the command and stores it in
+        /// <see cref="Instance"/> for access from script commands.
+        /// </summary>
         public ExportToVision()
         {
             Instance = this;
         }
 
+        /// <summary>
+        /// Parses an incoming WebSocket message and selects the object to export.
+        /// </summary>
+        /// <param name="message">JSON message containing the export command.</param>
+        /// <param name="doc">Active Rhino document.</param>
+        /// <returns>The <see cref="RhinoObject"/> to export or <c>null</c> if not found.</returns>
         private static RhinoObject DeserializeAndSelectObject(dynamic message, RhinoDoc doc)
         {
             dynamic data = JsonConvert.DeserializeObject(message);
@@ -58,9 +78,20 @@ namespace Axys.Commands
             return selectedObj;
         }
 
+        /// <summary>
+        /// Singleton instance created by Rhino so other classes can invoke the command.
+        /// </summary>
         public static ExportToVision Instance { get; private set; }
         public override string EnglishName => "ExportToVision";
 
+        /// <summary>
+        /// Prompts the user for an object selection and stores the identifier
+        /// for export. If no object is selected the command attempts to create
+        /// a pipe → mesh → block and selects the resulting instance.
+        /// </summary>
+        /// <param name="doc">Active Rhino document.</param>
+        /// <param name="mode">Execution mode.</param>
+        /// <returns><see cref="Result.Success"/> when an object is selected.</returns>
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
             Result selResult = RhinoGet.GetOneObject("Select object to export", false, ObjectType.AnyObject, out ObjRef objRef);
@@ -89,15 +120,22 @@ namespace Axys.Commands
             return Result.Success;
         }
 
-        // Function called when an export command is received via WebSocket
-        // Curve support still under development. This code path is considered reliable.
+        /// <summary>
+        /// Handles the <c>ExportUSDZ</c> command received from a WebSocket connection.
+        /// </summary>
+        /// <param name="message">JSON payload describing the export request.</param>
+        /// <returns><see cref="Result.Success"/> if the request is dispatched.</returns>
+        /// <remarks>Execution is marshalled onto the Rhino UI thread.</remarks>
         public static Result ExportUSDZ(dynamic message)
         {
-            // Execute the entire export routine on the main UI thread to avoid autolayout issues
             RhinoApp.InvokeOnUiThread(new Action(() => _ = HandleExecuteExportAsync(message)));
             return Result.Success;
         }
 
+        /// <summary>
+        /// Reads the last exported USDZ file from disk.
+        /// </summary>
+        /// <returns>Byte array of the USDZ file or <c>null</c> if the file cannot be read.</returns>
         static byte[] GetUSDZFileBytes()
         {
             if (string.IsNullOrEmpty(LastExportedUSDZPath) || !File.Exists(LastExportedUSDZPath))
@@ -123,6 +161,10 @@ namespace Axys.Commands
             }
         }
 
+        /// <summary>
+        /// Performs the export and network transmission of the selected object.
+        /// </summary>
+        /// <param name="message">Original message that triggered the export.</param>
         private static async Task HandleExecuteExportAsync(dynamic message)
         {
             var doc = RhinoDoc.ActiveDoc;

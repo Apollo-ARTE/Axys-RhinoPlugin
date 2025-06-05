@@ -9,8 +9,17 @@ using System.Linq;
 
 namespace Axys.Managers.ObjectHandling
 {
+    /// <summary>
+    /// Helper methods for selecting geometry and resolving instance definitions.
+    /// </summary>
     public static class SelectionObjectManager
     {
+        /// <summary>
+        /// Ensures an object is selected, optionally prompting the user.
+        /// </summary>
+        /// <param name="doc">Active Rhino document.</param>
+        /// <param name="currentId">Pre-selected object identifier.</param>
+        /// <returns>The confirmed object identifier or <see cref="Guid.Empty"/> if selection failed.</returns>
         public static Guid EnsureObjectIsSelected(RhinoDoc doc, Guid currentId)
         {
             if (currentId == Guid.Empty)
@@ -32,6 +41,14 @@ namespace Axys.Managers.ObjectHandling
             return currentId;
         }
 
+        /// <summary>
+        /// Expands an instance reference and collects its geometry into separate lists.
+        /// </summary>
+        /// <param name="instanceRef">Reference geometry pointing to the block instance.</param>
+        /// <param name="doc">Active Rhino document.</param>
+        /// <param name="breps">Collection receiving Brep geometry.</param>
+        /// <param name="meshes">Collection receiving Mesh geometry.</param>
+        /// <param name="curves">Collection receiving Curve geometry.</param>
         public static void ProcessInstanceReference(InstanceReferenceGeometry instanceRef, RhinoDoc doc, List<Brep> breps, List<Mesh> meshes, List<Curve> curves)
         {
             var instanceDef = FindInstanceDefinitionByGuid(doc, instanceRef.ParentIdefId);
@@ -58,8 +75,12 @@ namespace Axys.Managers.ObjectHandling
             }
         }
 
-        // Helper method to retrieve an instance definition by its Guid (ID)
-        // This avoids any ambiguity with method overloads expecting string names
+        /// <summary>
+        /// Retrieves an instance definition by Guid to avoid name collisions.
+        /// </summary>
+        /// <param name="doc">Active Rhino document.</param>
+        /// <param name="id">Identifier of the instance definition.</param>
+        /// <returns>The instance definition or null if not found.</returns>
         public static InstanceDefinition FindInstanceDefinitionByGuid(RhinoDoc doc, Guid id)
         {
             return doc.InstanceDefinitions.FirstOrDefault(def => def.Id == id);

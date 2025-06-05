@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
+/// <summary>
+/// Represents a collection of <see cref="RhinoObjectData"/> messages.
+/// </summary>
 public class RhinoObjectDataBatch
 {
     [JsonProperty("type")]
@@ -12,6 +15,9 @@ public class RhinoObjectDataBatch
     public long Timestamp { get; set; } // Timestamp in milliseconds
 }
 
+/// <summary>
+/// Serializable description of a single Rhino object.
+/// </summary>
 public class RhinoObjectData
 {
     [JsonProperty("type")]
@@ -30,6 +36,9 @@ public class RhinoObjectData
     public long Timestamp { get; set; } // Timestamp in milliseconds
 }
 
+/// <summary>
+/// Simple structure used for JSON serialization of a 3D point.
+/// </summary>
 public class Center
 {
     [JsonProperty("x")]
@@ -41,20 +50,31 @@ public class Center
     [JsonProperty("z")]
     public double Z { get; set; }
 }
+/// <summary>
+/// Utility methods for serializing and deserializing message objects.
+/// </summary>
 public static class JsonHandler
 {
-    // Convert an object to JSON
+    /// <summary>
+    /// Converts a <see cref="RhinoObjectData"/> instance to JSON.
+    /// </summary>
     public static string Serialize(RhinoObjectData obj)
     {
         return JsonConvert.SerializeObject(obj);
     }
 
+    /// <summary>
+    /// Converts a <see cref="RhinoObjectDataBatch"/> to JSON.
+    /// </summary>
     public static string SerializeBatch(RhinoObjectDataBatch obj)
     {
         return JsonConvert.SerializeObject(obj);
     }
 
-    // Convert JSON to an object
+    /// <summary>
+    /// Parses JSON into a <see cref="RhinoObjectData"/> instance.
+    /// </summary>
+    /// <param name="json">JSON string.</param>
     public static RhinoObjectData Deserialize(string json)
     {
         return JsonConvert.DeserializeObject<RhinoObjectData>(json);

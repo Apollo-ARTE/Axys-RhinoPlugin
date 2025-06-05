@@ -9,14 +9,29 @@ using Rhino.Geometry;
 using Axys.Commands;
 namespace Axys.Managers.Geometry
 {
+    /// <summary>
+    /// Helper routines used during USDZ export operations.
+    /// </summary>
     public static class ExportHelpers
     {
+        /// <summary>
+        /// Result information returned from an export operation.
+        /// </summary>
         public struct ExportResult
         {
+            /// <summary>Whether the export succeeded.</summary>
             public bool Success;
+            /// <summary>Location of the generated file.</summary>
             public string Path;
         }
 
+        /// <summary>
+        /// Exports the specified geometry to a temporary USDZ file.
+        /// </summary>
+        /// <param name="doc">Active Rhino document.</param>
+        /// <param name="preparedGeometry">Geometry already prepared for export.</param>
+        /// <param name="objectId">Identifier of the object being exported.</param>
+        /// <returns>Information about the exported file.</returns>
         public static ExportResult ExportSelectedObjectToUSDZ(RhinoDoc doc, GeometryBase preparedGeometry, Guid objectId)
         {
             Guid exportId = Guid.NewGuid();
@@ -93,6 +108,12 @@ namespace Axys.Managers.Geometry
             };
         }
 
+        /// <summary>
+        /// Calculates the origin point of a block instance by combining the bounding
+        /// boxes of its contained geometry.
+        /// </summary>
+        /// <param name="obj">The instance object to evaluate.</param>
+        /// <returns>Center point of the block instance or <see cref="Point3d.Unset"/> on failure.</returns>
         public static Point3d CalculateBlockInstanceOrigin(RhinoObject obj)
         {
             if (!(obj is InstanceObject instanceObj))

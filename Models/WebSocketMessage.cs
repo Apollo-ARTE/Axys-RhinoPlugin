@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
+/// <summary>
+/// Simple DTO used for informational and error messages sent via WebSocket.
+/// </summary>
 public class WebSocketMessage
 {
     [JsonProperty("type")]

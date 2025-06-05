@@ -10,8 +10,18 @@ using Axys.Managers.ObjectHandling;
 
 namespace Axys.Managers.Geometry
 {
+    /// <summary>
+    /// Utility methods that convert Rhino geometry into forms suitable for USDZ export.
+    /// </summary>
     public static class GeometryConversion
     {
+        /// <summary>
+        /// Creates a Brep pipe along each segment of a polycurve and joins them into a single Brep.
+        /// </summary>
+        /// <param name="polyCurve">The polycurve to convert.</param>
+        /// <param name="doc">Active Rhino document.</param>
+        /// <param name="pipeRadius">Radius of the generated pipes.</param>
+        /// <returns>A joined Brep representing the pipe or <c>null</c> on failure.</returns>
         public static Brep ConvertPolyCurveToBrep(PolyCurve polyCurve, RhinoDoc doc, double pipeRadius)
         {
             var breps = new List<Brep>();
@@ -58,11 +68,13 @@ namespace Axys.Managers.Geometry
             return joined[0];
         }
 
-        // Converts a list of Curve objects into a single joined Brep pipe.
-        // curves - The list of curves to pipe.
-        // doc - The active Rhino document.
-        // pipeRadius - The radius of the pipe to create.
-        // return - joined Brep from all pipes, or null if the conversion fails.
+        /// <summary>
+        /// Converts a collection of curves to pipe Breps and joins them into one Brep.
+        /// </summary>
+        /// <param name="curves">Curves to pipe.</param>
+        /// <param name="doc">Active Rhino document.</param>
+        /// <param name="pipeRadius">Radius of the pipe.</param>
+        /// <returns>Joined Brep of all pipes or <c>null</c> if conversion fails.</returns>
         public static Brep ConvertMultipleCurvesToJoinedPipe(List<Curve> curves, RhinoDoc doc, double pipeRadius)
         {
             var breps = new List<Brep>();
@@ -96,6 +108,13 @@ namespace Axys.Managers.Geometry
             return joined != null && joined.Length > 0 ? joined[0] : null;
         }
 
+        /// <summary>
+        /// Converts the selected object into geometry that can be exported as USDZ.
+        /// Handles curves, blocks, extrusions and meshes.
+        /// </summary>
+        /// <param name="doc">Active Rhino document.</param>
+        /// <param name="selectedObj">Object chosen for export.</param>
+        /// <returns>Geometry ready for export or <c>null</c> if conversion fails.</returns>
         public static GeometryBase PrepareGeometryForExport(RhinoDoc doc, RhinoObject selectedObj)
         {
             GeometryBase geometry = selectedObj.Geometry?.Duplicate();

@@ -5,8 +5,16 @@ using Rhino;
 using System.Threading.Tasks;
 namespace Axys.Managers.Networking
 {
+    /// <summary>
+    /// Sends exported USDZ files to connected clients in chunks over WebSocket.
+    /// </summary>
     public static class USDZExportManager
     {
+        /// <summary>
+        /// Streams a USDZ file to all connected clients.
+        /// </summary>
+        /// <param name="fileBytes">Contents of the USDZ file.</param>
+        /// <param name="filePath">Original path to the file on disk for metadata.</param>
         public static async Task ExecuteExportAsync(byte[] fileBytes, string filePath)
         {
             Logger.LogDebug($" Preparing to send {fileBytes.Length} bytes via Axys.");

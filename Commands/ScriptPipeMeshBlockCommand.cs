@@ -8,11 +8,22 @@ using Rhino.Input;
 
 namespace Axys
 {
+    /// <summary>
+    /// Automates the creation of a pipe from selected curves, meshes the result
+    /// and defines a block instance from those meshes.
+    /// </summary>
     public class ScriptPipeMeshBlockCommand : Command
     {
+        /// <summary>Singleton instance of the command.</summary>
         public static ScriptPipeMeshBlockCommand Instance { get; private set; }
         public override string EnglishName => "ScriptPipeMeshBlock";
 
+        /// <summary>
+        /// Pipes the selected curves, converts them to meshes and creates a block instance.
+        /// </summary>
+        /// <param name="doc">Active Rhino document.</param>
+        /// <param name="mode">Execution mode.</param>
+        /// <returns>Result of the command execution.</returns>
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
             ObjRef[] objRefs;

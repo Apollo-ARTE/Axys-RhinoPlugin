@@ -18,11 +18,17 @@ using Axys.Managers.ObjectHandling;
 
 namespace Axys.Managers.Networking
 {
+    /// <summary>
+    /// Manages the WebSocket server used for communicating with Axys clients.
+    /// </summary>
     public static class WebSocketServerManager
     {
         private static WebSocketServer server;
         private static List<IWebSocketConnection> allSockets = new List<IWebSocketConnection>();
 
+        /// <summary>
+        /// Starts the WebSocket server and begins listening for client connections.
+        /// </summary>
         public static void StartServer()
         {
             FleckLog.Level = LogLevel.Info;
@@ -107,6 +113,10 @@ namespace Axys.Managers.Networking
             RhinoApp.WriteLine("Axys started on ws://" + ip + ", awaiting connection...");
             Logger.LogInfo("WebSocket server started on ws://" + ip + ":" + port);
         }
+        /// <summary>
+        /// Determines whether the server is active and has connected clients.
+        /// </summary>
+        /// <returns>True if at least one WebSocket connection is available.</returns>
         public static bool IsServerRunning()
         {
             // Check if the server is not null and has been initialized
@@ -116,6 +126,10 @@ namespace Axys.Managers.Networking
             // Check if there are any active socket connections
             return allSockets.Count > 0;
         }
+        /// <summary>
+        /// Sends a text message to all connected WebSocket clients.
+        /// </summary>
+        /// <param name="message">UTF-8 encoded text message.</param>
         public static void BroadcastMessage(string message)
         {
             foreach (var socket in allSockets.ToList())
@@ -133,6 +147,11 @@ namespace Axys.Managers.Networking
             }
         }
 
+        /// <summary>
+        /// Processes a position update message received from a client.
+        /// Moves the referenced Rhino object to the specified coordinates.
+        /// </summary>
+        /// <param name="json">JSON update payload.</param>
         public static void ProcessUpdateMessage(string json)
         {
             // Use the existing JsonHandler and RhinoObjectData.
@@ -186,6 +205,11 @@ namespace Axys.Managers.Networking
             }));
         }
         
+        /// <summary>
+        /// Attempts to determine a non-loopback IPv4 address for this machine.
+        /// </summary>
+        /// <returns>IP address string.</returns>
+        /// <exception cref="Exception">Thrown if no suitable address is found.</exception>
         public static string GetLocalIPAddressOfSelf()
         {
             // Get all network interfaces
@@ -216,6 +240,10 @@ namespace Axys.Managers.Networking
             }
             throw new Exception("No local IP address found on active network interfaces.");
         }
+        /// <summary>
+        /// Sends raw binary data to all connected WebSocket clients.
+        /// </summary>
+        /// <param name="data">Byte array to transmit.</param>
         public static async Task BroadcastBinary(byte[] data)
         {
             if (data == null || data.Length == 0)

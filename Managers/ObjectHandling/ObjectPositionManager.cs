@@ -8,15 +8,27 @@ using Rhino.DocObjects;
 
 namespace Axys.Managers.ObjectHandling
 {
+    /// <summary>
+    /// Provides helper methods for querying and modifying object positions within the Rhino document.
+    /// </summary>
     public class ObjectPositionManager
     {
-
     private RhinoDoc _document;
 
+        /// <summary>
+        /// Initializes a new instance bound to the specified document.
+        /// </summary>
+        /// <param name="doc">Active Rhino document.</param>
         public ObjectPositionManager(RhinoDoc doc)
         {
             _document = doc ?? throw new ArgumentNullException(nameof(doc));
         }
+
+    /// <summary>
+    /// Calculates the absolute world position of an object.
+    /// </summary>
+    /// <param name="objectId">Object identifier.</param>
+    /// <returns>World coordinate of the object center or <see cref="Point3d.Unset"/> if not found.</returns>
     public Point3d GetAbsolutePosition(Guid objectId)
     {
         RhinoObject selectedObj = _document.Objects.Find(objectId);
@@ -47,6 +59,12 @@ namespace Axys.Managers.ObjectHandling
 
     }
 
+    /// <summary>
+    /// Moves an object to the given position in world coordinates.
+    /// </summary>
+    /// <param name="objectId">Identifier of the object to move.</param>
+    /// <param name="newPosition">Target world position.</param>
+    /// <returns>True if the move succeeded.</returns>
     public bool MoveObject(Guid objectId, Point3d newPosition)
     {
         Point3d currentPosition = GetAbsolutePosition(objectId);
@@ -72,6 +90,11 @@ namespace Axys.Managers.ObjectHandling
         }
     }
 
+    /// <summary>
+    /// Builds a <see cref="RhinoObjectData"/> structure describing a single object.
+    /// </summary>
+    /// <param name="objectId">Identifier of the object.</param>
+    /// <returns>Serialized data for sending over WebSocket.</returns>
     public RhinoObjectData CreateObjectData(Guid objectId)
     {
         Point3d worldPosition = GetAbsolutePosition(objectId);
@@ -92,6 +115,11 @@ namespace Axys.Managers.ObjectHandling
         };
     }
 
+    /// <summary>
+    /// Packages multiple <see cref="RhinoObjectData"/> entries into a batch message.
+    /// </summary>
+    /// <param name="objectDataList">Objects to include in the batch.</param>
+    /// <returns>Batch container object.</returns>
     public RhinoObjectDataBatch CreateObjectDataBatch(List<RhinoObjectData> objectDataList)
     {
         return new RhinoObjectDataBatch

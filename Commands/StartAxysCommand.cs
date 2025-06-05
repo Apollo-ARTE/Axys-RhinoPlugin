@@ -6,15 +6,24 @@ using Axys.Managers.Networking;
 
 namespace Axys.Commands
 {
-/// <summary>
-/// Command to start the WebSocket server so external Axys clients can connect
-/// and receive data.
-/// </summary>
+    /// <summary>
+    /// Rhino command that starts the local WebSocket server allowing external
+    /// Axys clients to connect and exchange messages.
+    /// </summary>
     public class StartAxysCommand : Command
     {
+        /// <summary>
+        /// Singleton instance created by Rhino so the command can be executed programmatically.
+        /// </summary>
         public static StartAxysCommand Instance { get; private set; }
         public override string EnglishName => "Axys";
 
+        /// <summary>
+        /// Starts the WebSocket server on the local machine.
+        /// </summary>
+        /// <param name="doc">Active Rhino document.</param>
+        /// <param name="mode">Command run mode.</param>
+        /// <returns>Success if the server was started.</returns>
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
             try
