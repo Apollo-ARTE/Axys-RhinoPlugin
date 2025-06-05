@@ -16,15 +16,20 @@
   <PropertyGroup>
     <!-- Specifies information for Assembly and Yak -->
     <Version>1.0</Version>
-    <Title>RhinoPlugin</Title>
-    <Company>RhinoPlugin Authors</Company>
-    <Description>Description of RhinoPlugin</Description>
+    <Title>Axys</Title>
+    <Company>Apollo</Company>
+    <Description>Description of Axys</Description>
   </PropertyGroup>
   
   <ItemGroup>
     <PackageReference Include="Fleck" Version="1.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RhinoCommon" Version="8.0.23304.9001" ExcludeAssets="runtime" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   
 </Project>
