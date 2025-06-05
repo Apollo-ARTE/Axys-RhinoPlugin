@@ -7,7 +7,7 @@ using Rhino.DocObjects;
 using Rhino.Geometry;
 
 using Axys.Commands;
-namespace Axys
+namespace Axys.Managers.Geometry
 {
     public static class ExportHelpers
     {

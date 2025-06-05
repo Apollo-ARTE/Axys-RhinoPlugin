@@ -3,9 +3,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Rhino;
 using System.Threading.Tasks;
-using Axys;
-
-namespace Axys
+namespace Axys.Managers.Networking
 {
     public static class USDZExportManager
     {

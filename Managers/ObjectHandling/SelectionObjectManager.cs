@@ -2,13 +2,12 @@ using System;
 using Rhino;
 using Rhino.DocObjects;
 using Rhino.Input;
-using Axys;
 using Rhino.Geometry;
 using System.Collections.Generic;
 using Rhino.Commands;
 using System.Linq;
 
-namespace Axys
+namespace Axys.Managers.ObjectHandling
 {
     public static class SelectionObjectManager
     {

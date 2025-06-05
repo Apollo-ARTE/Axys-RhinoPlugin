@@ -4,9 +4,9 @@ using Rhino.Input.Custom;
 using System.Drawing;
 using Axys;
 
-namespace Axys
+namespace Axys.Managers.ObjectHandling
 {
-public class MaterialManager
+    public class MaterialManager
 {
     // Applies a material to the given object only if it doesn't already have one.
 
