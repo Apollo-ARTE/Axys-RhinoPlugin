@@ -4,14 +4,11 @@ using Microsoft.Extensions.Logging;
 
 namespace Axys
 {
-    ///<summary>
-    /// <para>Every RhinoCommon .rhp assembly must have one and only one PlugIn-derived
-    /// class. DO NOT create instances of this class yourself. It is the
-    /// responsibility of Rhino to create an instance of this class.</para>
-    /// <para>To complete plug-in information, please also see all PlugInDescription
-    /// attributes in AssemblyInfo.cs (you might need to click "Project" ->
-    /// "Show All Files" to see it in the "Solution Explorer" window).</para>
-    ///</summary>
+    /// <summary>
+    /// Entry point for the Axys Rhino plug-in. Rhino creates a single instance
+    /// of this class which manages the plug-in life cycle.  The plug-in logs its
+    /// load and shutdown events using <see cref="Logger"/>.
+    /// </summary>
     public class AxysPlugin : Rhino.PlugIns.PlugIn
     {
         public AxysPlugin()
@@ -19,9 +16,16 @@ namespace Axys
             Instance = this;
         }
 
-        ///<summary>Gets the only instance of the AxysRhinoPlugin plug-in.</summary>
+        /// <summary>
+        /// Gets the singleton instance of the plug-in created by Rhino.
+        /// </summary>
         public static AxysPlugin Instance { get; private set; }
 
+        /// <summary>
+        /// Initializes the plug-in when Rhino loads it.
+        /// </summary>
+        /// <param name="errorMessage">Receives a description in case the plug-in fails to load.</param>
+        /// <returns>The <see cref="LoadReturnCode"/> describing load success.</returns>
         protected override LoadReturnCode OnLoad(ref string errorMessage)
         {
             try
@@ -38,7 +42,7 @@ namespace Axys
         }
         
         /// <summary>
-        /// Called when Rhino shuts down
+        /// Invoked by Rhino during application shutdown to perform cleanup.
         /// </summary>
         protected override void OnShutdown()
         {
