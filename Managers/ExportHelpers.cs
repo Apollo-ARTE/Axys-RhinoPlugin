@@ -6,6 +6,7 @@ using Rhino;
 using Rhino.DocObjects;
 using Rhino.Geometry;
 
+using Axys.Commands;
 namespace Axys
 {
     public static class ExportHelpers
