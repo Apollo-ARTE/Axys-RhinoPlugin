@@ -165,7 +165,7 @@ namespace Axys
             int materialIndex = 0;
             MaterialManager.ApplyMaterialIfMissing(selectedObj, doc, materialIndex);
 
-            GeometryBase geometry = GeometryManager.PrepareGeometryForExport(doc, selectedObj);
+            GeometryBase geometry = GeometryConversion.PrepareGeometryForExport(doc, selectedObj);
             if (geometry == null)
             {
                 Logger.LogError($"Geometry preparation failed. Type: {selectedObj.Geometry?.GetType().Name ?? "null"}");
@@ -178,7 +178,7 @@ namespace Axys
             }
 
             //IN TESTING: This is a temporary copy of the object to be exported
-            var exportResult = GeometryManager.ExportSelectedObjectToUSDZ(doc, geometry, selectedObj.Id);
+            var exportResult = ExportHelpers.ExportSelectedObjectToUSDZ(doc, geometry, selectedObj.Id);
             if (!exportResult.Success)
             {
                 Logger.LogError("Export failed. No USDZ file generated.");
