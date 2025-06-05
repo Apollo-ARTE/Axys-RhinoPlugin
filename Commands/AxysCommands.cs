@@ -13,21 +13,29 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Axys;
 using Axys.Utilities;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Axys
 {
     // Command to start the WebSocket server that allows axys to connect and receive data.
     public class StartAxysCommand : Command
     {
-
+        private readonly IWebSocketService _webSocketService;
         public static StartAxysCommand Instance { get; private set; }
+
+        public StartAxysCommand()
+        {
+            Instance = this;
+            _webSocketService = AxysPlugin.Instance.Services.GetService<IWebSocketService>();
+        }
+
         public override string EnglishName => "Axys";
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
             try
             {
                 Logger.LogInfo("Starting Axys...");
-                WebSocketServerManager.StartServer();
+                _webSocketService.StartServer();
                 return Result.Success;
             }
             catch (Exception ex)
@@ -40,13 +48,20 @@ namespace Axys
 
     public class TrackObjectCommand : Command
     {
+        private readonly IWebSocketService _webSocketService;
         public static TrackObjectCommand Instance { get; private set; }
+
+        public TrackObjectCommand()
+        {
+            Instance = this;
+            _webSocketService = AxysPlugin.Instance.Services.GetService<IWebSocketService>();
+        }
 
         public override string EnglishName => "TrackObject";
 
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
-            return CommandUtilities.ExecuteTrackObjectLogic(doc);
+            return CommandUtilities.ExecuteTrackObjectLogic(doc, _webSocketService);
         }
     }
 
@@ -54,12 +69,15 @@ namespace Axys
     {
         public static Guid SelectedObjectId;
         public static string LastExportedUSDZPath;
+        private readonly IWebSocketService _webSocketService;
+
         public ExportToVision()
         {
             Instance = this;
+            _webSocketService = AxysPlugin.Instance.Services.GetService<IWebSocketService>();
         }
 
-        private static RhinoObject DeserializeAndSelectObject(dynamic message, RhinoDoc doc)
+        private RhinoObject DeserializeAndSelectObject(dynamic message, RhinoDoc doc)
         {
             dynamic data = JsonConvert.DeserializeObject(message);
             string commandValue = data.command;
@@ -85,7 +103,7 @@ namespace Axys
             else
             {
                 Logger.LogError("Selected object not found in the document.");
-                WebSocketServerManager.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", "Selected object not found in the document."));
+                _webSocketService.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", "Selected object not found in the document."));
                 return null;
             }
 
@@ -125,18 +143,18 @@ namespace Axys
 
         // Function called when an export command is received via WebSocket
         // Curve support still under development. This code path is considered reliable.
-        public static Result ExportUSDZ(dynamic message)
+        public Result ExportUSDZ(dynamic message)
         {
-            // Execute the entire export routine on the main UI thread to avoid autolayout issues
             RhinoApp.InvokeOnUiThread(new Action(() => _ = HandleExecuteExportAsync(message)));
             return Result.Success;
         }
-        static byte[] GetUSDZFileBytes()
+
+        private byte[] GetUSDZFileBytes()
         {
             if (string.IsNullOrEmpty(LastExportedUSDZPath) || !File.Exists(LastExportedUSDZPath))
             {
                 Logger.LogError("No valid exported USDZ file found.");
-                WebSocketServerManager.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", "No valid exported USDZ file found."));
+                _webSocketService.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", "No valid exported USDZ file found."));
 
                 return null;
             }
@@ -149,14 +167,14 @@ namespace Axys
             }
             catch (Exception ex) // Catch any error that occurs while reading the file
             {
-                Logger.LogError($"Error reading USDZ file: {ex.Message}"); // Log the error message
-                WebSocketServerManager.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", $"Error reading USDZ file: {ex.Message}"));
+                Logger.LogError($"Error reading USDZ file: {ex.Message}");
+                _webSocketService.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", $"Error reading USDZ file: {ex.Message}"));
 
                 return null; // Return null in case of an error
             }
         }
 
-        private static async Task HandleExecuteExportAsync(dynamic message)
+        private async Task HandleExecuteExportAsync(dynamic message)
         {
             var doc = RhinoDoc.ActiveDoc;
             RhinoObject selectedObj = DeserializeAndSelectObject(message, doc);
@@ -169,7 +187,7 @@ namespace Axys
             if (geometry == null)
             {
                 Logger.LogError($"Geometry preparation failed. Type: {selectedObj.Geometry?.GetType().Name ?? "null"}");
-                WebSocketServerManager.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", $"Geometry preparation failed. Type: {selectedObj.Geometry?.GetType().Name ?? "null"}"));
+                _webSocketService.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", $"Geometry preparation failed. Type: {selectedObj.Geometry?.GetType().Name ?? "null"}"));
                 return;
             }
             else
@@ -182,11 +200,11 @@ namespace Axys
             if (!exportResult.Success)
             {
                 Logger.LogError("Export failed. No USDZ file generated.");
-                WebSocketServerManager.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", "Export failed. No USDZ file generated."));
+                _webSocketService.BroadcastMessage(MessageHandler.CreateAndSerializeMessage("error", "Export failed. No USDZ file generated."));
                 return;
             }
             byte[] fileBytes = File.ReadAllBytes(exportResult.Path);
-            await USDZExportManager.ExecuteExportAsync(fileBytes, exportResult.Path);
+            await USDZExportManager.ExecuteExportAsync(_webSocketService, fileBytes, exportResult.Path);
 
             if (exportResult.TemporaryCopyId != Guid.Empty)
             {
@@ -208,7 +226,7 @@ namespace Axys.Utilities
 {
     public static class CommandUtilities
     {
-        public static Result ExecuteTrackObjectLogic(RhinoDoc doc)
+        public static Result ExecuteTrackObjectLogic(RhinoDoc doc, IWebSocketService webSocketService)
         {
             // Prompt user to select an object
             ObjRef[] objRef;
@@ -245,9 +263,9 @@ namespace Axys.Utilities
             RhinoObjectDataBatch objectDataBatch = positionManager.CreateObjectDataBatch(objectDataArray);
             string jsonMessage = JsonHandler.SerializeBatch(objectDataBatch);
 
-            if (WebSocketServerManager.IsServerRunning())
+            if (webSocketService.IsServerRunning())
             {
-                WebSocketServerManager.BroadcastMessage(jsonMessage);
+                webSocketService.BroadcastMessage(jsonMessage);
                 Logger.LogInfo("Objects tracking information broadcasted.");
             }
             else

@@ -1,6 +1,7 @@
 ﻿using System;
 using Rhino.PlugIns;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Axys
 {
@@ -17,7 +18,17 @@ namespace Axys
         public AxysPlugin()
         {
             Instance = this;
+            ConfigureServices();
         }
+
+        private void ConfigureServices()
+        {
+            var services = new ServiceCollection();
+            services.AddSingleton<IWebSocketService, WebSocketService>();
+            Services = services.BuildServiceProvider();
+        }
+
+        public IServiceProvider Services { get; private set; }
 
         ///<summary>Gets the only instance of the AxysRhinoPlugin plug-in.</summary>
         public static AxysPlugin Instance { get; private set; }
@@ -44,6 +55,8 @@ namespace Axys
         {
             try
             {
+                var ws = Services.GetService<IWebSocketService>();
+                ws?.StopServer();
                 Logger.LogInfo("Plugin shutting down");
             }
             catch (Exception ex)

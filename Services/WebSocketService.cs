@@ -4,27 +4,25 @@ using System.Net.Sockets;
 using System.Net.NetworkInformation;
 using System.Linq;
 using System.Collections.Generic;
-using Fleck;  
+using Fleck;
 using Rhino;
 using Rhino.Geometry;
-using Newtonsoft.Json; 
+using Newtonsoft.Json;
 using Rhino.DocObjects;
-using System.Threading;
 using System.Threading.Tasks;
 using Axys.Utilities;
 using Rhino.Commands;
 
 namespace Axys
 {
-    public static class WebSocketServerManager
+    public class WebSocketService : IWebSocketService
     {
-        private static WebSocketServer server;
-        private static List<IWebSocketConnection> allSockets = new List<IWebSocketConnection>();
+        private WebSocketServer server;
+        private readonly List<IWebSocketConnection> allSockets = new();
 
-        public static void StartServer()
+        public void StartServer()
         {
             FleckLog.Level = LogLevel.Info;
-            // Bind the server to all network interfaces on port 8765.
             string port = "8765";
             string ip;
             try
@@ -44,7 +42,6 @@ namespace Axys
                     RhinoApp.WriteLine("Axys client connected.");
                     Logger.LogInfo("Axys client connected from " + socket.ConnectionInfo.ClientIpAddress);
                     allSockets.Add(socket);
-                    // Send a welcome message with a timestamp
                     BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "info", description: "Connection successful"));
                 };
                 socket.OnClose = () =>
@@ -65,7 +62,7 @@ namespace Axys
                             RhinoApp.InvokeOnUiThread((Action)(() =>
                             {
                                 var doc = RhinoDoc.ActiveDoc;
-                                var result = CommandUtilities.ExecuteTrackObjectLogic(doc);
+                                var result = CommandUtilities.ExecuteTrackObjectLogic(doc, this);
                                 if (result == Result.Success)
                                 {
                                     Logger.LogInfo("Object tracking information transmitted");
@@ -85,7 +82,7 @@ namespace Axys
                     }
                     if (commandValue == "ExportUSDZ")
                     {
-                        var result = ExportToVision.ExportUSDZ(message);
+                        var result = ExportToVision.Instance.ExportUSDZ(message);
                         if (result == Result.Success)
                         {
                             Logger.LogInfo("Exported USDZ successfully");
@@ -105,16 +102,30 @@ namespace Axys
             RhinoApp.WriteLine("Axys started on ws://" + ip + ", awaiting connection...");
             Logger.LogInfo("WebSocket server started on ws://" + ip + ":" + port);
         }
-        public static bool IsServerRunning()
+
+        public void StopServer()
         {
-            // Check if the server is not null and has been initialized
+            if (server == null)
+                return;
+
+            foreach (var socket in allSockets.ToList())
+            {
+                try { socket.Close(); } catch { }
+            }
+            server.Dispose();
+            server = null;
+            allSockets.Clear();
+            Logger.LogInfo("WebSocket server stopped");
+        }
+
+        public bool IsServerRunning()
+        {
             if (server == null)
                 return false;
-
-            // Check if there are any active socket connections
             return allSockets.Count > 0;
         }
-        public static void BroadcastMessage(string message)
+
+        public void BroadcastMessage(string message)
         {
             foreach (var socket in allSockets.ToList())
             {
@@ -126,54 +137,48 @@ namespace Axys
                 else
                 {
                     Logger.LogWarning($"Socket {socket.ConnectionInfo.ClientIpAddress} is not available, removing from list.");
-                    allSockets.Remove(socket); // Clean up closed sockets
+                    allSockets.Remove(socket);
                 }
             }
         }
 
-        public static void ProcessUpdateMessage(string json)
+        private void ProcessUpdateMessage(string json)
         {
-            // Use the existing JsonHandler and RhinoObjectData.
             RhinoObjectData updateMsg = JsonHandler.Deserialize(json);
-            if(updateMsg.Type != "update")
+            if (updateMsg.Type != "update")
                 return;
-            
-            // Ensure that document updates happen on the main thread.
+
             RhinoApp.InvokeOnUiThread((Action)(() =>
             {
                 RhinoDoc doc = RhinoDoc.ActiveDoc;
                 ObjectPositionManager positionManager = new ObjectPositionManager(doc);
                 try
                 {
-                    // Extract the Guid from the objectId string.
                     string guidString = updateMsg.ObjectId.Replace("Object_", "");
-                    if(Guid.TryParse(guidString, out Guid objectGuid))
+                    if (Guid.TryParse(guidString, out Guid objectGuid))
                     {
-                        // Prepare the new position from the update message
                         Point3d newPosition = new Point3d(
-                            updateMsg.Center.X*1000, 
-                            updateMsg.Center.Y*1000, 
-                            updateMsg.Center.Z*1000
+                            updateMsg.Center.X * 1000,
+                            updateMsg.Center.Y * 1000,
+                            updateMsg.Center.Z * 1000
                         );
                         bool moveSuccess = positionManager.MoveObject(objectGuid, newPosition);
 
                         if (moveSuccess)
                         {
-                            // Log successful movement
                             Logger.LogInfo($"Successfully moved object {objectGuid} to {newPosition}");
                             BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "info", description: $"Successfully moved object {objectGuid} to {newPosition}"));
                         }
                         else
                         {
-                            // Log failed movement
                             Logger.LogError($"Failed to move object {objectGuid}");
                             BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: $"Failed to move object {objectGuid}"));
                         }
                     }
                     else
                     {
-                    Logger.LogError($"Invalid object GUID in message: {guidString}");
-                    BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: $"Invalid object GUID in message: {guidString}"));
+                        Logger.LogError($"Invalid object GUID in message: {guidString}");
+                        BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: $"Invalid object GUID in message: {guidString}"));
                     }
                 }
                 catch (Exception ex)
@@ -183,29 +188,24 @@ namespace Axys
                 }
             }));
         }
-        
-        public static string GetLocalIPAddressOfSelf()
+
+        private static string GetLocalIPAddressOfSelf()
         {
-            // Get all network interfaces
             var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces()
-                // Filter for active ethernet or wireless interfaces
                 .Where(n => (n.OperationalStatus == OperationalStatus.Up) &&
                             (n.NetworkInterfaceType == NetworkInterfaceType.Ethernet ||
-                            n.NetworkInterfaceType == NetworkInterfaceType.Wireless80211));
+                             n.NetworkInterfaceType == NetworkInterfaceType.Wireless80211));
             foreach (var networkInterface in networkInterfaces)
             {
-                // Get IP properties for the interface
                 var ipProperties = networkInterface.GetIPProperties();
-                // Find IPv4 addresses that are not loopback
                 var ipv4Addresses = ipProperties.UnicastAddresses
                     .Where(ua => ua.Address.AddressFamily == AddressFamily.InterNetwork)
                     .Select(ua => ua.Address)
                     .ToList();
                 foreach (var address in ipv4Addresses)
                 {
-                    // Skip loopback and link-local addresses
                     if (!IPAddress.IsLoopback(address) &&
-                        !address.ToString().StartsWith("169.254.") && // Exclude APIPA addresses
+                        !address.ToString().StartsWith("169.254.") &&
                         !address.IsIPv6LinkLocal)
                     {
                         return address.ToString();
@@ -214,7 +214,8 @@ namespace Axys
             }
             throw new Exception("No local IP address found on active network interfaces.");
         }
-        public static async Task BroadcastBinary(byte[] data)
+
+        public async Task BroadcastBinary(byte[] data)
         {
             if (data == null || data.Length == 0)
             {
@@ -238,4 +239,4 @@ namespace Axys
             }
         }
     }
-}   
+}

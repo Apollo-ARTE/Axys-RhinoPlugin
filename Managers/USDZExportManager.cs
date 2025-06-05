@@ -9,7 +9,7 @@ namespace Axys
 {
     public static class USDZExportManager
     {
-        public static async Task ExecuteExportAsync(byte[] fileBytes, string filePath)
+        public static async Task ExecuteExportAsync(IWebSocketService webSocketService, byte[] fileBytes, string filePath)
         {
             Logger.LogDebug($" Preparing to send {fileBytes.Length} bytes via Axys.");
             // Chunk and send the file via WebSocket
@@ -27,7 +27,7 @@ namespace Axys
 
                 try
                 {
-                    await WebSocketServerManager.BroadcastBinary(chunk);
+                    await webSocketService.BroadcastBinary(chunk);
                     Logger.LogDebug($"Sent chunk: Offset={offset}, Size={currentChunkSize}, Last={isLastChunk}");
                 }
                 catch (Exception ex)
@@ -47,7 +47,7 @@ namespace Axys
                 timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds()
             });
             Logger.LogDebug($"Sending metadata: {metadata}");
-            WebSocketServerManager.BroadcastMessage(metadata);
+            webSocketService.BroadcastMessage(metadata);
             Logger.LogInfo($"File {fileName} broadcasted to Axys client.");
             RhinoApp.WriteLine($"File {fileName} broadcasted to Axys client.");
             
