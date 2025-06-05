@@ -141,7 +141,7 @@ namespace Axys.Commands
                 Logger.LogInfo($"Geometry prepared successfully. Type: {geometry.GetType().Name}");
             }
 
-            // Temporary copy of the object to be exported
+            // Export the selected object to USDZ
             var exportResult = ExportHelpers.ExportSelectedObjectToUSDZ(doc, geometry, selectedObj.Id);
             if (!exportResult.Success)
             {
@@ -152,11 +152,6 @@ namespace Axys.Commands
             byte[] fileBytes = File.ReadAllBytes(exportResult.Path);
             await USDZExportManager.ExecuteExportAsync(fileBytes, exportResult.Path);
 
-            if (exportResult.TemporaryCopyId != Guid.Empty)
-            {
-                doc.Objects.Delete(exportResult.TemporaryCopyId, true);
-                Logger.LogDebug("Temporary object deleted after export.");
-            }
         }
     }
 }

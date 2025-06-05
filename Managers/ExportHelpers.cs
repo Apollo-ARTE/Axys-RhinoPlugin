@@ -15,7 +15,6 @@ namespace Axys
         {
             public bool Success;
             public string Path;
-            public Guid TemporaryCopyId;
         }
 
         public static ExportResult ExportSelectedObjectToUSDZ(RhinoDoc doc, GeometryBase preparedGeometry, Guid objectId)
@@ -90,8 +89,7 @@ namespace Axys
             return new ExportResult
             {
                 Success = fileExists,
-                Path = path,
-                TemporaryCopyId = Guid.Empty
+                Path = path
             };
         }
 
