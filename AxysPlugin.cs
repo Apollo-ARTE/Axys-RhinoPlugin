@@ -14,7 +14,6 @@ namespace Axys
     ///</summary>
     public class AxysPlugin : Rhino.PlugIns.PlugIn
     {
-        private static ILogger<AxysPlugin> _logger;
         public AxysPlugin()
         {
             Instance = this;
@@ -27,21 +26,13 @@ namespace Axys
         {
             try
             {
-                // Initialize logging first
-                LoggingSetup.Initialize();
-                _logger = LoggingSetup.GetLogger<AxysPlugin>();
-
-                _logger.LogInformation("Plugin loading started");
-
-                // Your other initialization code here
-
-                _logger.LogInformation("Plugin loaded successfully");
+                Logger.LogInfo("Plugin loaded successfully");
                 return LoadReturnCode.Success;
             }
             catch (Exception ex)
             {
                 errorMessage = $"Failed to load plugin: {ex.Message}";
-                _logger?.LogError(ex, "Plugin failed to load");
+                Logger.LogError(ex, "Plugin failed to load");
                 return LoadReturnCode.ErrorShowDialog;
             }
         }
@@ -53,13 +44,12 @@ namespace Axys
         {
             try
             {
-                _logger?.LogInformation("Plugin shutting down");
-                LoggingSetup.Cleanup();
+                Logger.LogInfo("Plugin shutting down");
             }
             catch (Exception ex)
             {
                 // Log if possible, but don't throw during shutdown
-                _logger?.LogError(ex, "Error during plugin shutdown");
+                Logger.LogError(ex, "Error during plugin shutdown");
             }
             finally
             {

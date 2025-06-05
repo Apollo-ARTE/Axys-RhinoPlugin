@@ -19,14 +19,14 @@ public class ObjectPositionManager
         RhinoObject selectedObj = _document.Objects.Find(objectId);
         if (selectedObj == null)
         {
-            RhinoApp.WriteLine("Failed to get the selected object.");
+            Logger.LogError("Failed to get the selected object.");
             return Point3d.Unset;
         }
         // Get the object's geometry (e.g., point, surface, or curve)
         GeometryBase geometry = selectedObj.Geometry;
         if (geometry == null)
         {
-            RhinoApp.WriteLine("Could not retrieve object geometry.");
+            Logger.LogError("Could not retrieve object geometry.");
             return Point3d.Unset;
         }
 
@@ -64,7 +64,7 @@ public class ObjectPositionManager
         }
         catch (Exception ex)
         {
-            RhinoApp.WriteLine($"Error moving object: {ex.Message}");
+            Logger.LogError(ex, $"Error moving object: {ex.Message}");
             return false;
         }
     }

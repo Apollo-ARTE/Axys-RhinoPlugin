@@ -26,13 +26,23 @@ namespace Axys
             FleckLog.Level = LogLevel.Info;
             // Bind the server to all network interfaces on port 8765.
             string port = "8765";
-            string ip = GetLocalIPAddressOfSelf();
+            string ip;
+            try
+            {
+                ip = GetLocalIPAddressOfSelf();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, "Error getting local IP address");
+                return;
+            }
             server = new WebSocketServer("ws://" + ip + ":" + port);
             server.Start(socket =>
             {
                 socket.OnOpen = () =>
                 {
                     RhinoApp.WriteLine("Axys client connected.");
+                    Logger.LogInfo("Axys client connected from " + socket.ConnectionInfo.ClientIpAddress);
                     allSockets.Add(socket);
                     // Send a welcome message with a timestamp
                     BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "info", description: "Connection successful"));
@@ -40,50 +50,60 @@ namespace Axys
                 socket.OnClose = () =>
                 {
                     RhinoApp.WriteLine("Axys client disconnected.");
+                    Logger.LogInfo("Axys client disconnected");
                     allSockets.Remove(socket);
                 };
                 socket.OnMessage = message =>
                 {
-                    RhinoApp.WriteLine("Received from client: " + message);
+                    Logger.LogDebug("Received from client: " + message);
                     dynamic data = JsonConvert.DeserializeObject(message);
                     string commandValue = data.command;
-                    if (commandValue == "TrackObject") {
-                        try {
+                    if (commandValue == "TrackObject")
+                    {
+                        try
+                        {
                             RhinoApp.InvokeOnUiThread((Action)(() =>
                             {
                                 var doc = RhinoDoc.ActiveDoc;
                                 var result = CommandUtilities.ExecuteTrackObjectLogic(doc);
                                 if (result == Result.Success)
                                 {
-                                    RhinoApp.WriteLine("Object tracking information transmitted");
-                                    // BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "info", description: "Object tracking information transmitted"));
+                                    Logger.LogInfo("Object tracking information transmitted");
                                 }
                                 else
                                 {
-                                    RhinoApp.WriteLine("Failed to track object");
+                                    Logger.LogError("Failed to track object");
                                     BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: "Failed to track object"));
                                 }
                             }));
-                        } catch (Exception ex) {
-                            RhinoApp.WriteLine($"Error processing TrackObject command: {ex.Message}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.LogError(ex, $"Error processing TrackObject command: {ex.Message}");
                             BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: $"Error processing TrackObject command: {ex.Message}"));
                         }
-                    } if (commandValue == "ExportUSDZ") {
+                    }
+                    if (commandValue == "ExportUSDZ")
+                    {
                         var result = ExportToVision.ExportUSDZ(message);
                         if (result == Result.Success)
                         {
-                            RhinoApp.WriteLine("Exported USDZ successfully");                        }
+                            Logger.LogInfo("Exported USDZ successfully");
+                        }
                         else
                         {
-                            RhinoApp.WriteLine("Failed to export USDZ");
+                            Logger.LogError("Failed to export USDZ");
                             BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: "Failed to export USDZ"));
                         }
-                    } else {
+                    }
+                    else
+                    {
                         ProcessUpdateMessage(message);
                     }
                 };
             });
-            RhinoApp.WriteLine("Axys started on ws://" + ip + ":" + port + ", awaiting for connection...");
+            RhinoApp.WriteLine("Axys started on ws://" + ip + ", awaiting connection...");
+            Logger.LogInfo("WebSocket server started on ws://" + ip + ":" + port);
         }
         public static bool IsServerRunning()
         {
@@ -96,10 +116,18 @@ namespace Axys
         }
         public static void BroadcastMessage(string message)
         {
-            // RhinoApp.WriteLine("Sending message: " + message);
-            foreach (var socket in allSockets)
+            foreach (var socket in allSockets.ToList())
             {
-                socket.Send(message);
+                if (socket.IsAvailable)
+                {
+                    Logger.LogInfo("Sending message: " + message);
+                    socket.Send(message);
+                }
+                else
+                {
+                    Logger.LogWarning($"Socket {socket.ConnectionInfo.ClientIpAddress} is not available, removing from list.");
+                    allSockets.Remove(socket); // Clean up closed sockets
+                }
             }
         }
 
@@ -132,44 +160,32 @@ namespace Axys
                         if (moveSuccess)
                         {
                             // Log successful movement
-                            RhinoApp.WriteLine($"Successfully moved object {objectGuid} to {newPosition}");
+                            Logger.LogInfo($"Successfully moved object {objectGuid} to {newPosition}");
                             BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "info", description: $"Successfully moved object {objectGuid} to {newPosition}"));
                         }
                         else
                         {
                             // Log failed movement
-                            RhinoApp.WriteLine($"Failed to move object {objectGuid}");
+                            Logger.LogError($"Failed to move object {objectGuid}");
                             BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: $"Failed to move object {objectGuid}"));
                         }
                     }
                     else
                     {
-                    RhinoApp.WriteLine($"Invalid object GUID in message: {guidString}");
+                    Logger.LogError($"Invalid object GUID in message: {guidString}");
                     BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: $"Invalid object GUID in message: {guidString}"));
                     }
                 }
                 catch (Exception ex)
                 {
-                    // Comprehensive error handling
-                    RhinoApp.WriteLine($"Error processing update message: {ex.Message}");
+                    Logger.LogError(ex, $"Error processing update message: {ex.Message}");
                     BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: $"Error processing update message: {ex.Message}"));
                 }
             }));
         }
-        public static string GetLocalIPAddress()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            throw new Exception("No network adapters with an IPv4 address in the system!");
-        }
+        
         public static string GetLocalIPAddressOfSelf()
-            {
+        {
             // Get all network interfaces
             var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces()
                 // Filter for active ethernet or wireless interfaces
@@ -188,7 +204,7 @@ namespace Axys
                 foreach (var address in ipv4Addresses)
                 {
                     // Skip loopback and link-local addresses
-                    if (!IPAddress.IsLoopback(address) && 
+                    if (!IPAddress.IsLoopback(address) &&
                         !address.ToString().StartsWith("169.254.") && // Exclude APIPA addresses
                         !address.IsIPv6LinkLocal)
                     {
@@ -202,7 +218,7 @@ namespace Axys
         {
             if (data == null || data.Length == 0)
             {
-                RhinoApp.WriteLine("Attempted to broadcast empty binary data.");
+                Logger.LogError("Attempted to broadcast empty binary data.");
                 BroadcastMessage(MessageHandler.CreateAndSerializeMessage(type: "error", description: "Attempted to broadcast empty binary data."));
                 return;
             }
@@ -216,7 +232,7 @@ namespace Axys
                     }
                     catch (Exception ex)
                     {
-                        RhinoApp.WriteLine($"[ERROR] Failed to send binary data: {ex.Message}");
+                        Logger.LogError(ex, $"Failed to send binary data: {ex.Message}");
                     }
                 }
             }
