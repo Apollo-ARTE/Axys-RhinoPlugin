@@ -1,0 +1,18 @@
+---
+name: Axys
+version: 0.1.3
+authors:
+-	Bruna Avellar
+-	Ilia Sedelkin
+- Guillermo Kramsky
+-	Alessandro Bortoluzzi
+-	Madina Malsagova
+-	Salvatore Flauto
+description: >
+  Axys is a plugin for Rhino and Grasshopper that
+  allowes to export, view and manipulate 3D models on Vision Pro
+  using the dedicated Axys app. The solution is specifically designed
+  for 3D concrete printing, but can be used for other applications as well. 
+  Requires Rhino 8 to natively export to USDZ format.
+url: "https://github.com/Apollo-ARTE/RhinoPlugin"
+icon: axys_icon.png
