@@ -5,8 +5,7 @@ name: .NET
 
 on:
   push:
-    branches: [ "main" ]
-    branches: [ "feat/release-pipeline" ]
+    branches: [ "main", "feat/release-pipeline" ]
   pull_request:
     branches: [ "main" ]
 
