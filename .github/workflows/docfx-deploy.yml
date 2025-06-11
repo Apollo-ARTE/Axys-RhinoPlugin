@@ -3,7 +3,7 @@ name: Build and Deploy DocFX to GitHub Pages
 on:
   push:
     branches:
-      - feat/docfx
+      ["main", "feat/docfx"]
 
 permissions:
   contents: write
