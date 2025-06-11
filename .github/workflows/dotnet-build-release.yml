@@ -54,7 +54,8 @@ jobs:
         else
           VERSION="dev-${GITHUB_SHA:0:7}"
         fi
-        ZIP_NAME="AxysPlugin-$VERSION.zip"
+        # Use underscore instead of dash for better compatibility
+        ZIP_NAME="AxysPlugin_v${VERSION}.zip"
         cd plugin-package && zip -r ../$ZIP_NAME * && cd ..
         echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
         echo "VERSION=$VERSION" >> $GITHUB_ENV
@@ -64,7 +65,7 @@ jobs:
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: rhino-plugin-${{ env.VERSION }}
+        name: axys-plugin-v${{ env.VERSION }}
         path: ${{ env.ZIP_NAME }}
         retention-days: 30
 
@@ -80,7 +81,7 @@ jobs:
     - name: Download Build Artifacts
       uses: actions/download-artifact@v4
       with:
-        pattern: rhino-plugin-*
+        pattern: axys-plugin-*
         merge-multiple: true
     
     - name: Create Release
