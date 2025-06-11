@@ -1,28 +1,92 @@
-# This workflow will build a .NET project
+# This workflow will build a .NET project and create releases
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: .NET
+name: .NET Build and Release
 
 on:
   push:
     branches: [ "main", "feat/release-pipeline" ]
+    tags: [ "v*" ]  # Trigger on version tags like v1.0.0
   pull_request:
     branches: [ "main" ]
 
 jobs:
   build:
-
-    runs-on: windows-latest
-
+    runs-on: ubuntu-latest
+    
     steps:
     - uses: actions/checkout@v4
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+    
     - name: Restore dependencies
       run: dotnet restore
+    
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore --configuration Release
+    
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal --configuration Release
+    
+    # Package the plugin files
+    - name: Package Plugin
+      run: |
+        # Create output directory
+        mkdir -p plugin-package
+        
+        # Copy built assemblies (adjust paths as needed for your project structure)
+        find . -path "*/bin/Release/net*" -name "*.dll" -o -name "*.rhp" -o -name "*.gha" | xargs -I {} cp {} plugin-package/ 2>/dev/null || true
+        
+        # Copy any additional files (manifests, documentation, etc.)
+        [ -f "README.md" ] && cp README.md plugin-package/
+        [ -f "LICENSE" ] && cp LICENSE plugin-package/
+        find . -maxdepth 1 -name "*.rhi" -exec cp {} plugin-package/ \; 2>/dev/null || true
+      shell: bash
+    
+    # Create zip file
+    - name: Create ZIP Archive
+      run: |
+        if [[ $GITHUB_REF == refs/tags/v* ]]; then
+          VERSION=${GITHUB_REF#refs/tags/v}
+        else
+          VERSION="dev-${GITHUB_SHA:0:7}"
+        fi
+        ZIP_NAME="RhinoPlugin-$VERSION.zip"
+        cd plugin-package && zip -r ../$ZIP_NAME * && cd ..
+        echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+      shell: bash
+    
+    # Upload build artifacts for all builds
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: rhino-plugin-${{ env.VERSION }}
+        path: ${{ env.ZIP_NAME }}
+        retention-days: 30
+
+  # Release job - only runs on tag pushes
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    
+    steps:
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        pattern: rhino-plugin-*
+        merge-multiple: true
+    
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: "*.zip"
+        generate_release_notes: true
+        draft: false
+        prerelease: ${{ contains(github.ref, '-') }}  # Mark as prerelease if version contains dash (e.g., v1.0.0-beta)
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
