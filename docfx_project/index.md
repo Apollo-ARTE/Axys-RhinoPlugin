@@ -1,5 +1,5 @@
 ---
-_layout: landing
+_layout: conceptual
 ---
 
 # Axys Rhino Plugin Documentation
