@@ -1,0 +1,2385 @@
+### YamlMime:ManagedReference
+items:
+- uid: Axys.AxysPlugin
+  commentId: T:Axys.AxysPlugin
+  id: AxysPlugin
+  parent: Axys
+  children:
+  - Axys.AxysPlugin.#ctor
+  - Axys.AxysPlugin.Instance
+  - Axys.AxysPlugin.OnLoad(System.String@)
+  - Axys.AxysPlugin.OnShutdown
+  langs:
+  - csharp
+  - vb
+  name: AxysPlugin
+  nameWithType: AxysPlugin
+  fullName: Axys.AxysPlugin
+  type: Class
+  source:
+    remote:
+      path: AxysPlugin.cs
+      branch: feat/docfx
+      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+    id: AxysPlugin
+    path: ../AxysPlugin.cs
+    startLine: 11
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys
+  summary: >-
+    Entry point for the Axys Rhino plug-in. Rhino creates a single instance
+
+    of this class which manages the plug-in life cycle.  The plug-in logs its
+
+    load and shutdown events using <xref href="Logger" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: 'public class AxysPlugin : PlugIn'
+    content.vb: Public Class AxysPlugin Inherits PlugIn
+  inheritance:
+  - System.Object
+  - Rhino.PlugIns.PlugIn
+  inheritedMembers:
+  - Rhino.PlugIns.PlugIn.LoadPlugIn(System.String,System.Guid@)
+  - Rhino.PlugIns.PlugIn.Find(System.Reflection.Assembly)
+  - Rhino.PlugIns.PlugIn.Find(System.Guid)
+  - Rhino.PlugIns.PlugIn.LoadComputeExtensionPlugins
+  - Rhino.PlugIns.PlugIn.GetPluginSettings(System.Guid,System.Boolean)
+  - Rhino.PlugIns.PlugIn.SavePluginSettings(System.Guid)
+  - Rhino.PlugIns.PlugIn.RaiseOnPlugInSettingsSavedEvent
+  - Rhino.PlugIns.PlugIn.FlushSettingsSavedQueue
+  - Rhino.PlugIns.PlugIn.Icon(System.Drawing.Size)
+  - Rhino.PlugIns.PlugIn.GetCommands
+  - Rhino.PlugIns.PlugIn.ResetMessageBoxes
+  - Rhino.PlugIns.PlugIn.CreateCommands
+  - Rhino.PlugIns.PlugIn.RegisterCommand(Rhino.Commands.Command)
+  - Rhino.PlugIns.PlugIn.GetPlugInObject
+  - Rhino.PlugIns.PlugIn.ShouldCallWriteDocument(Rhino.FileIO.FileWriteOptions)
+  - Rhino.PlugIns.PlugIn.WriteDocument(Rhino.RhinoDoc,Rhino.FileIO.BinaryArchiveWriter,Rhino.FileIO.FileWriteOptions)
+  - Rhino.PlugIns.PlugIn.ReadDocument(Rhino.RhinoDoc,Rhino.FileIO.BinaryArchiveReader,Rhino.FileIO.FileReadOptions)
+  - Rhino.PlugIns.PlugIn.OptionsDialogPages(System.Collections.Generic.List{Rhino.UI.OptionsDialogPage})
+  - Rhino.PlugIns.PlugIn.DocumentPropertiesDialogPages(Rhino.RhinoDoc,System.Collections.Generic.List{Rhino.UI.OptionsDialogPage})
+  - Rhino.PlugIns.PlugIn.ObjectPropertiesPages(System.Collections.Generic.List{Rhino.UI.ObjectPropertiesPage})
+  - Rhino.PlugIns.PlugIn.ObjectPropertiesPages(Rhino.UI.ObjectPropertiesPageCollection)
+  - Rhino.PlugIns.PlugIn.GetLicense(Rhino.PlugIns.LicenseBuildType,Rhino.PlugIns.ValidateProductKeyDelegate,Rhino.PlugIns.OnLeaseChangedDelegate)
+  - Rhino.PlugIns.PlugIn.GetLicense(Rhino.PlugIns.LicenseCapabilities,System.String,Rhino.PlugIns.ValidateProductKeyDelegate,Rhino.PlugIns.OnLeaseChangedDelegate)
+  - Rhino.PlugIns.PlugIn.SetLicenseCapabilities(System.String,Rhino.PlugIns.LicenseCapabilities,System.Guid)
+  - Rhino.PlugIns.PlugIn.AskUserForLicense(Rhino.PlugIns.LicenseBuildType,System.Boolean,System.String,System.Object,Rhino.PlugIns.ValidateProductKeyDelegate,Rhino.PlugIns.OnLeaseChangedDelegate)
+  - Rhino.PlugIns.PlugIn.ReturnLicense
+  - Rhino.PlugIns.PlugIn.GetLicenseOwner(System.String@,System.String@)
+  - Rhino.PlugIns.PlugIn.SaveSettings
+  - Rhino.PlugIns.PlugIn.CommandSettings(System.String)
+  - Rhino.PlugIns.PlugIn.GetPlugInInfo(System.Guid)
+  - Rhino.PlugIns.PlugIn.PlugInExists(System.Guid,System.Boolean@,System.Boolean@)
+  - Rhino.PlugIns.PlugIn.GetInstalledPlugIns
+  - Rhino.PlugIns.PlugIn.GetInstalledPlugIns(System.Boolean)
+  - Rhino.PlugIns.PlugIn.GetInstalledPlugInNames
+  - Rhino.PlugIns.PlugIn.GetInstalledPlugInNames(Rhino.PlugIns.PlugInType,System.Boolean,System.Boolean)
+  - Rhino.PlugIns.PlugIn.GetInstalledPlugInNames(Rhino.PlugIns.PlugInType,System.Boolean,System.Boolean,System.Boolean)
+  - Rhino.PlugIns.PlugIn.GetInstalledPlugInFolders
+  - Rhino.PlugIns.PlugIn.NameFromPath(System.String)
+  - Rhino.PlugIns.PlugIn.PathFromName(System.String)
+  - Rhino.PlugIns.PlugIn.PathFromId(System.Guid)
+  - Rhino.PlugIns.PlugIn.IdFromPath(System.String)
+  - Rhino.PlugIns.PlugIn.IdFromName(System.String)
+  - Rhino.PlugIns.PlugIn.LoadPlugIn(System.Guid)
+  - Rhino.PlugIns.PlugIn.LoadPlugIn(System.Guid,System.Boolean,System.Boolean)
+  - Rhino.PlugIns.PlugIn.GetEnglishCommandNames(System.Guid)
+  - Rhino.PlugIns.PlugIn.SetLoadProtection(System.Guid,System.Boolean)
+  - Rhino.PlugIns.PlugIn.GetLoadProtection(System.Guid,System.Boolean@)
+  - Rhino.PlugIns.PlugIn.Assembly
+  - Rhino.PlugIns.PlugIn.Id
+  - Rhino.PlugIns.PlugIn.LicenseId
+  - Rhino.PlugIns.PlugIn.Name
+  - Rhino.PlugIns.PlugIn.Version
+  - Rhino.PlugIns.PlugIn.Description
+  - Rhino.PlugIns.PlugIn.LoadAtStartup
+  - Rhino.PlugIns.PlugIn.LoadTime
+  - Rhino.PlugIns.PlugIn.LocalPlugInName
+  - Rhino.PlugIns.PlugIn.SettingsDirectoryAllUsers
+  - Rhino.PlugIns.PlugIn.SettingsDirectory
+  - Rhino.PlugIns.PlugIn.Settings
+  - Rhino.PlugIns.PlugIn.WindowPositionSettings
+  - Rhino.PlugIns.PlugIn.AskOnLoadProtection
+  - Rhino.PlugIns.PlugIn.InstalledPlugInCount
+  - Rhino.PlugIns.PlugIn.UnknownUserData
+  - Rhino.PlugIns.PlugIn.SettingsSaved
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Axys.AxysPlugin.#ctor
+  commentId: M:Axys.AxysPlugin.#ctor
+  id: '#ctor'
+  parent: Axys.AxysPlugin
+  langs:
+  - csharp
+  - vb
+  name: AxysPlugin()
+  nameWithType: AxysPlugin.AxysPlugin()
+  fullName: Axys.AxysPlugin.AxysPlugin()
+  type: Constructor
+  source:
+    remote:
+      path: AxysPlugin.cs
+      branch: feat/docfx
+      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+    id: .ctor
+    path: ../AxysPlugin.cs
+    startLine: 13
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys
+  syntax:
+    content: public AxysPlugin()
+    content.vb: Public Sub New()
+  overload: Axys.AxysPlugin.#ctor*
+  nameWithType.vb: AxysPlugin.New()
+  fullName.vb: Axys.AxysPlugin.New()
+  name.vb: New()
+- uid: Axys.AxysPlugin.Instance
+  commentId: P:Axys.AxysPlugin.Instance
+  id: Instance
+  parent: Axys.AxysPlugin
+  langs:
+  - csharp
+  - vb
+  name: Instance
+  nameWithType: AxysPlugin.Instance
+  fullName: Axys.AxysPlugin.Instance
+  type: Property
+  source:
+    remote:
+      path: AxysPlugin.cs
+      branch: feat/docfx
+      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+    id: Instance
+    path: ../AxysPlugin.cs
+    startLine: 21
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys
+  summary: Gets the singleton instance of the plug-in created by Rhino.
+  example: []
+  syntax:
+    content: public static AxysPlugin Instance { get; }
+    parameters: []
+    return:
+      type: Axys.AxysPlugin
+    content.vb: Public Shared Property Instance As AxysPlugin
+  overload: Axys.AxysPlugin.Instance*
+- uid: Axys.AxysPlugin.OnLoad(System.String@)
+  commentId: M:Axys.AxysPlugin.OnLoad(System.String@)
+  id: OnLoad(System.String@)
+  parent: Axys.AxysPlugin
+  langs:
+  - csharp
+  - vb
+  name: OnLoad(ref string)
+  nameWithType: AxysPlugin.OnLoad(ref string)
+  fullName: Axys.AxysPlugin.OnLoad(ref string)
+  type: Method
+  source:
+    remote:
+      path: AxysPlugin.cs
+      branch: feat/docfx
+      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+    id: OnLoad
+    path: ../AxysPlugin.cs
+    startLine: 28
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys
+  summary: Initializes the plug-in when Rhino loads it.
+  example: []
+  syntax:
+    content: protected override LoadReturnCode OnLoad(ref string errorMessage)
+    parameters:
+    - id: errorMessage
+      type: System.String
+      description: Receives a description in case the plug-in fails to load.
+    return:
+      type: Rhino.PlugIns.LoadReturnCode
+      description: The <xref href="Rhino.PlugIns.LoadReturnCode" data-throw-if-not-resolved="false"></xref> describing load success.
+    content.vb: Protected Overrides Function OnLoad(errorMessage As String) As LoadReturnCode
+  overridden: Rhino.PlugIns.PlugIn.OnLoad(System.String@)
+  overload: Axys.AxysPlugin.OnLoad*
+  nameWithType.vb: AxysPlugin.OnLoad(String)
+  fullName.vb: Axys.AxysPlugin.OnLoad(String)
+  name.vb: OnLoad(String)
+- uid: Axys.AxysPlugin.OnShutdown
+  commentId: M:Axys.AxysPlugin.OnShutdown
+  id: OnShutdown
+  parent: Axys.AxysPlugin
+  langs:
+  - csharp
+  - vb
+  name: OnShutdown()
+  nameWithType: AxysPlugin.OnShutdown()
+  fullName: Axys.AxysPlugin.OnShutdown()
+  type: Method
+  source:
+    remote:
+      path: AxysPlugin.cs
+      branch: feat/docfx
+      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+    id: OnShutdown
+    path: ../AxysPlugin.cs
+    startLine: 46
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys
+  summary: Invoked by Rhino during application shutdown to perform cleanup.
+  example: []
+  syntax:
+    content: protected override void OnShutdown()
+    content.vb: Protected Overrides Sub OnShutdown()
+  overridden: Rhino.PlugIns.PlugIn.OnShutdown
+  overload: Axys.AxysPlugin.OnShutdown*
+references:
+- uid: Logger
+  commentId: T:Logger
+  href: Logger.html
+  name: Logger
+  nameWithType: Logger
+  fullName: Logger
+- uid: Axys
+  commentId: N:Axys
+  href: Axys.html
+  name: Axys
+  nameWithType: Axys
+  fullName: Axys
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Rhino.PlugIns.PlugIn
+  commentId: T:Rhino.PlugIns.PlugIn
+  parent: Rhino.PlugIns
+  isExternal: true
+  name: PlugIn
+  nameWithType: PlugIn
+  fullName: Rhino.PlugIns.PlugIn
+- uid: Rhino.PlugIns.PlugIn.LoadPlugIn(System.String,System.Guid@)
+  commentId: M:Rhino.PlugIns.PlugIn.LoadPlugIn(System.String,System.Guid@)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: LoadPlugIn(string, out Guid)
+  nameWithType: PlugIn.LoadPlugIn(string, out Guid)
+  fullName: Rhino.PlugIns.PlugIn.LoadPlugIn(string, out System.Guid)
+  nameWithType.vb: PlugIn.LoadPlugIn(String, Guid)
+  fullName.vb: Rhino.PlugIns.PlugIn.LoadPlugIn(String, System.Guid)
+  name.vb: LoadPlugIn(String, Guid)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.LoadPlugIn(System.String,System.Guid@)
+    name: LoadPlugIn
+    isExternal: true
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.LoadPlugIn(System.String,System.Guid@)
+    name: LoadPlugIn
+    isExternal: true
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.Find(System.Reflection.Assembly)
+  commentId: M:Rhino.PlugIns.PlugIn.Find(System.Reflection.Assembly)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.reflection.assembly
+  name: Find(Assembly)
+  nameWithType: PlugIn.Find(Assembly)
+  fullName: Rhino.PlugIns.PlugIn.Find(System.Reflection.Assembly)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.Find(System.Reflection.Assembly)
+    name: Find
+    isExternal: true
+  - name: (
+  - uid: System.Reflection.Assembly
+    name: Assembly
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.reflection.assembly
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.Find(System.Reflection.Assembly)
+    name: Find
+    isExternal: true
+  - name: (
+  - uid: System.Reflection.Assembly
+    name: Assembly
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.reflection.assembly
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.Find(System.Guid)
+  commentId: M:Rhino.PlugIns.PlugIn.Find(System.Guid)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: Find(Guid)
+  nameWithType: PlugIn.Find(Guid)
+  fullName: Rhino.PlugIns.PlugIn.Find(System.Guid)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.Find(System.Guid)
+    name: Find
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.Find(System.Guid)
+    name: Find
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.LoadComputeExtensionPlugins
+  commentId: M:Rhino.PlugIns.PlugIn.LoadComputeExtensionPlugins
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: LoadComputeExtensionPlugins()
+  nameWithType: PlugIn.LoadComputeExtensionPlugins()
+  fullName: Rhino.PlugIns.PlugIn.LoadComputeExtensionPlugins()
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.LoadComputeExtensionPlugins
+    name: LoadComputeExtensionPlugins
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.LoadComputeExtensionPlugins
+    name: LoadComputeExtensionPlugins
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.GetPluginSettings(System.Guid,System.Boolean)
+  commentId: M:Rhino.PlugIns.PlugIn.GetPluginSettings(System.Guid,System.Boolean)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: GetPluginSettings(Guid, bool)
+  nameWithType: PlugIn.GetPluginSettings(Guid, bool)
+  fullName: Rhino.PlugIns.PlugIn.GetPluginSettings(System.Guid, bool)
+  nameWithType.vb: PlugIn.GetPluginSettings(Guid, Boolean)
+  fullName.vb: Rhino.PlugIns.PlugIn.GetPluginSettings(System.Guid, Boolean)
+  name.vb: GetPluginSettings(Guid, Boolean)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.GetPluginSettings(System.Guid,System.Boolean)
+    name: GetPluginSettings
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.GetPluginSettings(System.Guid,System.Boolean)
+    name: GetPluginSettings
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.SavePluginSettings(System.Guid)
+  commentId: M:Rhino.PlugIns.PlugIn.SavePluginSettings(System.Guid)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: SavePluginSettings(Guid)
+  nameWithType: PlugIn.SavePluginSettings(Guid)
+  fullName: Rhino.PlugIns.PlugIn.SavePluginSettings(System.Guid)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.SavePluginSettings(System.Guid)
+    name: SavePluginSettings
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.SavePluginSettings(System.Guid)
+    name: SavePluginSettings
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.RaiseOnPlugInSettingsSavedEvent
+  commentId: M:Rhino.PlugIns.PlugIn.RaiseOnPlugInSettingsSavedEvent
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: RaiseOnPlugInSettingsSavedEvent()
+  nameWithType: PlugIn.RaiseOnPlugInSettingsSavedEvent()
+  fullName: Rhino.PlugIns.PlugIn.RaiseOnPlugInSettingsSavedEvent()
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.RaiseOnPlugInSettingsSavedEvent
+    name: RaiseOnPlugInSettingsSavedEvent
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.RaiseOnPlugInSettingsSavedEvent
+    name: RaiseOnPlugInSettingsSavedEvent
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.FlushSettingsSavedQueue
+  commentId: M:Rhino.PlugIns.PlugIn.FlushSettingsSavedQueue
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: FlushSettingsSavedQueue()
+  nameWithType: PlugIn.FlushSettingsSavedQueue()
+  fullName: Rhino.PlugIns.PlugIn.FlushSettingsSavedQueue()
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.FlushSettingsSavedQueue
+    name: FlushSettingsSavedQueue
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.FlushSettingsSavedQueue
+    name: FlushSettingsSavedQueue
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.Icon(System.Drawing.Size)
+  commentId: M:Rhino.PlugIns.PlugIn.Icon(System.Drawing.Size)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.drawing.size
+  name: Icon(Size)
+  nameWithType: PlugIn.Icon(Size)
+  fullName: Rhino.PlugIns.PlugIn.Icon(System.Drawing.Size)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.Icon(System.Drawing.Size)
+    name: Icon
+    isExternal: true
+  - name: (
+  - uid: System.Drawing.Size
+    name: Size
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.drawing.size
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.Icon(System.Drawing.Size)
+    name: Icon
+    isExternal: true
+  - name: (
+  - uid: System.Drawing.Size
+    name: Size
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.drawing.size
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.GetCommands
+  commentId: M:Rhino.PlugIns.PlugIn.GetCommands
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: GetCommands()
+  nameWithType: PlugIn.GetCommands()
+  fullName: Rhino.PlugIns.PlugIn.GetCommands()
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.GetCommands
+    name: GetCommands
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.GetCommands
+    name: GetCommands
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.ResetMessageBoxes
+  commentId: M:Rhino.PlugIns.PlugIn.ResetMessageBoxes
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: ResetMessageBoxes()
+  nameWithType: PlugIn.ResetMessageBoxes()
+  fullName: Rhino.PlugIns.PlugIn.ResetMessageBoxes()
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.ResetMessageBoxes
+    name: ResetMessageBoxes
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.ResetMessageBoxes
+    name: ResetMessageBoxes
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.CreateCommands
+  commentId: M:Rhino.PlugIns.PlugIn.CreateCommands
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: CreateCommands()
+  nameWithType: PlugIn.CreateCommands()
+  fullName: Rhino.PlugIns.PlugIn.CreateCommands()
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.CreateCommands
+    name: CreateCommands
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.CreateCommands
+    name: CreateCommands
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.RegisterCommand(Rhino.Commands.Command)
+  commentId: M:Rhino.PlugIns.PlugIn.RegisterCommand(Rhino.Commands.Command)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: RegisterCommand(Command)
+  nameWithType: PlugIn.RegisterCommand(Command)
+  fullName: Rhino.PlugIns.PlugIn.RegisterCommand(Rhino.Commands.Command)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.RegisterCommand(Rhino.Commands.Command)
+    name: RegisterCommand
+    isExternal: true
+  - name: (
+  - uid: Rhino.Commands.Command
+    name: Command
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.RegisterCommand(Rhino.Commands.Command)
+    name: RegisterCommand
+    isExternal: true
+  - name: (
+  - uid: Rhino.Commands.Command
+    name: Command
+    isExternal: true
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.GetPlugInObject
+  commentId: M:Rhino.PlugIns.PlugIn.GetPlugInObject
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: GetPlugInObject()
+  nameWithType: PlugIn.GetPlugInObject()
+  fullName: Rhino.PlugIns.PlugIn.GetPlugInObject()
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.GetPlugInObject
+    name: GetPlugInObject
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.GetPlugInObject
+    name: GetPlugInObject
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.ShouldCallWriteDocument(Rhino.FileIO.FileWriteOptions)
+  commentId: M:Rhino.PlugIns.PlugIn.ShouldCallWriteDocument(Rhino.FileIO.FileWriteOptions)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: ShouldCallWriteDocument(FileWriteOptions)
+  nameWithType: PlugIn.ShouldCallWriteDocument(FileWriteOptions)
+  fullName: Rhino.PlugIns.PlugIn.ShouldCallWriteDocument(Rhino.FileIO.FileWriteOptions)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.ShouldCallWriteDocument(Rhino.FileIO.FileWriteOptions)
+    name: ShouldCallWriteDocument
+    isExternal: true
+  - name: (
+  - uid: Rhino.FileIO.FileWriteOptions
+    name: FileWriteOptions
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.ShouldCallWriteDocument(Rhino.FileIO.FileWriteOptions)
+    name: ShouldCallWriteDocument
+    isExternal: true
+  - name: (
+  - uid: Rhino.FileIO.FileWriteOptions
+    name: FileWriteOptions
+    isExternal: true
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.WriteDocument(Rhino.RhinoDoc,Rhino.FileIO.BinaryArchiveWriter,Rhino.FileIO.FileWriteOptions)
+  commentId: M:Rhino.PlugIns.PlugIn.WriteDocument(Rhino.RhinoDoc,Rhino.FileIO.BinaryArchiveWriter,Rhino.FileIO.FileWriteOptions)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: WriteDocument(RhinoDoc, BinaryArchiveWriter, FileWriteOptions)
+  nameWithType: PlugIn.WriteDocument(RhinoDoc, BinaryArchiveWriter, FileWriteOptions)
+  fullName: Rhino.PlugIns.PlugIn.WriteDocument(Rhino.RhinoDoc, Rhino.FileIO.BinaryArchiveWriter, Rhino.FileIO.FileWriteOptions)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.WriteDocument(Rhino.RhinoDoc,Rhino.FileIO.BinaryArchiveWriter,Rhino.FileIO.FileWriteOptions)
+    name: WriteDocument
+    isExternal: true
+  - name: (
+  - uid: Rhino.RhinoDoc
+    name: RhinoDoc
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Rhino.FileIO.BinaryArchiveWriter
+    name: BinaryArchiveWriter
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Rhino.FileIO.FileWriteOptions
+    name: FileWriteOptions
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.WriteDocument(Rhino.RhinoDoc,Rhino.FileIO.BinaryArchiveWriter,Rhino.FileIO.FileWriteOptions)
+    name: WriteDocument
+    isExternal: true
+  - name: (
+  - uid: Rhino.RhinoDoc
+    name: RhinoDoc
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Rhino.FileIO.BinaryArchiveWriter
+    name: BinaryArchiveWriter
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Rhino.FileIO.FileWriteOptions
+    name: FileWriteOptions
+    isExternal: true
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.ReadDocument(Rhino.RhinoDoc,Rhino.FileIO.BinaryArchiveReader,Rhino.FileIO.FileReadOptions)
+  commentId: M:Rhino.PlugIns.PlugIn.ReadDocument(Rhino.RhinoDoc,Rhino.FileIO.BinaryArchiveReader,Rhino.FileIO.FileReadOptions)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: ReadDocument(RhinoDoc, BinaryArchiveReader, FileReadOptions)
+  nameWithType: PlugIn.ReadDocument(RhinoDoc, BinaryArchiveReader, FileReadOptions)
+  fullName: Rhino.PlugIns.PlugIn.ReadDocument(Rhino.RhinoDoc, Rhino.FileIO.BinaryArchiveReader, Rhino.FileIO.FileReadOptions)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.ReadDocument(Rhino.RhinoDoc,Rhino.FileIO.BinaryArchiveReader,Rhino.FileIO.FileReadOptions)
+    name: ReadDocument
+    isExternal: true
+  - name: (
+  - uid: Rhino.RhinoDoc
+    name: RhinoDoc
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Rhino.FileIO.BinaryArchiveReader
+    name: BinaryArchiveReader
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Rhino.FileIO.FileReadOptions
+    name: FileReadOptions
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.ReadDocument(Rhino.RhinoDoc,Rhino.FileIO.BinaryArchiveReader,Rhino.FileIO.FileReadOptions)
+    name: ReadDocument
+    isExternal: true
+  - name: (
+  - uid: Rhino.RhinoDoc
+    name: RhinoDoc
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Rhino.FileIO.BinaryArchiveReader
+    name: BinaryArchiveReader
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Rhino.FileIO.FileReadOptions
+    name: FileReadOptions
+    isExternal: true
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.OptionsDialogPages(System.Collections.Generic.List{Rhino.UI.OptionsDialogPage})
+  commentId: M:Rhino.PlugIns.PlugIn.OptionsDialogPages(System.Collections.Generic.List{Rhino.UI.OptionsDialogPage})
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: OptionsDialogPages(List<OptionsDialogPage>)
+  nameWithType: PlugIn.OptionsDialogPages(List<OptionsDialogPage>)
+  fullName: Rhino.PlugIns.PlugIn.OptionsDialogPages(System.Collections.Generic.List<Rhino.UI.OptionsDialogPage>)
+  nameWithType.vb: PlugIn.OptionsDialogPages(List(Of OptionsDialogPage))
+  fullName.vb: Rhino.PlugIns.PlugIn.OptionsDialogPages(System.Collections.Generic.List(Of Rhino.UI.OptionsDialogPage))
+  name.vb: OptionsDialogPages(List(Of OptionsDialogPage))
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.OptionsDialogPages(System.Collections.Generic.List{Rhino.UI.OptionsDialogPage})
+    name: OptionsDialogPages
+    isExternal: true
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Rhino.UI.OptionsDialogPage
+    name: OptionsDialogPage
+    isExternal: true
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.OptionsDialogPages(System.Collections.Generic.List{Rhino.UI.OptionsDialogPage})
+    name: OptionsDialogPages
+    isExternal: true
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Rhino.UI.OptionsDialogPage
+    name: OptionsDialogPage
+    isExternal: true
+  - name: )
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.DocumentPropertiesDialogPages(Rhino.RhinoDoc,System.Collections.Generic.List{Rhino.UI.OptionsDialogPage})
+  commentId: M:Rhino.PlugIns.PlugIn.DocumentPropertiesDialogPages(Rhino.RhinoDoc,System.Collections.Generic.List{Rhino.UI.OptionsDialogPage})
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: DocumentPropertiesDialogPages(RhinoDoc, List<OptionsDialogPage>)
+  nameWithType: PlugIn.DocumentPropertiesDialogPages(RhinoDoc, List<OptionsDialogPage>)
+  fullName: Rhino.PlugIns.PlugIn.DocumentPropertiesDialogPages(Rhino.RhinoDoc, System.Collections.Generic.List<Rhino.UI.OptionsDialogPage>)
+  nameWithType.vb: PlugIn.DocumentPropertiesDialogPages(RhinoDoc, List(Of OptionsDialogPage))
+  fullName.vb: Rhino.PlugIns.PlugIn.DocumentPropertiesDialogPages(Rhino.RhinoDoc, System.Collections.Generic.List(Of Rhino.UI.OptionsDialogPage))
+  name.vb: DocumentPropertiesDialogPages(RhinoDoc, List(Of OptionsDialogPage))
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.DocumentPropertiesDialogPages(Rhino.RhinoDoc,System.Collections.Generic.List{Rhino.UI.OptionsDialogPage})
+    name: DocumentPropertiesDialogPages
+    isExternal: true
+  - name: (
+  - uid: Rhino.RhinoDoc
+    name: RhinoDoc
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Rhino.UI.OptionsDialogPage
+    name: OptionsDialogPage
+    isExternal: true
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.DocumentPropertiesDialogPages(Rhino.RhinoDoc,System.Collections.Generic.List{Rhino.UI.OptionsDialogPage})
+    name: DocumentPropertiesDialogPages
+    isExternal: true
+  - name: (
+  - uid: Rhino.RhinoDoc
+    name: RhinoDoc
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Rhino.UI.OptionsDialogPage
+    name: OptionsDialogPage
+    isExternal: true
+  - name: )
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.ObjectPropertiesPages(System.Collections.Generic.List{Rhino.UI.ObjectPropertiesPage})
+  commentId: M:Rhino.PlugIns.PlugIn.ObjectPropertiesPages(System.Collections.Generic.List{Rhino.UI.ObjectPropertiesPage})
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: ObjectPropertiesPages(List<ObjectPropertiesPage>)
+  nameWithType: PlugIn.ObjectPropertiesPages(List<ObjectPropertiesPage>)
+  fullName: Rhino.PlugIns.PlugIn.ObjectPropertiesPages(System.Collections.Generic.List<Rhino.UI.ObjectPropertiesPage>)
+  nameWithType.vb: PlugIn.ObjectPropertiesPages(List(Of ObjectPropertiesPage))
+  fullName.vb: Rhino.PlugIns.PlugIn.ObjectPropertiesPages(System.Collections.Generic.List(Of Rhino.UI.ObjectPropertiesPage))
+  name.vb: ObjectPropertiesPages(List(Of ObjectPropertiesPage))
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.ObjectPropertiesPages(System.Collections.Generic.List{Rhino.UI.ObjectPropertiesPage})
+    name: ObjectPropertiesPages
+    isExternal: true
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Rhino.UI.ObjectPropertiesPage
+    name: ObjectPropertiesPage
+    isExternal: true
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.ObjectPropertiesPages(System.Collections.Generic.List{Rhino.UI.ObjectPropertiesPage})
+    name: ObjectPropertiesPages
+    isExternal: true
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Rhino.UI.ObjectPropertiesPage
+    name: ObjectPropertiesPage
+    isExternal: true
+  - name: )
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.ObjectPropertiesPages(Rhino.UI.ObjectPropertiesPageCollection)
+  commentId: M:Rhino.PlugIns.PlugIn.ObjectPropertiesPages(Rhino.UI.ObjectPropertiesPageCollection)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: ObjectPropertiesPages(ObjectPropertiesPageCollection)
+  nameWithType: PlugIn.ObjectPropertiesPages(ObjectPropertiesPageCollection)
+  fullName: Rhino.PlugIns.PlugIn.ObjectPropertiesPages(Rhino.UI.ObjectPropertiesPageCollection)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.ObjectPropertiesPages(Rhino.UI.ObjectPropertiesPageCollection)
+    name: ObjectPropertiesPages
+    isExternal: true
+  - name: (
+  - uid: Rhino.UI.ObjectPropertiesPageCollection
+    name: ObjectPropertiesPageCollection
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.ObjectPropertiesPages(Rhino.UI.ObjectPropertiesPageCollection)
+    name: ObjectPropertiesPages
+    isExternal: true
+  - name: (
+  - uid: Rhino.UI.ObjectPropertiesPageCollection
+    name: ObjectPropertiesPageCollection
+    isExternal: true
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.GetLicense(Rhino.PlugIns.LicenseBuildType,Rhino.PlugIns.ValidateProductKeyDelegate,Rhino.PlugIns.OnLeaseChangedDelegate)
+  commentId: M:Rhino.PlugIns.PlugIn.GetLicense(Rhino.PlugIns.LicenseBuildType,Rhino.PlugIns.ValidateProductKeyDelegate,Rhino.PlugIns.OnLeaseChangedDelegate)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: GetLicense(LicenseBuildType, ValidateProductKeyDelegate, OnLeaseChangedDelegate)
+  nameWithType: PlugIn.GetLicense(LicenseBuildType, ValidateProductKeyDelegate, OnLeaseChangedDelegate)
+  fullName: Rhino.PlugIns.PlugIn.GetLicense(Rhino.PlugIns.LicenseBuildType, Rhino.PlugIns.ValidateProductKeyDelegate, Rhino.PlugIns.OnLeaseChangedDelegate)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.GetLicense(Rhino.PlugIns.LicenseBuildType,Rhino.PlugIns.ValidateProductKeyDelegate,Rhino.PlugIns.OnLeaseChangedDelegate)
+    name: GetLicense
+    isExternal: true
+  - name: (
+  - uid: Rhino.PlugIns.LicenseBuildType
+    name: LicenseBuildType
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Rhino.PlugIns.ValidateProductKeyDelegate
+    name: ValidateProductKeyDelegate
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Rhino.PlugIns.OnLeaseChangedDelegate
+    name: OnLeaseChangedDelegate
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.GetLicense(Rhino.PlugIns.LicenseBuildType,Rhino.PlugIns.ValidateProductKeyDelegate,Rhino.PlugIns.OnLeaseChangedDelegate)
+    name: GetLicense
+    isExternal: true
+  - name: (
+  - uid: Rhino.PlugIns.LicenseBuildType
+    name: LicenseBuildType
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Rhino.PlugIns.ValidateProductKeyDelegate
+    name: ValidateProductKeyDelegate
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Rhino.PlugIns.OnLeaseChangedDelegate
+    name: OnLeaseChangedDelegate
+    isExternal: true
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.GetLicense(Rhino.PlugIns.LicenseCapabilities,System.String,Rhino.PlugIns.ValidateProductKeyDelegate,Rhino.PlugIns.OnLeaseChangedDelegate)
+  commentId: M:Rhino.PlugIns.PlugIn.GetLicense(Rhino.PlugIns.LicenseCapabilities,System.String,Rhino.PlugIns.ValidateProductKeyDelegate,Rhino.PlugIns.OnLeaseChangedDelegate)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: GetLicense(LicenseCapabilities, string, ValidateProductKeyDelegate, OnLeaseChangedDelegate)
+  nameWithType: PlugIn.GetLicense(LicenseCapabilities, string, ValidateProductKeyDelegate, OnLeaseChangedDelegate)
+  fullName: Rhino.PlugIns.PlugIn.GetLicense(Rhino.PlugIns.LicenseCapabilities, string, Rhino.PlugIns.ValidateProductKeyDelegate, Rhino.PlugIns.OnLeaseChangedDelegate)
+  nameWithType.vb: PlugIn.GetLicense(LicenseCapabilities, String, ValidateProductKeyDelegate, OnLeaseChangedDelegate)
+  fullName.vb: Rhino.PlugIns.PlugIn.GetLicense(Rhino.PlugIns.LicenseCapabilities, String, Rhino.PlugIns.ValidateProductKeyDelegate, Rhino.PlugIns.OnLeaseChangedDelegate)
+  name.vb: GetLicense(LicenseCapabilities, String, ValidateProductKeyDelegate, OnLeaseChangedDelegate)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.GetLicense(Rhino.PlugIns.LicenseCapabilities,System.String,Rhino.PlugIns.ValidateProductKeyDelegate,Rhino.PlugIns.OnLeaseChangedDelegate)
+    name: GetLicense
+    isExternal: true
+  - name: (
+  - uid: Rhino.PlugIns.LicenseCapabilities
+    name: LicenseCapabilities
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: Rhino.PlugIns.ValidateProductKeyDelegate
+    name: ValidateProductKeyDelegate
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Rhino.PlugIns.OnLeaseChangedDelegate
+    name: OnLeaseChangedDelegate
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.GetLicense(Rhino.PlugIns.LicenseCapabilities,System.String,Rhino.PlugIns.ValidateProductKeyDelegate,Rhino.PlugIns.OnLeaseChangedDelegate)
+    name: GetLicense
+    isExternal: true
+  - name: (
+  - uid: Rhino.PlugIns.LicenseCapabilities
+    name: LicenseCapabilities
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: Rhino.PlugIns.ValidateProductKeyDelegate
+    name: ValidateProductKeyDelegate
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Rhino.PlugIns.OnLeaseChangedDelegate
+    name: OnLeaseChangedDelegate
+    isExternal: true
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.SetLicenseCapabilities(System.String,Rhino.PlugIns.LicenseCapabilities,System.Guid)
+  commentId: M:Rhino.PlugIns.PlugIn.SetLicenseCapabilities(System.String,Rhino.PlugIns.LicenseCapabilities,System.Guid)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: SetLicenseCapabilities(string, LicenseCapabilities, Guid)
+  nameWithType: PlugIn.SetLicenseCapabilities(string, LicenseCapabilities, Guid)
+  fullName: Rhino.PlugIns.PlugIn.SetLicenseCapabilities(string, Rhino.PlugIns.LicenseCapabilities, System.Guid)
+  nameWithType.vb: PlugIn.SetLicenseCapabilities(String, LicenseCapabilities, Guid)
+  fullName.vb: Rhino.PlugIns.PlugIn.SetLicenseCapabilities(String, Rhino.PlugIns.LicenseCapabilities, System.Guid)
+  name.vb: SetLicenseCapabilities(String, LicenseCapabilities, Guid)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.SetLicenseCapabilities(System.String,Rhino.PlugIns.LicenseCapabilities,System.Guid)
+    name: SetLicenseCapabilities
+    isExternal: true
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: Rhino.PlugIns.LicenseCapabilities
+    name: LicenseCapabilities
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.SetLicenseCapabilities(System.String,Rhino.PlugIns.LicenseCapabilities,System.Guid)
+    name: SetLicenseCapabilities
+    isExternal: true
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: Rhino.PlugIns.LicenseCapabilities
+    name: LicenseCapabilities
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.AskUserForLicense(Rhino.PlugIns.LicenseBuildType,System.Boolean,System.String,System.Object,Rhino.PlugIns.ValidateProductKeyDelegate,Rhino.PlugIns.OnLeaseChangedDelegate)
+  commentId: M:Rhino.PlugIns.PlugIn.AskUserForLicense(Rhino.PlugIns.LicenseBuildType,System.Boolean,System.String,System.Object,Rhino.PlugIns.ValidateProductKeyDelegate,Rhino.PlugIns.OnLeaseChangedDelegate)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: AskUserForLicense(LicenseBuildType, bool, string, object, ValidateProductKeyDelegate, OnLeaseChangedDelegate)
+  nameWithType: PlugIn.AskUserForLicense(LicenseBuildType, bool, string, object, ValidateProductKeyDelegate, OnLeaseChangedDelegate)
+  fullName: Rhino.PlugIns.PlugIn.AskUserForLicense(Rhino.PlugIns.LicenseBuildType, bool, string, object, Rhino.PlugIns.ValidateProductKeyDelegate, Rhino.PlugIns.OnLeaseChangedDelegate)
+  nameWithType.vb: PlugIn.AskUserForLicense(LicenseBuildType, Boolean, String, Object, ValidateProductKeyDelegate, OnLeaseChangedDelegate)
+  fullName.vb: Rhino.PlugIns.PlugIn.AskUserForLicense(Rhino.PlugIns.LicenseBuildType, Boolean, String, Object, Rhino.PlugIns.ValidateProductKeyDelegate, Rhino.PlugIns.OnLeaseChangedDelegate)
+  name.vb: AskUserForLicense(LicenseBuildType, Boolean, String, Object, ValidateProductKeyDelegate, OnLeaseChangedDelegate)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.AskUserForLicense(Rhino.PlugIns.LicenseBuildType,System.Boolean,System.String,System.Object,Rhino.PlugIns.ValidateProductKeyDelegate,Rhino.PlugIns.OnLeaseChangedDelegate)
+    name: AskUserForLicense
+    isExternal: true
+  - name: (
+  - uid: Rhino.PlugIns.LicenseBuildType
+    name: LicenseBuildType
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: Rhino.PlugIns.ValidateProductKeyDelegate
+    name: ValidateProductKeyDelegate
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Rhino.PlugIns.OnLeaseChangedDelegate
+    name: OnLeaseChangedDelegate
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.AskUserForLicense(Rhino.PlugIns.LicenseBuildType,System.Boolean,System.String,System.Object,Rhino.PlugIns.ValidateProductKeyDelegate,Rhino.PlugIns.OnLeaseChangedDelegate)
+    name: AskUserForLicense
+    isExternal: true
+  - name: (
+  - uid: Rhino.PlugIns.LicenseBuildType
+    name: LicenseBuildType
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: Rhino.PlugIns.ValidateProductKeyDelegate
+    name: ValidateProductKeyDelegate
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Rhino.PlugIns.OnLeaseChangedDelegate
+    name: OnLeaseChangedDelegate
+    isExternal: true
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.ReturnLicense
+  commentId: M:Rhino.PlugIns.PlugIn.ReturnLicense
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: ReturnLicense()
+  nameWithType: PlugIn.ReturnLicense()
+  fullName: Rhino.PlugIns.PlugIn.ReturnLicense()
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.ReturnLicense
+    name: ReturnLicense
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.ReturnLicense
+    name: ReturnLicense
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.GetLicenseOwner(System.String@,System.String@)
+  commentId: M:Rhino.PlugIns.PlugIn.GetLicenseOwner(System.String@,System.String@)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: GetLicenseOwner(out string, out string)
+  nameWithType: PlugIn.GetLicenseOwner(out string, out string)
+  fullName: Rhino.PlugIns.PlugIn.GetLicenseOwner(out string, out string)
+  nameWithType.vb: PlugIn.GetLicenseOwner(String, String)
+  fullName.vb: Rhino.PlugIns.PlugIn.GetLicenseOwner(String, String)
+  name.vb: GetLicenseOwner(String, String)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.GetLicenseOwner(System.String@,System.String@)
+    name: GetLicenseOwner
+    isExternal: true
+  - name: (
+  - name: out
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.GetLicenseOwner(System.String@,System.String@)
+    name: GetLicenseOwner
+    isExternal: true
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.SaveSettings
+  commentId: M:Rhino.PlugIns.PlugIn.SaveSettings
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: SaveSettings()
+  nameWithType: PlugIn.SaveSettings()
+  fullName: Rhino.PlugIns.PlugIn.SaveSettings()
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.SaveSettings
+    name: SaveSettings
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.SaveSettings
+    name: SaveSettings
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.CommandSettings(System.String)
+  commentId: M:Rhino.PlugIns.PlugIn.CommandSettings(System.String)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: CommandSettings(string)
+  nameWithType: PlugIn.CommandSettings(string)
+  fullName: Rhino.PlugIns.PlugIn.CommandSettings(string)
+  nameWithType.vb: PlugIn.CommandSettings(String)
+  fullName.vb: Rhino.PlugIns.PlugIn.CommandSettings(String)
+  name.vb: CommandSettings(String)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.CommandSettings(System.String)
+    name: CommandSettings
+    isExternal: true
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.CommandSettings(System.String)
+    name: CommandSettings
+    isExternal: true
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.GetPlugInInfo(System.Guid)
+  commentId: M:Rhino.PlugIns.PlugIn.GetPlugInInfo(System.Guid)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: GetPlugInInfo(Guid)
+  nameWithType: PlugIn.GetPlugInInfo(Guid)
+  fullName: Rhino.PlugIns.PlugIn.GetPlugInInfo(System.Guid)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.GetPlugInInfo(System.Guid)
+    name: GetPlugInInfo
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.GetPlugInInfo(System.Guid)
+    name: GetPlugInInfo
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.PlugInExists(System.Guid,System.Boolean@,System.Boolean@)
+  commentId: M:Rhino.PlugIns.PlugIn.PlugInExists(System.Guid,System.Boolean@,System.Boolean@)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: PlugInExists(Guid, out bool, out bool)
+  nameWithType: PlugIn.PlugInExists(Guid, out bool, out bool)
+  fullName: Rhino.PlugIns.PlugIn.PlugInExists(System.Guid, out bool, out bool)
+  nameWithType.vb: PlugIn.PlugInExists(Guid, Boolean, Boolean)
+  fullName.vb: Rhino.PlugIns.PlugIn.PlugInExists(System.Guid, Boolean, Boolean)
+  name.vb: PlugInExists(Guid, Boolean, Boolean)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.PlugInExists(System.Guid,System.Boolean@,System.Boolean@)
+    name: PlugInExists
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.PlugInExists(System.Guid,System.Boolean@,System.Boolean@)
+    name: PlugInExists
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.GetInstalledPlugIns
+  commentId: M:Rhino.PlugIns.PlugIn.GetInstalledPlugIns
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: GetInstalledPlugIns()
+  nameWithType: PlugIn.GetInstalledPlugIns()
+  fullName: Rhino.PlugIns.PlugIn.GetInstalledPlugIns()
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.GetInstalledPlugIns
+    name: GetInstalledPlugIns
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.GetInstalledPlugIns
+    name: GetInstalledPlugIns
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.GetInstalledPlugIns(System.Boolean)
+  commentId: M:Rhino.PlugIns.PlugIn.GetInstalledPlugIns(System.Boolean)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: GetInstalledPlugIns(bool)
+  nameWithType: PlugIn.GetInstalledPlugIns(bool)
+  fullName: Rhino.PlugIns.PlugIn.GetInstalledPlugIns(bool)
+  nameWithType.vb: PlugIn.GetInstalledPlugIns(Boolean)
+  fullName.vb: Rhino.PlugIns.PlugIn.GetInstalledPlugIns(Boolean)
+  name.vb: GetInstalledPlugIns(Boolean)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.GetInstalledPlugIns(System.Boolean)
+    name: GetInstalledPlugIns
+    isExternal: true
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.GetInstalledPlugIns(System.Boolean)
+    name: GetInstalledPlugIns
+    isExternal: true
+  - name: (
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.GetInstalledPlugInNames
+  commentId: M:Rhino.PlugIns.PlugIn.GetInstalledPlugInNames
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: GetInstalledPlugInNames()
+  nameWithType: PlugIn.GetInstalledPlugInNames()
+  fullName: Rhino.PlugIns.PlugIn.GetInstalledPlugInNames()
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.GetInstalledPlugInNames
+    name: GetInstalledPlugInNames
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.GetInstalledPlugInNames
+    name: GetInstalledPlugInNames
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.GetInstalledPlugInNames(Rhino.PlugIns.PlugInType,System.Boolean,System.Boolean)
+  commentId: M:Rhino.PlugIns.PlugIn.GetInstalledPlugInNames(Rhino.PlugIns.PlugInType,System.Boolean,System.Boolean)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: GetInstalledPlugInNames(PlugInType, bool, bool)
+  nameWithType: PlugIn.GetInstalledPlugInNames(PlugInType, bool, bool)
+  fullName: Rhino.PlugIns.PlugIn.GetInstalledPlugInNames(Rhino.PlugIns.PlugInType, bool, bool)
+  nameWithType.vb: PlugIn.GetInstalledPlugInNames(PlugInType, Boolean, Boolean)
+  fullName.vb: Rhino.PlugIns.PlugIn.GetInstalledPlugInNames(Rhino.PlugIns.PlugInType, Boolean, Boolean)
+  name.vb: GetInstalledPlugInNames(PlugInType, Boolean, Boolean)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.GetInstalledPlugInNames(Rhino.PlugIns.PlugInType,System.Boolean,System.Boolean)
+    name: GetInstalledPlugInNames
+    isExternal: true
+  - name: (
+  - uid: Rhino.PlugIns.PlugInType
+    name: PlugInType
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.GetInstalledPlugInNames(Rhino.PlugIns.PlugInType,System.Boolean,System.Boolean)
+    name: GetInstalledPlugInNames
+    isExternal: true
+  - name: (
+  - uid: Rhino.PlugIns.PlugInType
+    name: PlugInType
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.GetInstalledPlugInNames(Rhino.PlugIns.PlugInType,System.Boolean,System.Boolean,System.Boolean)
+  commentId: M:Rhino.PlugIns.PlugIn.GetInstalledPlugInNames(Rhino.PlugIns.PlugInType,System.Boolean,System.Boolean,System.Boolean)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: GetInstalledPlugInNames(PlugInType, bool, bool, bool)
+  nameWithType: PlugIn.GetInstalledPlugInNames(PlugInType, bool, bool, bool)
+  fullName: Rhino.PlugIns.PlugIn.GetInstalledPlugInNames(Rhino.PlugIns.PlugInType, bool, bool, bool)
+  nameWithType.vb: PlugIn.GetInstalledPlugInNames(PlugInType, Boolean, Boolean, Boolean)
+  fullName.vb: Rhino.PlugIns.PlugIn.GetInstalledPlugInNames(Rhino.PlugIns.PlugInType, Boolean, Boolean, Boolean)
+  name.vb: GetInstalledPlugInNames(PlugInType, Boolean, Boolean, Boolean)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.GetInstalledPlugInNames(Rhino.PlugIns.PlugInType,System.Boolean,System.Boolean,System.Boolean)
+    name: GetInstalledPlugInNames
+    isExternal: true
+  - name: (
+  - uid: Rhino.PlugIns.PlugInType
+    name: PlugInType
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.GetInstalledPlugInNames(Rhino.PlugIns.PlugInType,System.Boolean,System.Boolean,System.Boolean)
+    name: GetInstalledPlugInNames
+    isExternal: true
+  - name: (
+  - uid: Rhino.PlugIns.PlugInType
+    name: PlugInType
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.GetInstalledPlugInFolders
+  commentId: M:Rhino.PlugIns.PlugIn.GetInstalledPlugInFolders
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: GetInstalledPlugInFolders()
+  nameWithType: PlugIn.GetInstalledPlugInFolders()
+  fullName: Rhino.PlugIns.PlugIn.GetInstalledPlugInFolders()
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.GetInstalledPlugInFolders
+    name: GetInstalledPlugInFolders
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.GetInstalledPlugInFolders
+    name: GetInstalledPlugInFolders
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.NameFromPath(System.String)
+  commentId: M:Rhino.PlugIns.PlugIn.NameFromPath(System.String)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: NameFromPath(string)
+  nameWithType: PlugIn.NameFromPath(string)
+  fullName: Rhino.PlugIns.PlugIn.NameFromPath(string)
+  nameWithType.vb: PlugIn.NameFromPath(String)
+  fullName.vb: Rhino.PlugIns.PlugIn.NameFromPath(String)
+  name.vb: NameFromPath(String)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.NameFromPath(System.String)
+    name: NameFromPath
+    isExternal: true
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.NameFromPath(System.String)
+    name: NameFromPath
+    isExternal: true
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.PathFromName(System.String)
+  commentId: M:Rhino.PlugIns.PlugIn.PathFromName(System.String)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: PathFromName(string)
+  nameWithType: PlugIn.PathFromName(string)
+  fullName: Rhino.PlugIns.PlugIn.PathFromName(string)
+  nameWithType.vb: PlugIn.PathFromName(String)
+  fullName.vb: Rhino.PlugIns.PlugIn.PathFromName(String)
+  name.vb: PathFromName(String)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.PathFromName(System.String)
+    name: PathFromName
+    isExternal: true
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.PathFromName(System.String)
+    name: PathFromName
+    isExternal: true
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.PathFromId(System.Guid)
+  commentId: M:Rhino.PlugIns.PlugIn.PathFromId(System.Guid)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: PathFromId(Guid)
+  nameWithType: PlugIn.PathFromId(Guid)
+  fullName: Rhino.PlugIns.PlugIn.PathFromId(System.Guid)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.PathFromId(System.Guid)
+    name: PathFromId
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.PathFromId(System.Guid)
+    name: PathFromId
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.IdFromPath(System.String)
+  commentId: M:Rhino.PlugIns.PlugIn.IdFromPath(System.String)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: IdFromPath(string)
+  nameWithType: PlugIn.IdFromPath(string)
+  fullName: Rhino.PlugIns.PlugIn.IdFromPath(string)
+  nameWithType.vb: PlugIn.IdFromPath(String)
+  fullName.vb: Rhino.PlugIns.PlugIn.IdFromPath(String)
+  name.vb: IdFromPath(String)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.IdFromPath(System.String)
+    name: IdFromPath
+    isExternal: true
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.IdFromPath(System.String)
+    name: IdFromPath
+    isExternal: true
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.IdFromName(System.String)
+  commentId: M:Rhino.PlugIns.PlugIn.IdFromName(System.String)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: IdFromName(string)
+  nameWithType: PlugIn.IdFromName(string)
+  fullName: Rhino.PlugIns.PlugIn.IdFromName(string)
+  nameWithType.vb: PlugIn.IdFromName(String)
+  fullName.vb: Rhino.PlugIns.PlugIn.IdFromName(String)
+  name.vb: IdFromName(String)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.IdFromName(System.String)
+    name: IdFromName
+    isExternal: true
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.IdFromName(System.String)
+    name: IdFromName
+    isExternal: true
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.LoadPlugIn(System.Guid)
+  commentId: M:Rhino.PlugIns.PlugIn.LoadPlugIn(System.Guid)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: LoadPlugIn(Guid)
+  nameWithType: PlugIn.LoadPlugIn(Guid)
+  fullName: Rhino.PlugIns.PlugIn.LoadPlugIn(System.Guid)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.LoadPlugIn(System.Guid)
+    name: LoadPlugIn
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.LoadPlugIn(System.Guid)
+    name: LoadPlugIn
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.LoadPlugIn(System.Guid,System.Boolean,System.Boolean)
+  commentId: M:Rhino.PlugIns.PlugIn.LoadPlugIn(System.Guid,System.Boolean,System.Boolean)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: LoadPlugIn(Guid, bool, bool)
+  nameWithType: PlugIn.LoadPlugIn(Guid, bool, bool)
+  fullName: Rhino.PlugIns.PlugIn.LoadPlugIn(System.Guid, bool, bool)
+  nameWithType.vb: PlugIn.LoadPlugIn(Guid, Boolean, Boolean)
+  fullName.vb: Rhino.PlugIns.PlugIn.LoadPlugIn(System.Guid, Boolean, Boolean)
+  name.vb: LoadPlugIn(Guid, Boolean, Boolean)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.LoadPlugIn(System.Guid,System.Boolean,System.Boolean)
+    name: LoadPlugIn
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.LoadPlugIn(System.Guid,System.Boolean,System.Boolean)
+    name: LoadPlugIn
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.GetEnglishCommandNames(System.Guid)
+  commentId: M:Rhino.PlugIns.PlugIn.GetEnglishCommandNames(System.Guid)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: GetEnglishCommandNames(Guid)
+  nameWithType: PlugIn.GetEnglishCommandNames(Guid)
+  fullName: Rhino.PlugIns.PlugIn.GetEnglishCommandNames(System.Guid)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.GetEnglishCommandNames(System.Guid)
+    name: GetEnglishCommandNames
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.GetEnglishCommandNames(System.Guid)
+    name: GetEnglishCommandNames
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.SetLoadProtection(System.Guid,System.Boolean)
+  commentId: M:Rhino.PlugIns.PlugIn.SetLoadProtection(System.Guid,System.Boolean)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: SetLoadProtection(Guid, bool)
+  nameWithType: PlugIn.SetLoadProtection(Guid, bool)
+  fullName: Rhino.PlugIns.PlugIn.SetLoadProtection(System.Guid, bool)
+  nameWithType.vb: PlugIn.SetLoadProtection(Guid, Boolean)
+  fullName.vb: Rhino.PlugIns.PlugIn.SetLoadProtection(System.Guid, Boolean)
+  name.vb: SetLoadProtection(Guid, Boolean)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.SetLoadProtection(System.Guid,System.Boolean)
+    name: SetLoadProtection
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.SetLoadProtection(System.Guid,System.Boolean)
+    name: SetLoadProtection
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.GetLoadProtection(System.Guid,System.Boolean@)
+  commentId: M:Rhino.PlugIns.PlugIn.GetLoadProtection(System.Guid,System.Boolean@)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: GetLoadProtection(Guid, out bool)
+  nameWithType: PlugIn.GetLoadProtection(Guid, out bool)
+  fullName: Rhino.PlugIns.PlugIn.GetLoadProtection(System.Guid, out bool)
+  nameWithType.vb: PlugIn.GetLoadProtection(Guid, Boolean)
+  fullName.vb: Rhino.PlugIns.PlugIn.GetLoadProtection(System.Guid, Boolean)
+  name.vb: GetLoadProtection(Guid, Boolean)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.GetLoadProtection(System.Guid,System.Boolean@)
+    name: GetLoadProtection
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.GetLoadProtection(System.Guid,System.Boolean@)
+    name: GetLoadProtection
+    isExternal: true
+  - name: (
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.Assembly
+  commentId: P:Rhino.PlugIns.PlugIn.Assembly
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: Assembly
+  nameWithType: PlugIn.Assembly
+  fullName: Rhino.PlugIns.PlugIn.Assembly
+- uid: Rhino.PlugIns.PlugIn.Id
+  commentId: P:Rhino.PlugIns.PlugIn.Id
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: Id
+  nameWithType: PlugIn.Id
+  fullName: Rhino.PlugIns.PlugIn.Id
+- uid: Rhino.PlugIns.PlugIn.LicenseId
+  commentId: P:Rhino.PlugIns.PlugIn.LicenseId
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: LicenseId
+  nameWithType: PlugIn.LicenseId
+  fullName: Rhino.PlugIns.PlugIn.LicenseId
+- uid: Rhino.PlugIns.PlugIn.Name
+  commentId: P:Rhino.PlugIns.PlugIn.Name
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: Name
+  nameWithType: PlugIn.Name
+  fullName: Rhino.PlugIns.PlugIn.Name
+- uid: Rhino.PlugIns.PlugIn.Version
+  commentId: P:Rhino.PlugIns.PlugIn.Version
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: Version
+  nameWithType: PlugIn.Version
+  fullName: Rhino.PlugIns.PlugIn.Version
+- uid: Rhino.PlugIns.PlugIn.Description
+  commentId: P:Rhino.PlugIns.PlugIn.Description
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: Description
+  nameWithType: PlugIn.Description
+  fullName: Rhino.PlugIns.PlugIn.Description
+- uid: Rhino.PlugIns.PlugIn.LoadAtStartup
+  commentId: P:Rhino.PlugIns.PlugIn.LoadAtStartup
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: LoadAtStartup
+  nameWithType: PlugIn.LoadAtStartup
+  fullName: Rhino.PlugIns.PlugIn.LoadAtStartup
+- uid: Rhino.PlugIns.PlugIn.LoadTime
+  commentId: P:Rhino.PlugIns.PlugIn.LoadTime
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: LoadTime
+  nameWithType: PlugIn.LoadTime
+  fullName: Rhino.PlugIns.PlugIn.LoadTime
+- uid: Rhino.PlugIns.PlugIn.LocalPlugInName
+  commentId: P:Rhino.PlugIns.PlugIn.LocalPlugInName
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: LocalPlugInName
+  nameWithType: PlugIn.LocalPlugInName
+  fullName: Rhino.PlugIns.PlugIn.LocalPlugInName
+- uid: Rhino.PlugIns.PlugIn.SettingsDirectoryAllUsers
+  commentId: P:Rhino.PlugIns.PlugIn.SettingsDirectoryAllUsers
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: SettingsDirectoryAllUsers
+  nameWithType: PlugIn.SettingsDirectoryAllUsers
+  fullName: Rhino.PlugIns.PlugIn.SettingsDirectoryAllUsers
+- uid: Rhino.PlugIns.PlugIn.SettingsDirectory
+  commentId: P:Rhino.PlugIns.PlugIn.SettingsDirectory
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: SettingsDirectory
+  nameWithType: PlugIn.SettingsDirectory
+  fullName: Rhino.PlugIns.PlugIn.SettingsDirectory
+- uid: Rhino.PlugIns.PlugIn.Settings
+  commentId: P:Rhino.PlugIns.PlugIn.Settings
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: Settings
+  nameWithType: PlugIn.Settings
+  fullName: Rhino.PlugIns.PlugIn.Settings
+- uid: Rhino.PlugIns.PlugIn.WindowPositionSettings
+  commentId: P:Rhino.PlugIns.PlugIn.WindowPositionSettings
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: WindowPositionSettings
+  nameWithType: PlugIn.WindowPositionSettings
+  fullName: Rhino.PlugIns.PlugIn.WindowPositionSettings
+- uid: Rhino.PlugIns.PlugIn.AskOnLoadProtection
+  commentId: P:Rhino.PlugIns.PlugIn.AskOnLoadProtection
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: AskOnLoadProtection
+  nameWithType: PlugIn.AskOnLoadProtection
+  fullName: Rhino.PlugIns.PlugIn.AskOnLoadProtection
+- uid: Rhino.PlugIns.PlugIn.InstalledPlugInCount
+  commentId: P:Rhino.PlugIns.PlugIn.InstalledPlugInCount
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: InstalledPlugInCount
+  nameWithType: PlugIn.InstalledPlugInCount
+  fullName: Rhino.PlugIns.PlugIn.InstalledPlugInCount
+- uid: Rhino.PlugIns.PlugIn.UnknownUserData
+  commentId: E:Rhino.PlugIns.PlugIn.UnknownUserData
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: UnknownUserData
+  nameWithType: PlugIn.UnknownUserData
+  fullName: Rhino.PlugIns.PlugIn.UnknownUserData
+- uid: Rhino.PlugIns.PlugIn.SettingsSaved
+  commentId: E:Rhino.PlugIns.PlugIn.SettingsSaved
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: SettingsSaved
+  nameWithType: PlugIn.SettingsSaved
+  fullName: Rhino.PlugIns.PlugIn.SettingsSaved
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Rhino.PlugIns
+  commentId: N:Rhino.PlugIns
+  isExternal: true
+  name: Rhino.PlugIns
+  nameWithType: Rhino.PlugIns
+  fullName: Rhino.PlugIns
+  spec.csharp:
+  - uid: Rhino
+    name: Rhino
+    isExternal: true
+  - name: .
+  - uid: Rhino.PlugIns
+    name: PlugIns
+    isExternal: true
+  spec.vb:
+  - uid: Rhino
+    name: Rhino
+    isExternal: true
+  - name: .
+  - uid: Rhino.PlugIns
+    name: PlugIns
+    isExternal: true
+- uid: Axys.AxysPlugin.#ctor*
+  commentId: Overload:Axys.AxysPlugin.#ctor
+  href: Axys.AxysPlugin.html#Axys_AxysPlugin__ctor
+  name: AxysPlugin
+  nameWithType: AxysPlugin.AxysPlugin
+  fullName: Axys.AxysPlugin.AxysPlugin
+  nameWithType.vb: AxysPlugin.New
+  fullName.vb: Axys.AxysPlugin.New
+  name.vb: New
+- uid: Axys.AxysPlugin.Instance*
+  commentId: Overload:Axys.AxysPlugin.Instance
+  href: Axys.AxysPlugin.html#Axys_AxysPlugin_Instance
+  name: Instance
+  nameWithType: AxysPlugin.Instance
+  fullName: Axys.AxysPlugin.Instance
+- uid: Axys.AxysPlugin
+  commentId: T:Axys.AxysPlugin
+  parent: Axys
+  href: Axys.AxysPlugin.html
+  name: AxysPlugin
+  nameWithType: AxysPlugin
+  fullName: Axys.AxysPlugin
+- uid: Rhino.PlugIns.LoadReturnCode
+  commentId: T:Rhino.PlugIns.LoadReturnCode
+  parent: Rhino.PlugIns
+  isExternal: true
+  name: LoadReturnCode
+  nameWithType: LoadReturnCode
+  fullName: Rhino.PlugIns.LoadReturnCode
+- uid: Rhino.PlugIns.PlugIn.OnLoad(System.String@)
+  commentId: M:Rhino.PlugIns.PlugIn.OnLoad(System.String@)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: OnLoad(ref string)
+  nameWithType: PlugIn.OnLoad(ref string)
+  fullName: Rhino.PlugIns.PlugIn.OnLoad(ref string)
+  nameWithType.vb: PlugIn.OnLoad(String)
+  fullName.vb: Rhino.PlugIns.PlugIn.OnLoad(String)
+  name.vb: OnLoad(String)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.OnLoad(System.String@)
+    name: OnLoad
+    isExternal: true
+  - name: (
+  - name: ref
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.OnLoad(System.String@)
+    name: OnLoad
+    isExternal: true
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Axys.AxysPlugin.OnLoad*
+  commentId: Overload:Axys.AxysPlugin.OnLoad
+  href: Axys.AxysPlugin.html#Axys_AxysPlugin_OnLoad_System_String__
+  name: OnLoad
+  nameWithType: AxysPlugin.OnLoad
+  fullName: Axys.AxysPlugin.OnLoad
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Rhino.PlugIns.PlugIn.OnShutdown
+  commentId: M:Rhino.PlugIns.PlugIn.OnShutdown
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: OnShutdown()
+  nameWithType: PlugIn.OnShutdown()
+  fullName: Rhino.PlugIns.PlugIn.OnShutdown()
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.OnShutdown
+    name: OnShutdown
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.OnShutdown
+    name: OnShutdown
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Axys.AxysPlugin.OnShutdown*
+  commentId: Overload:Axys.AxysPlugin.OnShutdown
+  href: Axys.AxysPlugin.html#Axys_AxysPlugin_OnShutdown
+  name: OnShutdown
+  nameWithType: AxysPlugin.OnShutdown
+  fullName: Axys.AxysPlugin.OnShutdown

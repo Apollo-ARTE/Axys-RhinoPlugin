@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class AxysPlugin | Axys </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class AxysPlugin | Axys ">
+      
+      <meta name="description" content="Entry point for the Axys Rhino plug-in. Rhino creates a single instance of this class which manages the plug-in life cycle.  The plug-in logs its load and shutdown events using .">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Apollo-ARTE/RhinoPlugin/new/feat/docfx/apiSpec/new?filename=Axys_AxysPlugin.md&amp;value=---%0Auid%3A%20Axys.AxysPlugin%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Axys">
+            Axys
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Axys.AxysPlugin">
+
+
+
+  <h1 id="Axys_AxysPlugin" data-uid="Axys.AxysPlugin" class="text-break">
+Class AxysPlugin  <a class="header-action link-secondary" title="View source" href="https://github.com/Apollo-ARTE/RhinoPlugin/blob/feat/docfx/AxysPlugin.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Axys.html">Axys</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>RhinoPlugin.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Entry point for the Axys Rhino plug-in. Rhino creates a single instance
+of this class which manages the plug-in life cycle.  The plug-in logs its
+load and shutdown events using <a class="xref" href="Logger.html">Logger</a>.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class AxysPlugin : PlugIn</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">PlugIn</span></div>
+      <div><span class="xref">AxysPlugin</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">PlugIn.LoadPlugIn(string, out Guid)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.assembly">PlugIn.Find(Assembly)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">PlugIn.Find(Guid)</a>
+    </div>
+    <div>
+      <span class="xref">PlugIn.LoadComputeExtensionPlugins()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">PlugIn.GetPluginSettings(Guid, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">PlugIn.SavePluginSettings(Guid)</a>
+    </div>
+    <div>
+      <span class="xref">PlugIn.RaiseOnPlugInSettingsSavedEvent()</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.FlushSettingsSavedQueue()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.drawing.size">PlugIn.Icon(Size)</a>
+    </div>
+    <div>
+      <span class="xref">PlugIn.GetCommands()</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.ResetMessageBoxes()</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.CreateCommands()</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.RegisterCommand(Command)</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.GetPlugInObject()</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.ShouldCallWriteDocument(FileWriteOptions)</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.WriteDocument(RhinoDoc, BinaryArchiveWriter, FileWriteOptions)</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.ReadDocument(RhinoDoc, BinaryArchiveReader, FileReadOptions)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">PlugIn.OptionsDialogPages(List&lt;OptionsDialogPage&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">PlugIn.DocumentPropertiesDialogPages(RhinoDoc, List&lt;OptionsDialogPage&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">PlugIn.ObjectPropertiesPages(List&lt;ObjectPropertiesPage&gt;)</a>
+    </div>
+    <div>
+      <span class="xref">PlugIn.ObjectPropertiesPages(ObjectPropertiesPageCollection)</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.GetLicense(LicenseBuildType, ValidateProductKeyDelegate, OnLeaseChangedDelegate)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">PlugIn.GetLicense(LicenseCapabilities, string, ValidateProductKeyDelegate, OnLeaseChangedDelegate)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">PlugIn.SetLicenseCapabilities(string, LicenseCapabilities, Guid)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">PlugIn.AskUserForLicense(LicenseBuildType, bool, string, object, ValidateProductKeyDelegate, OnLeaseChangedDelegate)</a>
+    </div>
+    <div>
+      <span class="xref">PlugIn.ReturnLicense()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">PlugIn.GetLicenseOwner(out string, out string)</a>
+    </div>
+    <div>
+      <span class="xref">PlugIn.SaveSettings()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">PlugIn.CommandSettings(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">PlugIn.GetPlugInInfo(Guid)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">PlugIn.PlugInExists(Guid, out bool, out bool)</a>
+    </div>
+    <div>
+      <span class="xref">PlugIn.GetInstalledPlugIns()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">PlugIn.GetInstalledPlugIns(bool)</a>
+    </div>
+    <div>
+      <span class="xref">PlugIn.GetInstalledPlugInNames()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">PlugIn.GetInstalledPlugInNames(PlugInType, bool, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">PlugIn.GetInstalledPlugInNames(PlugInType, bool, bool, bool)</a>
+    </div>
+    <div>
+      <span class="xref">PlugIn.GetInstalledPlugInFolders()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">PlugIn.NameFromPath(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">PlugIn.PathFromName(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">PlugIn.PathFromId(Guid)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">PlugIn.IdFromPath(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">PlugIn.IdFromName(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">PlugIn.LoadPlugIn(Guid)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">PlugIn.LoadPlugIn(Guid, bool, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">PlugIn.GetEnglishCommandNames(Guid)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">PlugIn.SetLoadProtection(Guid, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">PlugIn.GetLoadProtection(Guid, out bool)</a>
+    </div>
+    <div>
+      <span class="xref">PlugIn.Assembly</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.Id</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.LicenseId</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.Name</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.Version</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.Description</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.LoadAtStartup</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.LoadTime</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.LocalPlugInName</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.SettingsDirectoryAllUsers</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.SettingsDirectory</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.Settings</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.WindowPositionSettings</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.AskOnLoadProtection</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.InstalledPlugInCount</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.UnknownUserData</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.SettingsSaved</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Axys_AxysPlugin__ctor_" data-uid="Axys.AxysPlugin.#ctor*"></a>
+
+  <h3 id="Axys_AxysPlugin__ctor" data-uid="Axys.AxysPlugin.#ctor">
+  AxysPlugin()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Apollo-ARTE/RhinoPlugin/blob/feat/docfx/AxysPlugin.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AxysPlugin()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Axys_AxysPlugin_Instance_" data-uid="Axys.AxysPlugin.Instance*"></a>
+
+  <h3 id="Axys_AxysPlugin_Instance" data-uid="Axys.AxysPlugin.Instance">
+  Instance
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Apollo-ARTE/RhinoPlugin/blob/feat/docfx/AxysPlugin.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the singleton instance of the plug-in created by Rhino.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static AxysPlugin Instance { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Axys.AxysPlugin.html">AxysPlugin</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Axys_AxysPlugin_OnLoad_" data-uid="Axys.AxysPlugin.OnLoad*"></a>
+
+  <h3 id="Axys_AxysPlugin_OnLoad_System_String__" data-uid="Axys.AxysPlugin.OnLoad(System.String@)">
+  OnLoad(ref string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Apollo-ARTE/RhinoPlugin/blob/feat/docfx/AxysPlugin.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes the plug-in when Rhino loads it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override LoadReturnCode OnLoad(ref string errorMessage)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>errorMessage</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Receives a description in case the plug-in fails to load.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">LoadReturnCode</span></dt>
+    <dd><p>The <span class="xref">Rhino.PlugIns.LoadReturnCode</span> describing load success.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Axys_AxysPlugin_OnShutdown_" data-uid="Axys.AxysPlugin.OnShutdown*"></a>
+
+  <h3 id="Axys_AxysPlugin_OnShutdown" data-uid="Axys.AxysPlugin.OnShutdown">
+  OnShutdown()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Apollo-ARTE/RhinoPlugin/blob/feat/docfx/AxysPlugin.cs/#L47"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Invoked by Rhino during application shutdown to perform cleanup.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnShutdown()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Apollo-ARTE/RhinoPlugin/blob/feat/docfx/AxysPlugin.cs/#L12" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

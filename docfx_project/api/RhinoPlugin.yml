@@ -1,0 +1,30 @@
+### YamlMime:ManagedReference
+items:
+- uid: RhinoPlugin
+  commentId: N:RhinoPlugin
+  id: RhinoPlugin
+  children:
+  - RhinoPlugin.GeometryProcessingException
+  - RhinoPlugin.GeometrySelectionException
+  langs:
+  - csharp
+  - vb
+  name: RhinoPlugin
+  nameWithType: RhinoPlugin
+  fullName: RhinoPlugin
+  type: Namespace
+  assemblies:
+  - RhinoPlugin
+references:
+- uid: RhinoPlugin.GeometrySelectionException
+  commentId: T:RhinoPlugin.GeometrySelectionException
+  href: RhinoPlugin.GeometrySelectionException.html
+  name: GeometrySelectionException
+  nameWithType: GeometrySelectionException
+  fullName: RhinoPlugin.GeometrySelectionException
+- uid: RhinoPlugin.GeometryProcessingException
+  commentId: T:RhinoPlugin.GeometryProcessingException
+  href: RhinoPlugin.GeometryProcessingException.html
+  name: GeometryProcessingException
+  nameWithType: GeometryProcessingException
+  fullName: RhinoPlugin.GeometryProcessingException

@@ -1,0 +1,37 @@
+### YamlMime:ManagedReference
+items:
+- uid: Axys.Managers.Networking
+  commentId: N:Axys.Managers.Networking
+  id: Axys.Managers.Networking
+  children:
+  - Axys.Managers.Networking.MessageHandler
+  - Axys.Managers.Networking.USDZExportManager
+  - Axys.Managers.Networking.WebSocketServerManager
+  langs:
+  - csharp
+  - vb
+  name: Axys.Managers.Networking
+  nameWithType: Axys.Managers.Networking
+  fullName: Axys.Managers.Networking
+  type: Namespace
+  assemblies:
+  - RhinoPlugin
+references:
+- uid: Axys.Managers.Networking.MessageHandler
+  commentId: T:Axys.Managers.Networking.MessageHandler
+  href: Axys.Managers.Networking.MessageHandler.html
+  name: MessageHandler
+  nameWithType: MessageHandler
+  fullName: Axys.Managers.Networking.MessageHandler
+- uid: Axys.Managers.Networking.USDZExportManager
+  commentId: T:Axys.Managers.Networking.USDZExportManager
+  href: Axys.Managers.Networking.USDZExportManager.html
+  name: USDZExportManager
+  nameWithType: USDZExportManager
+  fullName: Axys.Managers.Networking.USDZExportManager
+- uid: Axys.Managers.Networking.WebSocketServerManager
+  commentId: T:Axys.Managers.Networking.WebSocketServerManager
+  href: Axys.Managers.Networking.WebSocketServerManager.html
+  name: WebSocketServerManager
+  nameWithType: WebSocketServerManager
+  fullName: Axys.Managers.Networking.WebSocketServerManager
