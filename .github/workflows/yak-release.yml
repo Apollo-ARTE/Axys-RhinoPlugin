@@ -1,4 +1,4 @@
-name: Build and Publish to Yak
+name: Build and Publish to Yak Pre-release
 
 on:
   release:
