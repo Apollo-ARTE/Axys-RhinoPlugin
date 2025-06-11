@@ -1,0 +1,129 @@
+name: Build and Publish to Yak
+
+on:
+  release:
+    types: [published]
+
+env:
+  PLUGIN_NAME: Axys
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+    
+    - name: Test
+      run: dotnet test --no-build --verbosity normal --configuration Release
+    
+    # Prepare artifacts for Yak
+    - name: Prepare Yak Package Structure
+      run: |
+        # Create dist directory structure
+        mkdir -p dist/net8.0
+        
+        # Copy built assemblies (adjust paths as needed for your project structure)
+        find . -path "*/bin/Release/net*" -name "*.dll" -o -name "*.rhp" -o -name "*.gha" | xargs -I {} cp {} dist/net8.0/ 2>/dev/null || true
+        
+        # Copy manifest.yml if it exists (required for Yak)
+        if [ -f "manifest.yml" ]; then
+          cp manifest.yml dist/
+        else
+          echo "Warning: manifest.yml not found. This is required for Yak publishing."
+        fi
+        
+        # Copy any additional files
+        [ -f "README.md" ] && cp README.md dist/
+        [ -f "LICENSE" ] && cp LICENSE dist/
+        find . -maxdepth 1 -name "*.rhi" -exec cp {} dist/ \; 2>/dev/null || true
+      shell: bash
+    
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.PLUGIN_NAME }}-build
+        path: dist/
+        retention-days: 30
+
+  publish:
+    name: Publish to Yak and GitHub Release
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: write
+    
+    steps:
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ env.PLUGIN_NAME }}-build
+        path: dist
+    
+    - name: Setup Yak
+      run: |
+        # Create a directory for yak
+        mkdir -p ${{ github.workspace }}/yakfolder
+        # Download Linux version of yak
+        curl -L "https://files.mcneel.com/yak/tools/0.13.0/linux-x64/yak" -o ${{ github.workspace }}/yakfolder/yak
+        # Make it executable
+        chmod +x ${{ github.workspace }}/yakfolder/yak
+        # Add to path and verify
+        echo "${{ github.workspace }}/yakfolder" >> $GITHUB_PATH
+        echo "Yak setup complete"
+    
+    - name: Pack and Push to Yak
+      run: |
+        cd dist
+        export YAK_TOKEN=${{ secrets.YAK_API_KEY }}
+        
+        # Build yak package
+        echo "Building Yak package..."
+        yak build
+        
+        # List files to verify the .yak file was created
+        echo "Files in dist directory:"
+        ls -la
+        
+        # Find the .yak package
+        yakPackageFile=$(find . -maxdepth 1 -name "*.yak" -type f | head -1)
+        if [ -z "$yakPackageFile" ]; then
+          echo "Error: No .yak package was created in the 'dist' directory."
+          echo "Make sure you have a valid manifest.yml file."
+          exit 1
+        fi
+        
+        echo "Found package: $yakPackageFile"
+        
+        # Get just the filename for the release asset name
+        yakPackageBasename=$(basename "$yakPackageFile")
+        echo "YAK_PACKAGE_BASENAME=$yakPackageBasename" >> $GITHUB_ENV
+        echo "YAK_PACKAGE_PATH=$yakPackageFile" >> $GITHUB_ENV
+        
+        # Push to yak server
+        echo "Pushing to Yak server..."
+        yak push --source https://test.yak.rhino3d.com axys-0.1.3-any-any.yak "$yakPackageFile"
+    
+    - name: Upload .yak package to GitHub Release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: dist/${{ env.YAK_PACKAGE_PATH }}
+        asset_name: ${{ env.YAK_PACKAGE_BASENAME }}
+        asset_content_type: application/zip
