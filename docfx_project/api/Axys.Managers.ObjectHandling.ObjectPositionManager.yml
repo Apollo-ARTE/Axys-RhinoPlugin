@@ -1,0 +1,704 @@
+### YamlMime:ManagedReference
+items:
+- uid: Axys.Managers.ObjectHandling.ObjectPositionManager
+  commentId: T:Axys.Managers.ObjectHandling.ObjectPositionManager
+  id: ObjectPositionManager
+  parent: Axys.Managers.ObjectHandling
+  children:
+  - Axys.Managers.ObjectHandling.ObjectPositionManager.#ctor(Rhino.RhinoDoc)
+  - Axys.Managers.ObjectHandling.ObjectPositionManager.CreateObjectData(System.Guid)
+  - Axys.Managers.ObjectHandling.ObjectPositionManager.CreateObjectDataBatch(System.Collections.Generic.List{RhinoObjectData})
+  - Axys.Managers.ObjectHandling.ObjectPositionManager.GetAbsolutePosition(System.Guid)
+  - Axys.Managers.ObjectHandling.ObjectPositionManager.MoveObject(System.Guid,Rhino.Geometry.Point3d)
+  langs:
+  - csharp
+  - vb
+  name: ObjectPositionManager
+  nameWithType: ObjectPositionManager
+  fullName: Axys.Managers.ObjectHandling.ObjectPositionManager
+  type: Class
+  source:
+    remote:
+      path: Managers/ObjectHandling/ObjectPositionManager.cs
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
+    id: ObjectPositionManager
+    path: ../Managers/ObjectHandling/ObjectPositionManager.cs
+    startLine: 13
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys.Managers.ObjectHandling
+  summary: Provides helper methods for querying and modifying object positions within the Rhino document.
+  example: []
+  syntax:
+    content: public class ObjectPositionManager
+    content.vb: Public Class ObjectPositionManager
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Axys.Managers.ObjectHandling.ObjectPositionManager.#ctor(Rhino.RhinoDoc)
+  commentId: M:Axys.Managers.ObjectHandling.ObjectPositionManager.#ctor(Rhino.RhinoDoc)
+  id: '#ctor(Rhino.RhinoDoc)'
+  parent: Axys.Managers.ObjectHandling.ObjectPositionManager
+  langs:
+  - csharp
+  - vb
+  name: ObjectPositionManager(RhinoDoc)
+  nameWithType: ObjectPositionManager.ObjectPositionManager(RhinoDoc)
+  fullName: Axys.Managers.ObjectHandling.ObjectPositionManager.ObjectPositionManager(Rhino.RhinoDoc)
+  type: Constructor
+  source:
+    remote:
+      path: Managers/ObjectHandling/ObjectPositionManager.cs
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
+    id: .ctor
+    path: ../Managers/ObjectHandling/ObjectPositionManager.cs
+    startLine: 21
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys.Managers.ObjectHandling
+  summary: Initializes a new instance bound to the specified document.
+  example: []
+  syntax:
+    content: public ObjectPositionManager(RhinoDoc doc)
+    parameters:
+    - id: doc
+      type: Rhino.RhinoDoc
+      description: Active Rhino document.
+    content.vb: Public Sub New(doc As RhinoDoc)
+  overload: Axys.Managers.ObjectHandling.ObjectPositionManager.#ctor*
+  nameWithType.vb: ObjectPositionManager.New(RhinoDoc)
+  fullName.vb: Axys.Managers.ObjectHandling.ObjectPositionManager.New(Rhino.RhinoDoc)
+  name.vb: New(RhinoDoc)
+- uid: Axys.Managers.ObjectHandling.ObjectPositionManager.GetAbsolutePosition(System.Guid)
+  commentId: M:Axys.Managers.ObjectHandling.ObjectPositionManager.GetAbsolutePosition(System.Guid)
+  id: GetAbsolutePosition(System.Guid)
+  parent: Axys.Managers.ObjectHandling.ObjectPositionManager
+  langs:
+  - csharp
+  - vb
+  name: GetAbsolutePosition(Guid)
+  nameWithType: ObjectPositionManager.GetAbsolutePosition(Guid)
+  fullName: Axys.Managers.ObjectHandling.ObjectPositionManager.GetAbsolutePosition(System.Guid)
+  type: Method
+  source:
+    remote:
+      path: Managers/ObjectHandling/ObjectPositionManager.cs
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
+    id: GetAbsolutePosition
+    path: ../Managers/ObjectHandling/ObjectPositionManager.cs
+    startLine: 31
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys.Managers.ObjectHandling
+  summary: Calculates the absolute world position of an object.
+  example: []
+  syntax:
+    content: public Point3d GetAbsolutePosition(Guid objectId)
+    parameters:
+    - id: objectId
+      type: System.Guid
+      description: Object identifier.
+    return:
+      type: Rhino.Geometry.Point3d
+      description: World coordinate of the object center or <xref href="Rhino.Geometry.Point3d.Unset" data-throw-if-not-resolved="false"></xref> if not found.
+    content.vb: Public Function GetAbsolutePosition(objectId As Guid) As Point3d
+  overload: Axys.Managers.ObjectHandling.ObjectPositionManager.GetAbsolutePosition*
+- uid: Axys.Managers.ObjectHandling.ObjectPositionManager.MoveObject(System.Guid,Rhino.Geometry.Point3d)
+  commentId: M:Axys.Managers.ObjectHandling.ObjectPositionManager.MoveObject(System.Guid,Rhino.Geometry.Point3d)
+  id: MoveObject(System.Guid,Rhino.Geometry.Point3d)
+  parent: Axys.Managers.ObjectHandling.ObjectPositionManager
+  langs:
+  - csharp
+  - vb
+  name: MoveObject(Guid, Point3d)
+  nameWithType: ObjectPositionManager.MoveObject(Guid, Point3d)
+  fullName: Axys.Managers.ObjectHandling.ObjectPositionManager.MoveObject(System.Guid, Rhino.Geometry.Point3d)
+  type: Method
+  source:
+    remote:
+      path: Managers/ObjectHandling/ObjectPositionManager.cs
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
+    id: MoveObject
+    path: ../Managers/ObjectHandling/ObjectPositionManager.cs
+    startLine: 67
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys.Managers.ObjectHandling
+  summary: Moves an object to the given position in world coordinates.
+  example: []
+  syntax:
+    content: public bool MoveObject(Guid objectId, Point3d newPosition)
+    parameters:
+    - id: objectId
+      type: System.Guid
+      description: Identifier of the object to move.
+    - id: newPosition
+      type: Rhino.Geometry.Point3d
+      description: Target world position.
+    return:
+      type: System.Boolean
+      description: True if the move succeeded.
+    content.vb: Public Function MoveObject(objectId As Guid, newPosition As Point3d) As Boolean
+  overload: Axys.Managers.ObjectHandling.ObjectPositionManager.MoveObject*
+- uid: Axys.Managers.ObjectHandling.ObjectPositionManager.CreateObjectData(System.Guid)
+  commentId: M:Axys.Managers.ObjectHandling.ObjectPositionManager.CreateObjectData(System.Guid)
+  id: CreateObjectData(System.Guid)
+  parent: Axys.Managers.ObjectHandling.ObjectPositionManager
+  langs:
+  - csharp
+  - vb
+  name: CreateObjectData(Guid)
+  nameWithType: ObjectPositionManager.CreateObjectData(Guid)
+  fullName: Axys.Managers.ObjectHandling.ObjectPositionManager.CreateObjectData(System.Guid)
+  type: Method
+  source:
+    remote:
+      path: Managers/ObjectHandling/ObjectPositionManager.cs
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
+    id: CreateObjectData
+    path: ../Managers/ObjectHandling/ObjectPositionManager.cs
+    startLine: 97
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys.Managers.ObjectHandling
+  summary: Builds a <xref href="RhinoObjectData" data-throw-if-not-resolved="false"></xref> structure describing a single object.
+  example: []
+  syntax:
+    content: public RhinoObjectData CreateObjectData(Guid objectId)
+    parameters:
+    - id: objectId
+      type: System.Guid
+      description: Identifier of the object.
+    return:
+      type: RhinoObjectData
+      description: Serialized data for sending over WebSocket.
+    content.vb: Public Function CreateObjectData(objectId As Guid) As RhinoObjectData
+  overload: Axys.Managers.ObjectHandling.ObjectPositionManager.CreateObjectData*
+- uid: Axys.Managers.ObjectHandling.ObjectPositionManager.CreateObjectDataBatch(System.Collections.Generic.List{RhinoObjectData})
+  commentId: M:Axys.Managers.ObjectHandling.ObjectPositionManager.CreateObjectDataBatch(System.Collections.Generic.List{RhinoObjectData})
+  id: CreateObjectDataBatch(System.Collections.Generic.List{RhinoObjectData})
+  parent: Axys.Managers.ObjectHandling.ObjectPositionManager
+  langs:
+  - csharp
+  - vb
+  name: CreateObjectDataBatch(List<RhinoObjectData>)
+  nameWithType: ObjectPositionManager.CreateObjectDataBatch(List<RhinoObjectData>)
+  fullName: Axys.Managers.ObjectHandling.ObjectPositionManager.CreateObjectDataBatch(System.Collections.Generic.List<RhinoObjectData>)
+  type: Method
+  source:
+    remote:
+      path: Managers/ObjectHandling/ObjectPositionManager.cs
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
+    id: CreateObjectDataBatch
+    path: ../Managers/ObjectHandling/ObjectPositionManager.cs
+    startLine: 122
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys.Managers.ObjectHandling
+  summary: Packages multiple <xref href="RhinoObjectData" data-throw-if-not-resolved="false"></xref> entries into a batch message.
+  example: []
+  syntax:
+    content: public RhinoObjectDataBatch CreateObjectDataBatch(List<RhinoObjectData> objectDataList)
+    parameters:
+    - id: objectDataList
+      type: System.Collections.Generic.List{RhinoObjectData}
+      description: Objects to include in the batch.
+    return:
+      type: RhinoObjectDataBatch
+      description: Batch container object.
+    content.vb: Public Function CreateObjectDataBatch(objectDataList As List(Of RhinoObjectData)) As RhinoObjectDataBatch
+  overload: Axys.Managers.ObjectHandling.ObjectPositionManager.CreateObjectDataBatch*
+  nameWithType.vb: ObjectPositionManager.CreateObjectDataBatch(List(Of RhinoObjectData))
+  fullName.vb: Axys.Managers.ObjectHandling.ObjectPositionManager.CreateObjectDataBatch(System.Collections.Generic.List(Of RhinoObjectData))
+  name.vb: CreateObjectDataBatch(List(Of RhinoObjectData))
+references:
+- uid: Axys.Managers.ObjectHandling
+  commentId: N:Axys.Managers.ObjectHandling
+  href: Axys.html
+  name: Axys.Managers.ObjectHandling
+  nameWithType: Axys.Managers.ObjectHandling
+  fullName: Axys.Managers.ObjectHandling
+  spec.csharp:
+  - uid: Axys
+    name: Axys
+    href: Axys.html
+  - name: .
+  - uid: Axys.Managers
+    name: Managers
+    href: Axys.Managers.html
+  - name: .
+  - uid: Axys.Managers.ObjectHandling
+    name: ObjectHandling
+    href: Axys.Managers.ObjectHandling.html
+  spec.vb:
+  - uid: Axys
+    name: Axys
+    href: Axys.html
+  - name: .
+  - uid: Axys.Managers
+    name: Managers
+    href: Axys.Managers.html
+  - name: .
+  - uid: Axys.Managers.ObjectHandling
+    name: ObjectHandling
+    href: Axys.Managers.ObjectHandling.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Axys.Managers.ObjectHandling.ObjectPositionManager.#ctor*
+  commentId: Overload:Axys.Managers.ObjectHandling.ObjectPositionManager.#ctor
+  href: Axys.Managers.ObjectHandling.ObjectPositionManager.html#Axys_Managers_ObjectHandling_ObjectPositionManager__ctor_Rhino_RhinoDoc_
+  name: ObjectPositionManager
+  nameWithType: ObjectPositionManager.ObjectPositionManager
+  fullName: Axys.Managers.ObjectHandling.ObjectPositionManager.ObjectPositionManager
+  nameWithType.vb: ObjectPositionManager.New
+  fullName.vb: Axys.Managers.ObjectHandling.ObjectPositionManager.New
+  name.vb: New
+- uid: Rhino.RhinoDoc
+  commentId: T:Rhino.RhinoDoc
+  parent: Rhino
+  isExternal: true
+  name: RhinoDoc
+  nameWithType: RhinoDoc
+  fullName: Rhino.RhinoDoc
+- uid: Rhino
+  commentId: N:Rhino
+  isExternal: true
+  name: Rhino
+  nameWithType: Rhino
+  fullName: Rhino
+- uid: Rhino.Geometry.Point3d.Unset
+  commentId: P:Rhino.Geometry.Point3d.Unset
+  isExternal: true
+  name: Unset
+  nameWithType: Point3d.Unset
+  fullName: Rhino.Geometry.Point3d.Unset
+- uid: Axys.Managers.ObjectHandling.ObjectPositionManager.GetAbsolutePosition*
+  commentId: Overload:Axys.Managers.ObjectHandling.ObjectPositionManager.GetAbsolutePosition
+  href: Axys.Managers.ObjectHandling.ObjectPositionManager.html#Axys_Managers_ObjectHandling_ObjectPositionManager_GetAbsolutePosition_System_Guid_
+  name: GetAbsolutePosition
+  nameWithType: ObjectPositionManager.GetAbsolutePosition
+  fullName: Axys.Managers.ObjectHandling.ObjectPositionManager.GetAbsolutePosition
+- uid: System.Guid
+  commentId: T:System.Guid
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: Guid
+  nameWithType: Guid
+  fullName: System.Guid
+- uid: Rhino.Geometry.Point3d
+  commentId: T:Rhino.Geometry.Point3d
+  parent: Rhino.Geometry
+  isExternal: true
+  name: Point3d
+  nameWithType: Point3d
+  fullName: Rhino.Geometry.Point3d
+- uid: Rhino.Geometry
+  commentId: N:Rhino.Geometry
+  isExternal: true
+  name: Rhino.Geometry
+  nameWithType: Rhino.Geometry
+  fullName: Rhino.Geometry
+  spec.csharp:
+  - uid: Rhino
+    name: Rhino
+    isExternal: true
+  - name: .
+  - uid: Rhino.Geometry
+    name: Geometry
+    isExternal: true
+  spec.vb:
+  - uid: Rhino
+    name: Rhino
+    isExternal: true
+  - name: .
+  - uid: Rhino.Geometry
+    name: Geometry
+    isExternal: true
+- uid: Axys.Managers.ObjectHandling.ObjectPositionManager.MoveObject*
+  commentId: Overload:Axys.Managers.ObjectHandling.ObjectPositionManager.MoveObject
+  href: Axys.Managers.ObjectHandling.ObjectPositionManager.html#Axys_Managers_ObjectHandling_ObjectPositionManager_MoveObject_System_Guid_Rhino_Geometry_Point3d_
+  name: MoveObject
+  nameWithType: ObjectPositionManager.MoveObject
+  fullName: Axys.Managers.ObjectHandling.ObjectPositionManager.MoveObject
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: RhinoObjectData
+  commentId: T:RhinoObjectData
+  href: RhinoObjectData.html
+  name: RhinoObjectData
+  nameWithType: RhinoObjectData
+  fullName: RhinoObjectData
+- uid: Axys.Managers.ObjectHandling.ObjectPositionManager.CreateObjectData*
+  commentId: Overload:Axys.Managers.ObjectHandling.ObjectPositionManager.CreateObjectData
+  href: Axys.Managers.ObjectHandling.ObjectPositionManager.html#Axys_Managers_ObjectHandling_ObjectPositionManager_CreateObjectData_System_Guid_
+  name: CreateObjectData
+  nameWithType: ObjectPositionManager.CreateObjectData
+  fullName: Axys.Managers.ObjectHandling.ObjectPositionManager.CreateObjectData
+- uid: Axys.Managers.ObjectHandling.ObjectPositionManager.CreateObjectDataBatch*
+  commentId: Overload:Axys.Managers.ObjectHandling.ObjectPositionManager.CreateObjectDataBatch
+  href: Axys.Managers.ObjectHandling.ObjectPositionManager.html#Axys_Managers_ObjectHandling_ObjectPositionManager_CreateObjectDataBatch_System_Collections_Generic_List_RhinoObjectData__
+  name: CreateObjectDataBatch
+  nameWithType: ObjectPositionManager.CreateObjectDataBatch
+  fullName: Axys.Managers.ObjectHandling.ObjectPositionManager.CreateObjectDataBatch
+- uid: System.Collections.Generic.List{RhinoObjectData}
+  commentId: T:System.Collections.Generic.List{RhinoObjectData}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<RhinoObjectData>
+  nameWithType: List<RhinoObjectData>
+  fullName: System.Collections.Generic.List<RhinoObjectData>
+  nameWithType.vb: List(Of RhinoObjectData)
+  fullName.vb: System.Collections.Generic.List(Of RhinoObjectData)
+  name.vb: List(Of RhinoObjectData)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: RhinoObjectData
+    name: RhinoObjectData
+    href: RhinoObjectData.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: RhinoObjectData
+    name: RhinoObjectData
+    href: RhinoObjectData.html
+  - name: )
+- uid: RhinoObjectDataBatch
+  commentId: T:RhinoObjectDataBatch
+  href: RhinoObjectDataBatch.html
+  name: RhinoObjectDataBatch
+  nameWithType: RhinoObjectDataBatch
+  fullName: RhinoObjectDataBatch
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

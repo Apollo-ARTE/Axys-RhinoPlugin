@@ -1,0 +1,62 @@
+### YamlMime:ManagedReference
+items:
+- uid: Axys.Commands
+  commentId: N:Axys.Commands
+  id: Axys.Commands
+  children:
+  - Axys.Commands.ExportToVision
+  - Axys.Commands.StartAxysCommand
+  - Axys.Commands.TrackObjectCommand
+  langs:
+  - csharp
+  - vb
+  name: Axys.Commands
+  nameWithType: Axys.Commands
+  fullName: Axys.Commands
+  type: Namespace
+  assemblies:
+  - RhinoPlugin
+references:
+- uid: Axys.Commands.ExportToVision
+  commentId: T:Axys.Commands.ExportToVision
+  parent: Axys.Commands
+  href: Axys.Commands.ExportToVision.html
+  name: ExportToVision
+  nameWithType: ExportToVision
+  fullName: Axys.Commands.ExportToVision
+- uid: Axys.Commands.StartAxysCommand
+  commentId: T:Axys.Commands.StartAxysCommand
+  parent: Axys.Commands
+  href: Axys.Commands.StartAxysCommand.html
+  name: StartAxysCommand
+  nameWithType: StartAxysCommand
+  fullName: Axys.Commands.StartAxysCommand
+- uid: Axys.Commands.TrackObjectCommand
+  commentId: T:Axys.Commands.TrackObjectCommand
+  parent: Axys.Commands
+  href: Axys.Commands.TrackObjectCommand.html
+  name: TrackObjectCommand
+  nameWithType: TrackObjectCommand
+  fullName: Axys.Commands.TrackObjectCommand
+- uid: Axys.Commands
+  commentId: N:Axys.Commands
+  href: Axys.html
+  name: Axys.Commands
+  nameWithType: Axys.Commands
+  fullName: Axys.Commands
+  spec.csharp:
+  - uid: Axys
+    name: Axys
+    href: Axys.html
+  - name: .
+  - uid: Axys.Commands
+    name: Commands
+    href: Axys.Commands.html
+  spec.vb:
+  - uid: Axys
+    name: Axys
+    href: Axys.html
+  - name: .
+  - uid: Axys.Commands
+    name: Commands
+    href: Axys.Commands.html

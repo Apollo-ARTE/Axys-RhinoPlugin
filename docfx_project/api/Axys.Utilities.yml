@@ -1,0 +1,23 @@
+### YamlMime:ManagedReference
+items:
+- uid: Axys.Utilities
+  commentId: N:Axys.Utilities
+  id: Axys.Utilities
+  children:
+  - Axys.Utilities.CommandUtilities
+  langs:
+  - csharp
+  - vb
+  name: Axys.Utilities
+  nameWithType: Axys.Utilities
+  fullName: Axys.Utilities
+  type: Namespace
+  assemblies:
+  - RhinoPlugin
+references:
+- uid: Axys.Utilities.CommandUtilities
+  commentId: T:Axys.Utilities.CommandUtilities
+  href: Axys.Utilities.CommandUtilities.html
+  name: CommandUtilities
+  nameWithType: CommandUtilities
+  fullName: Axys.Utilities.CommandUtilities

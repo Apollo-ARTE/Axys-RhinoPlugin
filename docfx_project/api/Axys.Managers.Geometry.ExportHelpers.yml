@@ -1,0 +1,516 @@
+### YamlMime:ManagedReference
+items:
+- uid: Axys.Managers.Geometry.ExportHelpers
+  commentId: T:Axys.Managers.Geometry.ExportHelpers
+  id: ExportHelpers
+  parent: Axys.Managers.Geometry
+  children:
+  - Axys.Managers.Geometry.ExportHelpers.CalculateBlockInstanceOrigin(Rhino.DocObjects.RhinoObject)
+  - Axys.Managers.Geometry.ExportHelpers.ExportSelectedObjectToUSDZ(Rhino.RhinoDoc,Rhino.Geometry.GeometryBase,System.Guid)
+  langs:
+  - csharp
+  - vb
+  name: ExportHelpers
+  nameWithType: ExportHelpers
+  fullName: Axys.Managers.Geometry.ExportHelpers
+  type: Class
+  source:
+    remote:
+      path: Managers/Geometry/ExportHelpers.cs
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
+    id: ExportHelpers
+    path: ../Managers/Geometry/ExportHelpers.cs
+    startLine: 14
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys.Managers.Geometry
+  summary: Helper routines used during USDZ export operations.
+  example: []
+  syntax:
+    content: public static class ExportHelpers
+    content.vb: Public Module ExportHelpers
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Axys.Managers.Geometry.ExportHelpers.ExportSelectedObjectToUSDZ(Rhino.RhinoDoc,Rhino.Geometry.GeometryBase,System.Guid)
+  commentId: M:Axys.Managers.Geometry.ExportHelpers.ExportSelectedObjectToUSDZ(Rhino.RhinoDoc,Rhino.Geometry.GeometryBase,System.Guid)
+  id: ExportSelectedObjectToUSDZ(Rhino.RhinoDoc,Rhino.Geometry.GeometryBase,System.Guid)
+  parent: Axys.Managers.Geometry.ExportHelpers
+  langs:
+  - csharp
+  - vb
+  name: ExportSelectedObjectToUSDZ(RhinoDoc, GeometryBase, Guid)
+  nameWithType: ExportHelpers.ExportSelectedObjectToUSDZ(RhinoDoc, GeometryBase, Guid)
+  fullName: Axys.Managers.Geometry.ExportHelpers.ExportSelectedObjectToUSDZ(Rhino.RhinoDoc, Rhino.Geometry.GeometryBase, System.Guid)
+  type: Method
+  source:
+    remote:
+      path: Managers/Geometry/ExportHelpers.cs
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
+    id: ExportSelectedObjectToUSDZ
+    path: ../Managers/Geometry/ExportHelpers.cs
+    startLine: 34
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys.Managers.Geometry
+  summary: Exports the specified geometry to a temporary USDZ file.
+  example: []
+  syntax:
+    content: public static ExportHelpers.ExportResult ExportSelectedObjectToUSDZ(RhinoDoc doc, GeometryBase preparedGeometry, Guid objectId)
+    parameters:
+    - id: doc
+      type: Rhino.RhinoDoc
+      description: Active Rhino document.
+    - id: preparedGeometry
+      type: Rhino.Geometry.GeometryBase
+      description: Geometry already prepared for export.
+    - id: objectId
+      type: System.Guid
+      description: Identifier of the object being exported.
+    return:
+      type: Axys.Managers.Geometry.ExportHelpers.ExportResult
+      description: Information about the exported file.
+    content.vb: Public Shared Function ExportSelectedObjectToUSDZ(doc As RhinoDoc, preparedGeometry As GeometryBase, objectId As Guid) As ExportHelpers.ExportResult
+  overload: Axys.Managers.Geometry.ExportHelpers.ExportSelectedObjectToUSDZ*
+- uid: Axys.Managers.Geometry.ExportHelpers.CalculateBlockInstanceOrigin(Rhino.DocObjects.RhinoObject)
+  commentId: M:Axys.Managers.Geometry.ExportHelpers.CalculateBlockInstanceOrigin(Rhino.DocObjects.RhinoObject)
+  id: CalculateBlockInstanceOrigin(Rhino.DocObjects.RhinoObject)
+  parent: Axys.Managers.Geometry.ExportHelpers
+  langs:
+  - csharp
+  - vb
+  name: CalculateBlockInstanceOrigin(RhinoObject)
+  nameWithType: ExportHelpers.CalculateBlockInstanceOrigin(RhinoObject)
+  fullName: Axys.Managers.Geometry.ExportHelpers.CalculateBlockInstanceOrigin(Rhino.DocObjects.RhinoObject)
+  type: Method
+  source:
+    remote:
+      path: Managers/Geometry/ExportHelpers.cs
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
+    id: CalculateBlockInstanceOrigin
+    path: ../Managers/Geometry/ExportHelpers.cs
+    startLine: 116
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys.Managers.Geometry
+  summary: >-
+    Calculates the origin point of a block instance by combining the bounding
+
+    boxes of its contained geometry.
+  example: []
+  syntax:
+    content: public static Point3d CalculateBlockInstanceOrigin(RhinoObject obj)
+    parameters:
+    - id: obj
+      type: Rhino.DocObjects.RhinoObject
+      description: The instance object to evaluate.
+    return:
+      type: Rhino.Geometry.Point3d
+      description: Center point of the block instance or <xref href="Rhino.Geometry.Point3d.Unset" data-throw-if-not-resolved="false"></xref> on failure.
+    content.vb: Public Shared Function CalculateBlockInstanceOrigin(obj As RhinoObject) As Point3d
+  overload: Axys.Managers.Geometry.ExportHelpers.CalculateBlockInstanceOrigin*
+references:
+- uid: Axys.Managers.Geometry
+  commentId: N:Axys.Managers.Geometry
+  href: Axys.html
+  name: Axys.Managers.Geometry
+  nameWithType: Axys.Managers.Geometry
+  fullName: Axys.Managers.Geometry
+  spec.csharp:
+  - uid: Axys
+    name: Axys
+    href: Axys.html
+  - name: .
+  - uid: Axys.Managers
+    name: Managers
+    href: Axys.Managers.html
+  - name: .
+  - uid: Axys.Managers.Geometry
+    name: Geometry
+    href: Axys.Managers.Geometry.html
+  spec.vb:
+  - uid: Axys
+    name: Axys
+    href: Axys.html
+  - name: .
+  - uid: Axys.Managers
+    name: Managers
+    href: Axys.Managers.html
+  - name: .
+  - uid: Axys.Managers.Geometry
+    name: Geometry
+    href: Axys.Managers.Geometry.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Axys.Managers.Geometry.ExportHelpers.ExportSelectedObjectToUSDZ*
+  commentId: Overload:Axys.Managers.Geometry.ExportHelpers.ExportSelectedObjectToUSDZ
+  href: Axys.Managers.Geometry.ExportHelpers.html#Axys_Managers_Geometry_ExportHelpers_ExportSelectedObjectToUSDZ_Rhino_RhinoDoc_Rhino_Geometry_GeometryBase_System_Guid_
+  name: ExportSelectedObjectToUSDZ
+  nameWithType: ExportHelpers.ExportSelectedObjectToUSDZ
+  fullName: Axys.Managers.Geometry.ExportHelpers.ExportSelectedObjectToUSDZ
+- uid: Rhino.RhinoDoc
+  commentId: T:Rhino.RhinoDoc
+  parent: Rhino
+  isExternal: true
+  name: RhinoDoc
+  nameWithType: RhinoDoc
+  fullName: Rhino.RhinoDoc
+- uid: Rhino.Geometry.GeometryBase
+  commentId: T:Rhino.Geometry.GeometryBase
+  parent: Rhino.Geometry
+  isExternal: true
+  name: GeometryBase
+  nameWithType: GeometryBase
+  fullName: Rhino.Geometry.GeometryBase
+- uid: System.Guid
+  commentId: T:System.Guid
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: Guid
+  nameWithType: Guid
+  fullName: System.Guid
+- uid: Axys.Managers.Geometry.ExportHelpers.ExportResult
+  commentId: T:Axys.Managers.Geometry.ExportHelpers.ExportResult
+  parent: Axys.Managers.Geometry
+  href: Axys.Managers.Geometry.ExportHelpers.html
+  name: ExportHelpers.ExportResult
+  nameWithType: ExportHelpers.ExportResult
+  fullName: Axys.Managers.Geometry.ExportHelpers.ExportResult
+  spec.csharp:
+  - uid: Axys.Managers.Geometry.ExportHelpers
+    name: ExportHelpers
+    href: Axys.Managers.Geometry.ExportHelpers.html
+  - name: .
+  - uid: Axys.Managers.Geometry.ExportHelpers.ExportResult
+    name: ExportResult
+    href: Axys.Managers.Geometry.ExportHelpers.ExportResult.html
+  spec.vb:
+  - uid: Axys.Managers.Geometry.ExportHelpers
+    name: ExportHelpers
+    href: Axys.Managers.Geometry.ExportHelpers.html
+  - name: .
+  - uid: Axys.Managers.Geometry.ExportHelpers.ExportResult
+    name: ExportResult
+    href: Axys.Managers.Geometry.ExportHelpers.ExportResult.html
+- uid: Rhino
+  commentId: N:Rhino
+  isExternal: true
+  name: Rhino
+  nameWithType: Rhino
+  fullName: Rhino
+- uid: Rhino.Geometry
+  commentId: N:Rhino.Geometry
+  isExternal: true
+  name: Rhino.Geometry
+  nameWithType: Rhino.Geometry
+  fullName: Rhino.Geometry
+  spec.csharp:
+  - uid: Rhino
+    name: Rhino
+    isExternal: true
+  - name: .
+  - uid: Rhino.Geometry
+    name: Geometry
+    isExternal: true
+  spec.vb:
+  - uid: Rhino
+    name: Rhino
+    isExternal: true
+  - name: .
+  - uid: Rhino.Geometry
+    name: Geometry
+    isExternal: true
+- uid: Rhino.Geometry.Point3d.Unset
+  commentId: P:Rhino.Geometry.Point3d.Unset
+  isExternal: true
+  name: Unset
+  nameWithType: Point3d.Unset
+  fullName: Rhino.Geometry.Point3d.Unset
+- uid: Axys.Managers.Geometry.ExportHelpers.CalculateBlockInstanceOrigin*
+  commentId: Overload:Axys.Managers.Geometry.ExportHelpers.CalculateBlockInstanceOrigin
+  href: Axys.Managers.Geometry.ExportHelpers.html#Axys_Managers_Geometry_ExportHelpers_CalculateBlockInstanceOrigin_Rhino_DocObjects_RhinoObject_
+  name: CalculateBlockInstanceOrigin
+  nameWithType: ExportHelpers.CalculateBlockInstanceOrigin
+  fullName: Axys.Managers.Geometry.ExportHelpers.CalculateBlockInstanceOrigin
+- uid: Rhino.DocObjects.RhinoObject
+  commentId: T:Rhino.DocObjects.RhinoObject
+  parent: Rhino.DocObjects
+  isExternal: true
+  name: RhinoObject
+  nameWithType: RhinoObject
+  fullName: Rhino.DocObjects.RhinoObject
+- uid: Rhino.Geometry.Point3d
+  commentId: T:Rhino.Geometry.Point3d
+  parent: Rhino.Geometry
+  isExternal: true
+  name: Point3d
+  nameWithType: Point3d
+  fullName: Rhino.Geometry.Point3d
+- uid: Rhino.DocObjects
+  commentId: N:Rhino.DocObjects
+  isExternal: true
+  name: Rhino.DocObjects
+  nameWithType: Rhino.DocObjects
+  fullName: Rhino.DocObjects
+  spec.csharp:
+  - uid: Rhino
+    name: Rhino
+    isExternal: true
+  - name: .
+  - uid: Rhino.DocObjects
+    name: DocObjects
+    isExternal: true
+  spec.vb:
+  - uid: Rhino
+    name: Rhino
+    isExternal: true
+  - name: .
+  - uid: Rhino.DocObjects
+    name: DocObjects
+    isExternal: true

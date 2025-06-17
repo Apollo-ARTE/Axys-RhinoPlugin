@@ -1,0 +1,37 @@
+### YamlMime:ManagedReference
+items:
+- uid: Axys.Managers.ObjectHandling
+  commentId: N:Axys.Managers.ObjectHandling
+  id: Axys.Managers.ObjectHandling
+  children:
+  - Axys.Managers.ObjectHandling.MaterialManager
+  - Axys.Managers.ObjectHandling.ObjectPositionManager
+  - Axys.Managers.ObjectHandling.SelectionObjectManager
+  langs:
+  - csharp
+  - vb
+  name: Axys.Managers.ObjectHandling
+  nameWithType: Axys.Managers.ObjectHandling
+  fullName: Axys.Managers.ObjectHandling
+  type: Namespace
+  assemblies:
+  - RhinoPlugin
+references:
+- uid: Axys.Managers.ObjectHandling.MaterialManager
+  commentId: T:Axys.Managers.ObjectHandling.MaterialManager
+  href: Axys.Managers.ObjectHandling.MaterialManager.html
+  name: MaterialManager
+  nameWithType: MaterialManager
+  fullName: Axys.Managers.ObjectHandling.MaterialManager
+- uid: Axys.Managers.ObjectHandling.ObjectPositionManager
+  commentId: T:Axys.Managers.ObjectHandling.ObjectPositionManager
+  href: Axys.Managers.ObjectHandling.ObjectPositionManager.html
+  name: ObjectPositionManager
+  nameWithType: ObjectPositionManager
+  fullName: Axys.Managers.ObjectHandling.ObjectPositionManager
+- uid: Axys.Managers.ObjectHandling.SelectionObjectManager
+  commentId: T:Axys.Managers.ObjectHandling.SelectionObjectManager
+  href: Axys.Managers.ObjectHandling.SelectionObjectManager.html
+  name: SelectionObjectManager
+  nameWithType: SelectionObjectManager
+  fullName: Axys.Managers.ObjectHandling.SelectionObjectManager

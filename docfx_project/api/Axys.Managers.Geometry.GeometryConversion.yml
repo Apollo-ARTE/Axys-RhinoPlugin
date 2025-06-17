@@ -1,0 +1,652 @@
+### YamlMime:ManagedReference
+items:
+- uid: Axys.Managers.Geometry.GeometryConversion
+  commentId: T:Axys.Managers.Geometry.GeometryConversion
+  id: GeometryConversion
+  parent: Axys.Managers.Geometry
+  children:
+  - Axys.Managers.Geometry.GeometryConversion.ConvertMultipleCurvesToJoinedPipe(System.Collections.Generic.List{Rhino.Geometry.Curve},Rhino.RhinoDoc,System.Double)
+  - Axys.Managers.Geometry.GeometryConversion.ConvertPolyCurveToBrep(Rhino.Geometry.PolyCurve,Rhino.RhinoDoc,System.Double)
+  - Axys.Managers.Geometry.GeometryConversion.PrepareGeometryForExport(Rhino.RhinoDoc,Rhino.DocObjects.RhinoObject)
+  langs:
+  - csharp
+  - vb
+  name: GeometryConversion
+  nameWithType: GeometryConversion
+  fullName: Axys.Managers.Geometry.GeometryConversion
+  type: Class
+  source:
+    remote:
+      path: Managers/Geometry/GeometryConversion.cs
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
+    id: GeometryConversion
+    path: ../Managers/Geometry/GeometryConversion.cs
+    startLine: 15
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys.Managers.Geometry
+  summary: Utility methods that convert Rhino geometry into forms suitable for USDZ export.
+  example: []
+  syntax:
+    content: public static class GeometryConversion
+    content.vb: Public Module GeometryConversion
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Axys.Managers.Geometry.GeometryConversion.ConvertPolyCurveToBrep(Rhino.Geometry.PolyCurve,Rhino.RhinoDoc,System.Double)
+  commentId: M:Axys.Managers.Geometry.GeometryConversion.ConvertPolyCurveToBrep(Rhino.Geometry.PolyCurve,Rhino.RhinoDoc,System.Double)
+  id: ConvertPolyCurveToBrep(Rhino.Geometry.PolyCurve,Rhino.RhinoDoc,System.Double)
+  parent: Axys.Managers.Geometry.GeometryConversion
+  langs:
+  - csharp
+  - vb
+  name: ConvertPolyCurveToBrep(PolyCurve, RhinoDoc, double)
+  nameWithType: GeometryConversion.ConvertPolyCurveToBrep(PolyCurve, RhinoDoc, double)
+  fullName: Axys.Managers.Geometry.GeometryConversion.ConvertPolyCurveToBrep(Rhino.Geometry.PolyCurve, Rhino.RhinoDoc, double)
+  type: Method
+  source:
+    remote:
+      path: Managers/Geometry/GeometryConversion.cs
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
+    id: ConvertPolyCurveToBrep
+    path: ../Managers/Geometry/GeometryConversion.cs
+    startLine: 24
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys.Managers.Geometry
+  summary: Creates a Brep pipe along each segment of a polycurve and joins them into a single Brep.
+  example: []
+  syntax:
+    content: public static Brep ConvertPolyCurveToBrep(PolyCurve polyCurve, RhinoDoc doc, double pipeRadius)
+    parameters:
+    - id: polyCurve
+      type: Rhino.Geometry.PolyCurve
+      description: The polycurve to convert.
+    - id: doc
+      type: Rhino.RhinoDoc
+      description: Active Rhino document.
+    - id: pipeRadius
+      type: System.Double
+      description: Radius of the generated pipes.
+    return:
+      type: Rhino.Geometry.Brep
+      description: A joined Brep representing the pipe or <code>null</code> on failure.
+    content.vb: Public Shared Function ConvertPolyCurveToBrep(polyCurve As PolyCurve, doc As RhinoDoc, pipeRadius As Double) As Brep
+  overload: Axys.Managers.Geometry.GeometryConversion.ConvertPolyCurveToBrep*
+  nameWithType.vb: GeometryConversion.ConvertPolyCurveToBrep(PolyCurve, RhinoDoc, Double)
+  fullName.vb: Axys.Managers.Geometry.GeometryConversion.ConvertPolyCurveToBrep(Rhino.Geometry.PolyCurve, Rhino.RhinoDoc, Double)
+  name.vb: ConvertPolyCurveToBrep(PolyCurve, RhinoDoc, Double)
+- uid: Axys.Managers.Geometry.GeometryConversion.ConvertMultipleCurvesToJoinedPipe(System.Collections.Generic.List{Rhino.Geometry.Curve},Rhino.RhinoDoc,System.Double)
+  commentId: M:Axys.Managers.Geometry.GeometryConversion.ConvertMultipleCurvesToJoinedPipe(System.Collections.Generic.List{Rhino.Geometry.Curve},Rhino.RhinoDoc,System.Double)
+  id: ConvertMultipleCurvesToJoinedPipe(System.Collections.Generic.List{Rhino.Geometry.Curve},Rhino.RhinoDoc,System.Double)
+  parent: Axys.Managers.Geometry.GeometryConversion
+  langs:
+  - csharp
+  - vb
+  name: ConvertMultipleCurvesToJoinedPipe(List<Curve>, RhinoDoc, double)
+  nameWithType: GeometryConversion.ConvertMultipleCurvesToJoinedPipe(List<Curve>, RhinoDoc, double)
+  fullName: Axys.Managers.Geometry.GeometryConversion.ConvertMultipleCurvesToJoinedPipe(System.Collections.Generic.List<Rhino.Geometry.Curve>, Rhino.RhinoDoc, double)
+  type: Method
+  source:
+    remote:
+      path: Managers/Geometry/GeometryConversion.cs
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
+    id: ConvertMultipleCurvesToJoinedPipe
+    path: ../Managers/Geometry/GeometryConversion.cs
+    startLine: 77
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys.Managers.Geometry
+  summary: Converts a collection of curves to pipe Breps and joins them into one Brep.
+  example: []
+  syntax:
+    content: public static Brep ConvertMultipleCurvesToJoinedPipe(List<Curve> curves, RhinoDoc doc, double pipeRadius)
+    parameters:
+    - id: curves
+      type: System.Collections.Generic.List{Rhino.Geometry.Curve}
+      description: Curves to pipe.
+    - id: doc
+      type: Rhino.RhinoDoc
+      description: Active Rhino document.
+    - id: pipeRadius
+      type: System.Double
+      description: Radius of the pipe.
+    return:
+      type: Rhino.Geometry.Brep
+      description: Joined Brep of all pipes or <code>null</code> if conversion fails.
+    content.vb: Public Shared Function ConvertMultipleCurvesToJoinedPipe(curves As List(Of Curve), doc As RhinoDoc, pipeRadius As Double) As Brep
+  overload: Axys.Managers.Geometry.GeometryConversion.ConvertMultipleCurvesToJoinedPipe*
+  nameWithType.vb: GeometryConversion.ConvertMultipleCurvesToJoinedPipe(List(Of Curve), RhinoDoc, Double)
+  fullName.vb: Axys.Managers.Geometry.GeometryConversion.ConvertMultipleCurvesToJoinedPipe(System.Collections.Generic.List(Of Rhino.Geometry.Curve), Rhino.RhinoDoc, Double)
+  name.vb: ConvertMultipleCurvesToJoinedPipe(List(Of Curve), RhinoDoc, Double)
+- uid: Axys.Managers.Geometry.GeometryConversion.PrepareGeometryForExport(Rhino.RhinoDoc,Rhino.DocObjects.RhinoObject)
+  commentId: M:Axys.Managers.Geometry.GeometryConversion.PrepareGeometryForExport(Rhino.RhinoDoc,Rhino.DocObjects.RhinoObject)
+  id: PrepareGeometryForExport(Rhino.RhinoDoc,Rhino.DocObjects.RhinoObject)
+  parent: Axys.Managers.Geometry.GeometryConversion
+  langs:
+  - csharp
+  - vb
+  name: PrepareGeometryForExport(RhinoDoc, RhinoObject)
+  nameWithType: GeometryConversion.PrepareGeometryForExport(RhinoDoc, RhinoObject)
+  fullName: Axys.Managers.Geometry.GeometryConversion.PrepareGeometryForExport(Rhino.RhinoDoc, Rhino.DocObjects.RhinoObject)
+  type: Method
+  source:
+    remote:
+      path: Managers/Geometry/GeometryConversion.cs
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
+    id: PrepareGeometryForExport
+    path: ../Managers/Geometry/GeometryConversion.cs
+    startLine: 117
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys.Managers.Geometry
+  summary: >-
+    Converts the selected object into geometry that can be exported as USDZ.
+
+    Handles curves, blocks, extrusions and meshes.
+  example: []
+  syntax:
+    content: public static GeometryBase PrepareGeometryForExport(RhinoDoc doc, RhinoObject selectedObj)
+    parameters:
+    - id: doc
+      type: Rhino.RhinoDoc
+      description: Active Rhino document.
+    - id: selectedObj
+      type: Rhino.DocObjects.RhinoObject
+      description: Object chosen for export.
+    return:
+      type: Rhino.Geometry.GeometryBase
+      description: Geometry ready for export or <code>null</code> if conversion fails.
+    content.vb: Public Shared Function PrepareGeometryForExport(doc As RhinoDoc, selectedObj As RhinoObject) As GeometryBase
+  overload: Axys.Managers.Geometry.GeometryConversion.PrepareGeometryForExport*
+references:
+- uid: Axys.Managers.Geometry
+  commentId: N:Axys.Managers.Geometry
+  href: Axys.html
+  name: Axys.Managers.Geometry
+  nameWithType: Axys.Managers.Geometry
+  fullName: Axys.Managers.Geometry
+  spec.csharp:
+  - uid: Axys
+    name: Axys
+    href: Axys.html
+  - name: .
+  - uid: Axys.Managers
+    name: Managers
+    href: Axys.Managers.html
+  - name: .
+  - uid: Axys.Managers.Geometry
+    name: Geometry
+    href: Axys.Managers.Geometry.html
+  spec.vb:
+  - uid: Axys
+    name: Axys
+    href: Axys.html
+  - name: .
+  - uid: Axys.Managers
+    name: Managers
+    href: Axys.Managers.html
+  - name: .
+  - uid: Axys.Managers.Geometry
+    name: Geometry
+    href: Axys.Managers.Geometry.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Axys.Managers.Geometry.GeometryConversion.ConvertPolyCurveToBrep*
+  commentId: Overload:Axys.Managers.Geometry.GeometryConversion.ConvertPolyCurveToBrep
+  href: Axys.Managers.Geometry.GeometryConversion.html#Axys_Managers_Geometry_GeometryConversion_ConvertPolyCurveToBrep_Rhino_Geometry_PolyCurve_Rhino_RhinoDoc_System_Double_
+  name: ConvertPolyCurveToBrep
+  nameWithType: GeometryConversion.ConvertPolyCurveToBrep
+  fullName: Axys.Managers.Geometry.GeometryConversion.ConvertPolyCurveToBrep
+- uid: Rhino.Geometry.PolyCurve
+  commentId: T:Rhino.Geometry.PolyCurve
+  parent: Rhino.Geometry
+  isExternal: true
+  name: PolyCurve
+  nameWithType: PolyCurve
+  fullName: Rhino.Geometry.PolyCurve
+- uid: Rhino.RhinoDoc
+  commentId: T:Rhino.RhinoDoc
+  parent: Rhino
+  isExternal: true
+  name: RhinoDoc
+  nameWithType: RhinoDoc
+  fullName: Rhino.RhinoDoc
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: Rhino.Geometry.Brep
+  commentId: T:Rhino.Geometry.Brep
+  parent: Rhino.Geometry
+  isExternal: true
+  name: Brep
+  nameWithType: Brep
+  fullName: Rhino.Geometry.Brep
+- uid: Rhino.Geometry
+  commentId: N:Rhino.Geometry
+  isExternal: true
+  name: Rhino.Geometry
+  nameWithType: Rhino.Geometry
+  fullName: Rhino.Geometry
+  spec.csharp:
+  - uid: Rhino
+    name: Rhino
+    isExternal: true
+  - name: .
+  - uid: Rhino.Geometry
+    name: Geometry
+    isExternal: true
+  spec.vb:
+  - uid: Rhino
+    name: Rhino
+    isExternal: true
+  - name: .
+  - uid: Rhino.Geometry
+    name: Geometry
+    isExternal: true
+- uid: Rhino
+  commentId: N:Rhino
+  isExternal: true
+  name: Rhino
+  nameWithType: Rhino
+  fullName: Rhino
+- uid: Axys.Managers.Geometry.GeometryConversion.ConvertMultipleCurvesToJoinedPipe*
+  commentId: Overload:Axys.Managers.Geometry.GeometryConversion.ConvertMultipleCurvesToJoinedPipe
+  href: Axys.Managers.Geometry.GeometryConversion.html#Axys_Managers_Geometry_GeometryConversion_ConvertMultipleCurvesToJoinedPipe_System_Collections_Generic_List_Rhino_Geometry_Curve__Rhino_RhinoDoc_System_Double_
+  name: ConvertMultipleCurvesToJoinedPipe
+  nameWithType: GeometryConversion.ConvertMultipleCurvesToJoinedPipe
+  fullName: Axys.Managers.Geometry.GeometryConversion.ConvertMultipleCurvesToJoinedPipe
+- uid: System.Collections.Generic.List{Rhino.Geometry.Curve}
+  commentId: T:System.Collections.Generic.List{Rhino.Geometry.Curve}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<Curve>
+  nameWithType: List<Curve>
+  fullName: System.Collections.Generic.List<Rhino.Geometry.Curve>
+  nameWithType.vb: List(Of Curve)
+  fullName.vb: System.Collections.Generic.List(Of Rhino.Geometry.Curve)
+  name.vb: List(Of Curve)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Rhino.Geometry.Curve
+    name: Curve
+    isExternal: true
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Rhino.Geometry.Curve
+    name: Curve
+    isExternal: true
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Axys.Managers.Geometry.GeometryConversion.PrepareGeometryForExport*
+  commentId: Overload:Axys.Managers.Geometry.GeometryConversion.PrepareGeometryForExport
+  href: Axys.Managers.Geometry.GeometryConversion.html#Axys_Managers_Geometry_GeometryConversion_PrepareGeometryForExport_Rhino_RhinoDoc_Rhino_DocObjects_RhinoObject_
+  name: PrepareGeometryForExport
+  nameWithType: GeometryConversion.PrepareGeometryForExport
+  fullName: Axys.Managers.Geometry.GeometryConversion.PrepareGeometryForExport
+- uid: Rhino.DocObjects.RhinoObject
+  commentId: T:Rhino.DocObjects.RhinoObject
+  parent: Rhino.DocObjects
+  isExternal: true
+  name: RhinoObject
+  nameWithType: RhinoObject
+  fullName: Rhino.DocObjects.RhinoObject
+- uid: Rhino.Geometry.GeometryBase
+  commentId: T:Rhino.Geometry.GeometryBase
+  parent: Rhino.Geometry
+  isExternal: true
+  name: GeometryBase
+  nameWithType: GeometryBase
+  fullName: Rhino.Geometry.GeometryBase
+- uid: Rhino.DocObjects
+  commentId: N:Rhino.DocObjects
+  isExternal: true
+  name: Rhino.DocObjects
+  nameWithType: Rhino.DocObjects
+  fullName: Rhino.DocObjects
+  spec.csharp:
+  - uid: Rhino
+    name: Rhino
+    isExternal: true
+  - name: .
+  - uid: Rhino.DocObjects
+    name: DocObjects
+    isExternal: true
+  spec.vb:
+  - uid: Rhino
+    name: Rhino
+    isExternal: true
+  - name: .
+  - uid: Rhino.DocObjects
+    name: DocObjects
+    isExternal: true
