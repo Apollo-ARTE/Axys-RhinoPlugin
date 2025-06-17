@@ -2,81 +2,79 @@
 _layout: conceptual
 ---
 
-# Axys Rhino Plugin Documentation
+# Axys Rhino Plugin
 
-Welcome to the official documentation for the Axys Rhino Plugin.
+**Axys** is a **Rhino 8 plugin** that works **in combination with** the [Axys (visionOS app)](https://github.com/Apollo-ARTE/Axys) to bring your Rhino models into a **spatial computing environment**, seamlessly integrating them into the **real world**.
 
-## Overview
+With Axys, you can:
+* **Visualize** 3D models in augmented reality at full scale  
+* **Calibrate** Rhino’s coordinate system to a physical space with printable markers  
+* **Validate** a robot arm’s reach-envelope before the printing session begins  
+* **Iterate** rapidly—move or rotate objects in-headset and sync changes back to Rhino in real time  
 
-Axys is a powerful plugin for Rhino that provides advanced functionality for:
+> Axys is purpose-built for **3D concrete printing (3DCP)** workflows, but its calibration and streaming pipeline can be adapted to any large-scale robotic fabrication setup.
 
-- **Geometry Processing** – Advanced geometric operations and conversions  
-- **Export Capabilities** – Export to various formats including Vision  
-- **Object Management** – Comprehensive object handling and material management  
-- **Network Integration** – WebSocket communication and networking features  
-- **Command Interface** – Rich set of commands for plugin interaction  
+---
 
-## Quick Start
+## Why Axys?
 
-- **Installation Guide**  
-- **Getting Started**  
-- **Basic Usage**  
+| Challenge                              | How Axys Helps                                                         |
+| -------------------------------------- | ---------------------------------------------------------------------- |
+| Mapping digital geometry to real space | Guided marker-based calibration aligns Rhino with the physical lab     |
+| Understanding robot constraints        | Live AR overlay of the robot’s workspace and collision boundaries      |
+| Rapid design iteration                 | One-tap object export & real-time transform sync back to Rhino          |
 
-## API Reference
+---
 
-Explore the complete API Documentation to understand all available classes, methods, and properties.
+## Feature Highlights
+![Features](images/features.png)
 
-### Key Components
+* **Live Model Streaming** — Export a Rhino object and see it in AR within seconds.  
+* **Spatial Calibration** — Printable QR-style markers + a step-by-step in-app guided setup.  
+* **Robot Workspace Overlay** — Visualize reach limits and keep prints in-range.  
+* **Virtual Space View** — Load a 1 : 1 model of your space to see it in AR.  
+* **Real-Time Transform Sync** — Move / rotate in AR, Rhino updates instantly.  
 
-- **AxysPlugin** – Main plugin class  
-- **Commands** – Available plugin commands  
-- **Managers** – Core management functionality  
-- **Models** – Data models and structures  
+> Non-transform edits (e.g. materials) do **not** stream live—re-export to refresh.
 
-## Core Features
+---
 
-### Geometry Management
+## Requirements
 
-The Axys plugin provides sophisticated geometry processing capabilities:
+| Component | Minimum Version | Notes                                                  |
+|-----------|-----------------|--------------------------------------------------------|
+| **visionOS** device | 1.0 | Usage of simulator is not recommanded for this product                |
+| **Xcode**           | 16  | Run and build the app                                  |
+| **Rhino**           | 8   | Install the Axys Rhino Plugin                           |
+| **Network**         | —   | visionOS device **and** workstation on the same local network   |
 
-- Advanced mesh operations  
-- Geometry conversion utilities  
-- Export helpers for various formats  
+---
 
-### Command System
+## Quick-Start
 
-A comprehensive set of commands for:
 
-- Starting and managing the plugin  
-- Object tracking and selection  
-- Export operations to Vision platform  
+**Clone & open**
+```bash
+git clone https://github.com/Apollo-ARTE/Axys-RhinoPlugin.git
+```
+**Build & run**
+1. Open the project in Visual Studio or a compatible IDE.
+2. Navigate to the Play (or Run) section.
+3. Click Run and Debug to start the project.
+4. In Rhino, run **Axys Start**. Note the IP address shown in the console.  
+5. Launch **Axys** on the headset and connect entering that IP.  
+6. Select a Rhino object and tap **Import** in Axys—the model appears in AR.
+7. Follow the calibration setup.
+8. Click **Visualize** to enter the visualization mode.
 
-### Networking
+> For step-by-step instructions on connecting, calibrating, and manipulating models, see the [complete article](article.md).
 
-Built-in networking capabilities including:
+---
 
-- WebSocket server management  
-- Message handling  
-- Real-time communication features  
+### Resources
 
-### Material and Object Handling
+* [AXYS Website](https://github.com/Apollo-ARTE/Axys)  
+* [Axys Source](https://github.com/Apollo-ARTE/Axys)  
+* [Rhino Plugin Source](https://github.com/Apollo-ARTE/Axys-RhinoPlugin) 
+* [Calibration Markers](https://github.com/Apollo-ARTE/Axys) 
 
-Complete object management system:
-
-- Material management  
-- Object positioning  
-- Selection management  
-
-## Examples
-
-Check out our examples section for practical implementation examples and code snippets.
-
-## Support
-
-For questions and support, please refer to our troubleshooting guide or explore the comprehensive API documentation.
-
-### Getting Help
-
-- Browse the API Reference for detailed technical information  
-- Read the User Guide for step-by-step instructions  
-- Check Examples for practical use cases  

@@ -16,8 +16,8 @@ items:
   source:
     remote:
       path: Managers/Networking/USDZExportManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: USDZExportManager
     path: ../Managers/Networking/USDZExportManager.cs
     startLine: 10
@@ -53,8 +53,8 @@ items:
   source:
     remote:
       path: Managers/Networking/USDZExportManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: ExecuteExportAsync
     path: ../Managers/Networking/USDZExportManager.cs
     startLine: 17

@@ -18,8 +18,8 @@ items:
   source:
     remote:
       path: Commands/ScriptPipeMeshBlockCommand.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: ScriptPipeMeshBlockCommand
     path: ../Commands/ScriptPipeMeshBlockCommand.cs
     startLine: 14
@@ -82,8 +82,8 @@ items:
   source:
     remote:
       path: Commands/ScriptPipeMeshBlockCommand.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: Instance
     path: ../Commands/ScriptPipeMeshBlockCommand.cs
     startLine: 17
@@ -113,8 +113,8 @@ items:
   source:
     remote:
       path: Commands/ScriptPipeMeshBlockCommand.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: EnglishName
     path: ../Commands/ScriptPipeMeshBlockCommand.cs
     startLine: 18
@@ -148,8 +148,8 @@ items:
   source:
     remote:
       path: Commands/ScriptPipeMeshBlockCommand.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: RunCommand
     path: ../Commands/ScriptPipeMeshBlockCommand.cs
     startLine: 26

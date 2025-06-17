@@ -16,8 +16,8 @@ items:
   source:
     remote:
       path: Managers/Networking/MessageHandler.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: MessageHandler
     path: ../Managers/Networking/MessageHandler.cs
     startLine: 9
@@ -53,8 +53,8 @@ items:
   source:
     remote:
       path: Managers/Networking/MessageHandler.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: CreateAndSerializeMessage
     path: ../Managers/Networking/MessageHandler.cs
     startLine: 17

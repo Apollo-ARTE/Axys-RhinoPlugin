@@ -17,8 +17,8 @@ items:
   source:
     remote:
       path: Managers/Geometry/ExportHelpers.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: ExportHelpers
     path: ../Managers/Geometry/ExportHelpers.cs
     startLine: 14
@@ -54,8 +54,8 @@ items:
   source:
     remote:
       path: Managers/Geometry/ExportHelpers.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: ExportSelectedObjectToUSDZ
     path: ../Managers/Geometry/ExportHelpers.cs
     startLine: 34
@@ -95,8 +95,8 @@ items:
   source:
     remote:
       path: Managers/Geometry/ExportHelpers.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: CalculateBlockInstanceOrigin
     path: ../Managers/Geometry/ExportHelpers.cs
     startLine: 116

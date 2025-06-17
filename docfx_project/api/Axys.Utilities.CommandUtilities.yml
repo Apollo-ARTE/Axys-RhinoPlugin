@@ -16,8 +16,8 @@ items:
   source:
     remote:
       path: Utilities/CommandUtilities.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: CommandUtilities
     path: ../Utilities/CommandUtilities.cs
     startLine: 15
@@ -53,8 +53,8 @@ items:
   source:
     remote:
       path: Utilities/CommandUtilities.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: ExecuteTrackObjectLogic
     path: ../Utilities/CommandUtilities.cs
     startLine: 22

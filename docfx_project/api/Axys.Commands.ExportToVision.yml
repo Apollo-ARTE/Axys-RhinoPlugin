@@ -22,8 +22,8 @@ items:
   source:
     remote:
       path: Commands/ExportToVision.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: ExportToVision
     path: ../Commands/ExportToVision.cs
     startLine: 21
@@ -86,8 +86,8 @@ items:
   source:
     remote:
       path: Commands/ExportToVision.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: SelectedObjectId
     path: ../Commands/ExportToVision.cs
     startLine: 26
@@ -115,8 +115,8 @@ items:
   source:
     remote:
       path: Commands/ExportToVision.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: LastExportedUSDZPath
     path: ../Commands/ExportToVision.cs
     startLine: 30
@@ -144,8 +144,8 @@ items:
   source:
     remote:
       path: Commands/ExportToVision.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: .ctor
     path: ../Commands/ExportToVision.cs
     startLine: 36
@@ -178,8 +178,8 @@ items:
   source:
     remote:
       path: Commands/ExportToVision.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: Instance
     path: ../Commands/ExportToVision.cs
     startLine: 83
@@ -209,8 +209,8 @@ items:
   source:
     remote:
       path: Commands/ExportToVision.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: EnglishName
     path: ../Commands/ExportToVision.cs
     startLine: 84
@@ -244,8 +244,8 @@ items:
   source:
     remote:
       path: Commands/ExportToVision.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: RunCommand
     path: ../Commands/ExportToVision.cs
     startLine: 94
@@ -288,8 +288,8 @@ items:
   source:
     remote:
       path: Commands/ExportToVision.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: ExportUSDZ
     path: ../Commands/ExportToVision.cs
     startLine: 128

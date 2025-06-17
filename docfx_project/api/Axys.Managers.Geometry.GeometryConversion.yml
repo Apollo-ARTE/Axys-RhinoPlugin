@@ -18,8 +18,8 @@ items:
   source:
     remote:
       path: Managers/Geometry/GeometryConversion.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: GeometryConversion
     path: ../Managers/Geometry/GeometryConversion.cs
     startLine: 15
@@ -55,8 +55,8 @@ items:
   source:
     remote:
       path: Managers/Geometry/GeometryConversion.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: ConvertPolyCurveToBrep
     path: ../Managers/Geometry/GeometryConversion.cs
     startLine: 24
@@ -99,8 +99,8 @@ items:
   source:
     remote:
       path: Managers/Geometry/GeometryConversion.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: ConvertMultipleCurvesToJoinedPipe
     path: ../Managers/Geometry/GeometryConversion.cs
     startLine: 77
@@ -143,8 +143,8 @@ items:
   source:
     remote:
       path: Managers/Geometry/GeometryConversion.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: PrepareGeometryForExport
     path: ../Managers/Geometry/GeometryConversion.cs
     startLine: 117

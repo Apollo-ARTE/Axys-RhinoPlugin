@@ -2,7 +2,11 @@
 items:
 - name: Core
   items:
-  - name: Axys
+  - name: Overview
+    href: index.md
+  - name: Using Axys
+    href: article.md
+  - name: Code
     uid: Axys
     items:
     - uid: Axys.AxysPlugin

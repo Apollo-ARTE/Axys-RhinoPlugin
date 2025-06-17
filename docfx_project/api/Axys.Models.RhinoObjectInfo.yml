@@ -18,8 +18,8 @@ items:
   source:
     remote:
       path: Models/RhinoObjectInfo.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: RhinoObjectInfo
     path: ../Models/RhinoObjectInfo.cs
     startLine: 6
@@ -55,8 +55,8 @@ items:
   source:
     remote:
       path: Models/RhinoObjectInfo.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: Id
     path: ../Models/RhinoObjectInfo.cs
     startLine: 9
@@ -86,8 +86,8 @@ items:
   source:
     remote:
       path: Models/RhinoObjectInfo.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: Name
     path: ../Models/RhinoObjectInfo.cs
     startLine: 11
@@ -117,8 +117,8 @@ items:
   source:
     remote:
       path: Models/RhinoObjectInfo.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: ObjectType
     path: ../Models/RhinoObjectInfo.cs
     startLine: 13

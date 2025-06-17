@@ -66,6 +66,15 @@ items:
   name: Axys.Models
   type: Namespace
   items:
+  - uid: Axys.Models.Center
+    name: Center
+    type: Class
+  - uid: Axys.Models.RhinoObjectData
+    name: RhinoObjectData
+    type: Class
+  - uid: Axys.Models.RhinoObjectDataBatch
+    name: RhinoObjectDataBatch
+    type: Class
   - uid: Axys.Models.RhinoObjectInfo
     name: RhinoObjectInfo
     type: Class

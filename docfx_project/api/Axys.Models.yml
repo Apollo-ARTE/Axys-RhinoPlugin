@@ -4,6 +4,9 @@ items:
   commentId: N:Axys.Models
   id: Axys.Models
   children:
+  - Axys.Models.Center
+  - Axys.Models.RhinoObjectData
+  - Axys.Models.RhinoObjectDataBatch
   - Axys.Models.RhinoObjectInfo
   langs:
   - csharp
@@ -15,9 +18,50 @@ items:
   assemblies:
   - RhinoPlugin
 references:
+- uid: Axys.Models.Center
+  commentId: T:Axys.Models.Center
+  parent: Axys.Models
+  href: Axys.Models.Center.html
+  name: Center
+  nameWithType: Center
+  fullName: Axys.Models.Center
+- uid: Axys.Models.RhinoObjectData
+  commentId: T:Axys.Models.RhinoObjectData
+  href: Axys.Models.RhinoObjectData.html
+  name: RhinoObjectData
+  nameWithType: RhinoObjectData
+  fullName: Axys.Models.RhinoObjectData
+- uid: Axys.Models.RhinoObjectDataBatch
+  commentId: T:Axys.Models.RhinoObjectDataBatch
+  href: Axys.Models.RhinoObjectDataBatch.html
+  name: RhinoObjectDataBatch
+  nameWithType: RhinoObjectDataBatch
+  fullName: Axys.Models.RhinoObjectDataBatch
 - uid: Axys.Models.RhinoObjectInfo
   commentId: T:Axys.Models.RhinoObjectInfo
   href: Axys.Models.RhinoObjectInfo.html
   name: RhinoObjectInfo
   nameWithType: RhinoObjectInfo
   fullName: Axys.Models.RhinoObjectInfo
+- uid: Axys.Models
+  commentId: N:Axys.Models
+  href: Axys.html
+  name: Axys.Models
+  nameWithType: Axys.Models
+  fullName: Axys.Models
+  spec.csharp:
+  - uid: Axys
+    name: Axys
+    href: Axys.html
+  - name: .
+  - uid: Axys.Models
+    name: Models
+    href: Axys.Models.html
+  spec.vb:
+  - uid: Axys
+    name: Axys
+    href: Axys.html
+  - name: .
+  - uid: Axys.Models
+    name: Models
+    href: Axys.Models.html

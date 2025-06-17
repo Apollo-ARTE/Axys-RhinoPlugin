@@ -20,8 +20,8 @@ items:
   source:
     remote:
       path: Managers/ObjectHandling/ObjectPositionManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: ObjectPositionManager
     path: ../Managers/ObjectHandling/ObjectPositionManager.cs
     startLine: 13
@@ -57,8 +57,8 @@ items:
   source:
     remote:
       path: Managers/ObjectHandling/ObjectPositionManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: .ctor
     path: ../Managers/ObjectHandling/ObjectPositionManager.cs
     startLine: 21
@@ -92,8 +92,8 @@ items:
   source:
     remote:
       path: Managers/ObjectHandling/ObjectPositionManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: GetAbsolutePosition
     path: ../Managers/ObjectHandling/ObjectPositionManager.cs
     startLine: 31
@@ -127,8 +127,8 @@ items:
   source:
     remote:
       path: Managers/ObjectHandling/ObjectPositionManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: MoveObject
     path: ../Managers/ObjectHandling/ObjectPositionManager.cs
     startLine: 67
@@ -165,8 +165,8 @@ items:
   source:
     remote:
       path: Managers/ObjectHandling/ObjectPositionManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: CreateObjectData
     path: ../Managers/ObjectHandling/ObjectPositionManager.cs
     startLine: 97
@@ -200,8 +200,8 @@ items:
   source:
     remote:
       path: Managers/ObjectHandling/ObjectPositionManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: CreateObjectDataBatch
     path: ../Managers/ObjectHandling/ObjectPositionManager.cs
     startLine: 122

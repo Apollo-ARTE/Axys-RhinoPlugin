@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/Apollo-ARTE/RhinoPlugin/new/feat/docfx/apiSpec/new?filename=Axys_AxysPlugin.md&amp;value=---%0Auid%3A%20Axys.AxysPlugin%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/Apollo-ARTE/Axys-RhinoPlugin/new/development/apiSpec/new?filename=Axys_AxysPlugin.md&amp;value=---%0Auid%3A%20Axys.AxysPlugin%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -89,7 +89,7 @@
 
 
   <h1 id="Axys_AxysPlugin" data-uid="Axys.AxysPlugin" class="text-break">
-Class AxysPlugin  <a class="header-action link-secondary" title="View source" href="https://github.com/Apollo-ARTE/RhinoPlugin/blob/feat/docfx/AxysPlugin.cs/#L12"><i class="bi bi-code-slash"></i></a>
+Class AxysPlugin  <a class="header-action link-secondary" title="View source" href="https://github.com/Apollo-ARTE/Axys-RhinoPlugin/blob/development/AxysPlugin.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -153,6 +153,9 @@ load and shutdown events using <a class="xref" href="Logger.html">Logger</a>.</p
     </div>
     <div>
       <span class="xref">PlugIn.GetCommands()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">PlugIn.DisplayHelp(nint)</a>
     </div>
     <div>
       <span class="xref">PlugIn.ResetMessageBoxes()</span>
@@ -266,6 +269,9 @@ load and shutdown events using <a class="xref" href="Logger.html">Logger</a>.</p
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">PlugIn.GetLoadProtection(Guid, out bool)</a>
     </div>
     <div>
+      <span class="xref">PlugIn.IsTextureSupported(RenderTexture)</span>
+    </div>
+    <div>
       <span class="xref">PlugIn.Assembly</span>
     </div>
     <div>
@@ -288,6 +294,9 @@ load and shutdown events using <a class="xref" href="Logger.html">Logger</a>.</p
     </div>
     <div>
       <span class="xref">PlugIn.LoadTime</span>
+    </div>
+    <div>
+      <span class="xref">PlugIn.AddToHelpMenu</span>
     </div>
     <div>
       <span class="xref">PlugIn.LocalPlugInName</span>
@@ -352,7 +361,7 @@ load and shutdown events using <a class="xref" href="Logger.html">Logger</a>.</p
 
   <h3 id="Axys_AxysPlugin__ctor" data-uid="Axys.AxysPlugin.#ctor">
   AxysPlugin()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Apollo-ARTE/RhinoPlugin/blob/feat/docfx/AxysPlugin.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Apollo-ARTE/Axys-RhinoPlugin/blob/development/AxysPlugin.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -382,7 +391,7 @@ load and shutdown events using <a class="xref" href="Logger.html">Logger</a>.</p
 
   <h3 id="Axys_AxysPlugin_Instance" data-uid="Axys.AxysPlugin.Instance">
   Instance
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Apollo-ARTE/RhinoPlugin/blob/feat/docfx/AxysPlugin.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Apollo-ARTE/Axys-RhinoPlugin/blob/development/AxysPlugin.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the singleton instance of the plug-in created by Rhino.</p>
@@ -418,7 +427,7 @@ load and shutdown events using <a class="xref" href="Logger.html">Logger</a>.</p
 
   <h3 id="Axys_AxysPlugin_OnLoad_System_String__" data-uid="Axys.AxysPlugin.OnLoad(System.String@)">
   OnLoad(ref string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Apollo-ARTE/RhinoPlugin/blob/feat/docfx/AxysPlugin.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Apollo-ARTE/Axys-RhinoPlugin/blob/development/AxysPlugin.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes the plug-in when Rhino loads it.</p>
@@ -457,7 +466,7 @@ load and shutdown events using <a class="xref" href="Logger.html">Logger</a>.</p
 
   <h3 id="Axys_AxysPlugin_OnShutdown" data-uid="Axys.AxysPlugin.OnShutdown">
   OnShutdown()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Apollo-ARTE/RhinoPlugin/blob/feat/docfx/AxysPlugin.cs/#L47"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Apollo-ARTE/Axys-RhinoPlugin/blob/development/AxysPlugin.cs/#L47"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Invoked by Rhino during application shutdown to perform cleanup.</p>
@@ -484,7 +493,7 @@ load and shutdown events using <a class="xref" href="Logger.html">Logger</a>.</p
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Apollo-ARTE/RhinoPlugin/blob/feat/docfx/AxysPlugin.cs/#L12" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Apollo-ARTE/Axys-RhinoPlugin/blob/development/AxysPlugin.cs/#L12" class="edit-link">Edit this page</a>
         </div>
 
 

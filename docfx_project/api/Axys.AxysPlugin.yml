@@ -19,8 +19,8 @@ items:
   source:
     remote:
       path: AxysPlugin.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: AxysPlugin
     path: ../AxysPlugin.cs
     startLine: 11
@@ -51,6 +51,7 @@ items:
   - Rhino.PlugIns.PlugIn.FlushSettingsSavedQueue
   - Rhino.PlugIns.PlugIn.Icon(System.Drawing.Size)
   - Rhino.PlugIns.PlugIn.GetCommands
+  - Rhino.PlugIns.PlugIn.DisplayHelp(System.IntPtr)
   - Rhino.PlugIns.PlugIn.ResetMessageBoxes
   - Rhino.PlugIns.PlugIn.CreateCommands
   - Rhino.PlugIns.PlugIn.RegisterCommand(Rhino.Commands.Command)
@@ -88,6 +89,7 @@ items:
   - Rhino.PlugIns.PlugIn.GetEnglishCommandNames(System.Guid)
   - Rhino.PlugIns.PlugIn.SetLoadProtection(System.Guid,System.Boolean)
   - Rhino.PlugIns.PlugIn.GetLoadProtection(System.Guid,System.Boolean@)
+  - Rhino.PlugIns.PlugIn.IsTextureSupported(Rhino.Render.RenderTexture)
   - Rhino.PlugIns.PlugIn.Assembly
   - Rhino.PlugIns.PlugIn.Id
   - Rhino.PlugIns.PlugIn.LicenseId
@@ -96,6 +98,7 @@ items:
   - Rhino.PlugIns.PlugIn.Description
   - Rhino.PlugIns.PlugIn.LoadAtStartup
   - Rhino.PlugIns.PlugIn.LoadTime
+  - Rhino.PlugIns.PlugIn.AddToHelpMenu
   - Rhino.PlugIns.PlugIn.LocalPlugInName
   - Rhino.PlugIns.PlugIn.SettingsDirectoryAllUsers
   - Rhino.PlugIns.PlugIn.SettingsDirectory
@@ -126,8 +129,8 @@ items:
   source:
     remote:
       path: AxysPlugin.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: .ctor
     path: ../AxysPlugin.cs
     startLine: 13
@@ -155,8 +158,8 @@ items:
   source:
     remote:
       path: AxysPlugin.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: Instance
     path: ../AxysPlugin.cs
     startLine: 21
@@ -186,8 +189,8 @@ items:
   source:
     remote:
       path: AxysPlugin.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: OnLoad
     path: ../AxysPlugin.cs
     startLine: 28
@@ -225,8 +228,8 @@ items:
   source:
     remote:
       path: AxysPlugin.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: OnShutdown
     path: ../AxysPlugin.cs
     startLine: 46
@@ -546,6 +549,37 @@ references:
     name: GetCommands
     isExternal: true
   - name: (
+  - name: )
+- uid: Rhino.PlugIns.PlugIn.DisplayHelp(System.IntPtr)
+  commentId: M:Rhino.PlugIns.PlugIn.DisplayHelp(System.IntPtr)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.intptr
+  name: DisplayHelp(nint)
+  nameWithType: PlugIn.DisplayHelp(nint)
+  fullName: Rhino.PlugIns.PlugIn.DisplayHelp(nint)
+  nameWithType.vb: PlugIn.DisplayHelp(IntPtr)
+  fullName.vb: Rhino.PlugIns.PlugIn.DisplayHelp(System.IntPtr)
+  name.vb: DisplayHelp(IntPtr)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.DisplayHelp(System.IntPtr)
+    name: DisplayHelp
+    isExternal: true
+  - name: (
+  - uid: System.IntPtr
+    name: nint
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.intptr
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.DisplayHelp(System.IntPtr)
+    name: DisplayHelp
+    isExternal: true
+  - name: (
+  - uid: System.IntPtr
+    name: IntPtr
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.intptr
   - name: )
 - uid: Rhino.PlugIns.PlugIn.ResetMessageBoxes
   commentId: M:Rhino.PlugIns.PlugIn.ResetMessageBoxes
@@ -1912,6 +1946,31 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
+- uid: Rhino.PlugIns.PlugIn.IsTextureSupported(Rhino.Render.RenderTexture)
+  commentId: M:Rhino.PlugIns.PlugIn.IsTextureSupported(Rhino.Render.RenderTexture)
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: IsTextureSupported(RenderTexture)
+  nameWithType: PlugIn.IsTextureSupported(RenderTexture)
+  fullName: Rhino.PlugIns.PlugIn.IsTextureSupported(Rhino.Render.RenderTexture)
+  spec.csharp:
+  - uid: Rhino.PlugIns.PlugIn.IsTextureSupported(Rhino.Render.RenderTexture)
+    name: IsTextureSupported
+    isExternal: true
+  - name: (
+  - uid: Rhino.Render.RenderTexture
+    name: RenderTexture
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Rhino.PlugIns.PlugIn.IsTextureSupported(Rhino.Render.RenderTexture)
+    name: IsTextureSupported
+    isExternal: true
+  - name: (
+  - uid: Rhino.Render.RenderTexture
+    name: RenderTexture
+    isExternal: true
+  - name: )
 - uid: Rhino.PlugIns.PlugIn.Assembly
   commentId: P:Rhino.PlugIns.PlugIn.Assembly
   parent: Rhino.PlugIns.PlugIn
@@ -1968,6 +2027,13 @@ references:
   name: LoadTime
   nameWithType: PlugIn.LoadTime
   fullName: Rhino.PlugIns.PlugIn.LoadTime
+- uid: Rhino.PlugIns.PlugIn.AddToHelpMenu
+  commentId: P:Rhino.PlugIns.PlugIn.AddToHelpMenu
+  parent: Rhino.PlugIns.PlugIn
+  isExternal: true
+  name: AddToHelpMenu
+  nameWithType: PlugIn.AddToHelpMenu
+  fullName: Rhino.PlugIns.PlugIn.AddToHelpMenu
 - uid: Rhino.PlugIns.PlugIn.LocalPlugInName
   commentId: P:Rhino.PlugIns.PlugIn.LocalPlugInName
   parent: Rhino.PlugIns.PlugIn

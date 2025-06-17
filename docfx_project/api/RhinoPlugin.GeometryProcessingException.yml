@@ -17,8 +17,8 @@ items:
   source:
     remote:
       path: Services/Exceptions.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: GeometryProcessingException
     path: ../Services/Exceptions.cs
     startLine: 17
@@ -68,8 +68,8 @@ items:
   source:
     remote:
       path: Services/Exceptions.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: .ctor
     path: ../Services/Exceptions.cs
     startLine: 19
@@ -100,8 +100,8 @@ items:
   source:
     remote:
       path: Services/Exceptions.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: .ctor
     path: ../Services/Exceptions.cs
     startLine: 20

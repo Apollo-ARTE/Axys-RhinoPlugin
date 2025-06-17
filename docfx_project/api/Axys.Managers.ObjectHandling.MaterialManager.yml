@@ -17,8 +17,8 @@ items:
   source:
     remote:
       path: Managers/ObjectHandling/MaterialManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: MaterialManager
     path: ../Managers/ObjectHandling/MaterialManager.cs
     startLine: 11
@@ -54,8 +54,8 @@ items:
   source:
     remote:
       path: Managers/ObjectHandling/MaterialManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: ApplyMaterialIfMissing
     path: ../Managers/ObjectHandling/MaterialManager.cs
     startLine: 19
@@ -95,8 +95,8 @@ items:
   source:
     remote:
       path: Managers/ObjectHandling/MaterialManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: SelectMaterial
     path: ../Managers/ObjectHandling/MaterialManager.cs
     startLine: 73

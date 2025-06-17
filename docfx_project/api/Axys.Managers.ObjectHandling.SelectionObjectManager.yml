@@ -18,8 +18,8 @@ items:
   source:
     remote:
       path: Managers/ObjectHandling/SelectionObjectManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: SelectionObjectManager
     path: ../Managers/ObjectHandling/SelectionObjectManager.cs
     startLine: 14
@@ -55,8 +55,8 @@ items:
   source:
     remote:
       path: Managers/ObjectHandling/SelectionObjectManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: EnsureObjectIsSelected
     path: ../Managers/ObjectHandling/SelectionObjectManager.cs
     startLine: 22
@@ -93,8 +93,8 @@ items:
   source:
     remote:
       path: Managers/ObjectHandling/SelectionObjectManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: ProcessInstanceReference
     path: ../Managers/ObjectHandling/SelectionObjectManager.cs
     startLine: 51
@@ -140,8 +140,8 @@ items:
   source:
     remote:
       path: Managers/ObjectHandling/SelectionObjectManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: FindInstanceDefinitionByGuid
     path: ../Managers/ObjectHandling/SelectionObjectManager.cs
     startLine: 83

@@ -250,6 +250,48 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Models.Center.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Models.Center.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Models.Center",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Models.RhinoObjectData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Models.RhinoObjectData.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Models.RhinoObjectData",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Models.RhinoObjectDataBatch.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Models.RhinoObjectDataBatch.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Models.RhinoObjectDataBatch",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Axys.Models.RhinoObjectInfo.yml",
       "output": {
         ".html": {
@@ -389,10 +431,40 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "article.md",
+      "output": {
+        ".html": {
+          "relative_path": "article.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "getting-started.md",
       "output": {
         ".html": {
           "relative_path": "getting-started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/features.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/features.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/markersok.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/markersok.png"
         }
       },
       "version": ""

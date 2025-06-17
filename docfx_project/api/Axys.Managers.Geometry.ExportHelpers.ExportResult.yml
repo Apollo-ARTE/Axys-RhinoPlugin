@@ -17,8 +17,8 @@ items:
   source:
     remote:
       path: Managers/Geometry/ExportHelpers.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: ExportResult
     path: ../Managers/Geometry/ExportHelpers.cs
     startLine: 19
@@ -51,8 +51,8 @@ items:
   source:
     remote:
       path: Managers/Geometry/ExportHelpers.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: Success
     path: ../Managers/Geometry/ExportHelpers.cs
     startLine: 22
@@ -80,8 +80,8 @@ items:
   source:
     remote:
       path: Managers/Geometry/ExportHelpers.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: Path
     path: ../Managers/Geometry/ExportHelpers.cs
     startLine: 24

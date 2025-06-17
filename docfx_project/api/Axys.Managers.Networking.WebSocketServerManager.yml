@@ -21,8 +21,8 @@ items:
   source:
     remote:
       path: Managers/Networking/WebSocketServerManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: WebSocketServerManager
     path: ../Managers/Networking/WebSocketServerManager.cs
     startLine: 23
@@ -58,8 +58,8 @@ items:
   source:
     remote:
       path: Managers/Networking/WebSocketServerManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: StartServer
     path: ../Managers/Networking/WebSocketServerManager.cs
     startLine: 31
@@ -86,8 +86,8 @@ items:
   source:
     remote:
       path: Managers/Networking/WebSocketServerManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: IsServerRunning
     path: ../Managers/Networking/WebSocketServerManager.cs
     startLine: 119
@@ -117,8 +117,8 @@ items:
   source:
     remote:
       path: Managers/Networking/WebSocketServerManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: BroadcastMessage
     path: ../Managers/Networking/WebSocketServerManager.cs
     startLine: 132
@@ -152,8 +152,8 @@ items:
   source:
     remote:
       path: Managers/Networking/WebSocketServerManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: ProcessUpdateMessage
     path: ../Managers/Networking/WebSocketServerManager.cs
     startLine: 154
@@ -190,8 +190,8 @@ items:
   source:
     remote:
       path: Managers/Networking/WebSocketServerManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: GetLocalIPAddressOfSelf
     path: ../Managers/Networking/WebSocketServerManager.cs
     startLine: 212
@@ -225,8 +225,8 @@ items:
   source:
     remote:
       path: Managers/Networking/WebSocketServerManager.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: BroadcastBinary
     path: ../Managers/Networking/WebSocketServerManager.cs
     startLine: 246

@@ -18,8 +18,8 @@ items:
   source:
     remote:
       path: Commands/TrackObjectCommand.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: TrackObjectCommand
     path: ../Commands/TrackObjectCommand.cs
     startLine: 10
@@ -82,8 +82,8 @@ items:
   source:
     remote:
       path: Commands/TrackObjectCommand.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: Instance
     path: ../Commands/TrackObjectCommand.cs
     startLine: 13
@@ -113,8 +113,8 @@ items:
   source:
     remote:
       path: Commands/TrackObjectCommand.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: EnglishName
     path: ../Commands/TrackObjectCommand.cs
     startLine: 15
@@ -148,8 +148,8 @@ items:
   source:
     remote:
       path: Commands/TrackObjectCommand.cs
-      branch: feat/docfx
-      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+      branch: development
+      repo: https://github.com/Apollo-ARTE/Axys-RhinoPlugin
     id: RunCommand
     path: ../Commands/TrackObjectCommand.cs
     startLine: 23
