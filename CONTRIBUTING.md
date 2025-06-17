@@ -1,6 +1,6 @@
 # Contributing to RhinoPlugin
 
-Thank you for your interest in contributing to **RhinoPlugin**!  
+Thank you for your interest in contributing to **RhinoPlugin**, the plugin companion for [Axys](https://github.com/Apollo-ARTE/Axys)!  
 We appreciate bug reports, feature requests, and code contributions that improve the plugin’s integration with Rhino and Vision Pro.
 
 ---
@@ -98,13 +98,11 @@ Search existing issues first to avoid duplicates.
 
 ---
 
-## Code of Conduct
+## Credits
 
-All contributors must follow our [Code of Conduct](CODE_OF_CONDUCT.md).  
-We cultivate a welcoming, respectful community.
+This project is developed and maintained by:
 
----
+- The [Apollo ARTE](https://github.com/Apollo-ARTE) team
+- [Salvatore Flauto](https://github.com/XlSolver)
 
-## Need Help?
-
-Feel free to open an issue or contact [Salvatore Flauto](https://github.com/XlSolver) or the [Apollo ARTE](https://github.com/Apollo-ARTE) team directly.
+We thank all contributors who help improve this project through their code, feedback, and ideas.
