@@ -5,10 +5,8 @@ name: .NET Build and Release
 
 on:
   push:
-    branches: [ "main", "feat/release-pipeline" ]
-    tags: [ "v*" ]  # Trigger on version tags like v1.0.0
-  pull_request:
     branches: [ "main" ]
+    tags: [ "v*" ]  # Trigger on version tags like v1.0.0
 
 jobs:
   build:
