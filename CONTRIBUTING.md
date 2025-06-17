@@ -1,7 +1,6 @@
 # Contributing to RhinoPlugin
 
-Thank you for your interest in contributing to **RhinoPlugin**, the plugin companion for [Axys](https://github.com/Apollo-ARTE/Axys)!  
-We appreciate bug reports, feature requests, and code contributions that improve the plugin’s integration with Rhino and Vision Pro.
+Thank you for your interest in contributing to **RhinoPlugin**, the plugin companion for [Axys](https://github.com/Apollo-ARTE/Axys). We appreciate bug reports, feature requests, and code contributions.
 
 ---
 
@@ -48,10 +47,10 @@ When your changes are ready:
    git push origin feature/your-feature-name
    ```
 2. Open a Pull Request (PR) on GitHub.
-3. Describe your changes:
-   - What was changed
-   - Why it was needed
-   - How it was tested
+3. Follow the pull request template and make sure to include:
+   - What you changed
+   - Why you did it
+   - How to test it
 
 Draft PRs are welcome if you'd like early feedback.
 
@@ -59,50 +58,32 @@ Draft PRs are welcome if you'd like early feedback.
 
 ## Code Review Process
 
-Your PR will be reviewed by at least one core maintainer.  
-Expect feedback and be ready to iterate.
-
-### Best Practices
-- **Stay respectful**: feedback is about the code, not the person.
-- **Be specific**: reference code lines or include samples.
-- **Be constructive**: explain reasoning behind suggestions.
-- Tag minor style issues with `(nitpick)`.
-- Use clean, focused commits.
-
-### Reviewer Checklist
-(Optional—can be copied to PR description):
-
-```
-## Review Checklist
-
-- [ ] Changes address the stated issue/feature
-- [ ] Code is maintainable and follows project structure
-- [ ] Edge cases are handled
-- [ ] Tests added or existing ones updated
-- [ ] Functionality tested in Rhino 8
-- [ ] Commit messages are clear
-- [ ] Documentation/README updated where relevant
-```
-
+PRs will be reviewed by maintainers.  
+Please be open to feedback and iterative improvement.
+  
 ---
 
 ## Reporting Issues
-
-When opening a bug report, please include:
-- Rhino version and operating system
+You can create issues with the provided template for a more structured format, making sure to include:
+- Device and visionOS version
 - Steps to reproduce
-- Console logs or error messages
+- Error messages or logs
 - Screenshots, if helpful
 
-Search existing issues first to avoid duplicates.
+Check existing issues before submitting a new one.
 
 ---
+
 
 ## Credits
 
 This project is developed and maintained by:
 
-- The [Apollo ARTE](https://github.com/Apollo-ARTE) team
+- [Ilia Sedelkin](https://www.linkedin.com/in/iliasedelkin)
+- [Bruna Avellar](https://www.linkedin.com/in/brunaavellar)
+- [Alessandro Bortoluzzi](https://bortoluzzi.dev)
+- [Madina Malsagova](https://www.linkedin.com/in/madina-malsague)
+- [Guillermo Kramsky](https://www.linkedin.com/in/guillermo-kramsky-5a9ba3246)
 - [Salvatore Flauto](https://github.com/XlSolver)
 
 We thank all contributors who help improve this project through their code, feedback, and ideas.
