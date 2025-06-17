@@ -1,0 +1,38 @@
+### YamlMime:ManagedReference
+items:
+- uid: Axys
+  commentId: N:Axys
+  id: Axys
+  children:
+  - Axys.AxysPlugin
+  - Axys.ScriptPipeMeshBlockCommand
+  langs:
+  - csharp
+  - vb
+  name: Axys
+  nameWithType: Axys
+  fullName: Axys
+  type: Namespace
+  assemblies:
+  - RhinoPlugin
+references:
+- uid: Axys.AxysPlugin
+  commentId: T:Axys.AxysPlugin
+  parent: Axys
+  href: Axys.AxysPlugin.html
+  name: AxysPlugin
+  nameWithType: AxysPlugin
+  fullName: Axys.AxysPlugin
+- uid: Axys.ScriptPipeMeshBlockCommand
+  commentId: T:Axys.ScriptPipeMeshBlockCommand
+  parent: Axys
+  href: Axys.ScriptPipeMeshBlockCommand.html
+  name: ScriptPipeMeshBlockCommand
+  nameWithType: ScriptPipeMeshBlockCommand
+  fullName: Axys.ScriptPipeMeshBlockCommand
+- uid: Axys
+  commentId: N:Axys
+  href: Axys.html
+  name: Axys
+  nameWithType: Axys
+  fullName: Axys

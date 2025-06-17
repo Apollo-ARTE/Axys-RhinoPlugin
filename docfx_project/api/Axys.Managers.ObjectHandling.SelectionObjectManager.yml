@@ -1,0 +1,702 @@
+### YamlMime:ManagedReference
+items:
+- uid: Axys.Managers.ObjectHandling.SelectionObjectManager
+  commentId: T:Axys.Managers.ObjectHandling.SelectionObjectManager
+  id: SelectionObjectManager
+  parent: Axys.Managers.ObjectHandling
+  children:
+  - Axys.Managers.ObjectHandling.SelectionObjectManager.EnsureObjectIsSelected(Rhino.RhinoDoc,System.Guid)
+  - Axys.Managers.ObjectHandling.SelectionObjectManager.FindInstanceDefinitionByGuid(Rhino.RhinoDoc,System.Guid)
+  - Axys.Managers.ObjectHandling.SelectionObjectManager.ProcessInstanceReference(Rhino.Geometry.InstanceReferenceGeometry,Rhino.RhinoDoc,System.Collections.Generic.List{Rhino.Geometry.Brep},System.Collections.Generic.List{Rhino.Geometry.Mesh},System.Collections.Generic.List{Rhino.Geometry.Curve})
+  langs:
+  - csharp
+  - vb
+  name: SelectionObjectManager
+  nameWithType: SelectionObjectManager
+  fullName: Axys.Managers.ObjectHandling.SelectionObjectManager
+  type: Class
+  source:
+    remote:
+      path: Managers/ObjectHandling/SelectionObjectManager.cs
+      branch: feat/docfx
+      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+    id: SelectionObjectManager
+    path: ../Managers/ObjectHandling/SelectionObjectManager.cs
+    startLine: 14
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys.Managers.ObjectHandling
+  summary: Helper methods for selecting geometry and resolving instance definitions.
+  example: []
+  syntax:
+    content: public static class SelectionObjectManager
+    content.vb: Public Module SelectionObjectManager
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Axys.Managers.ObjectHandling.SelectionObjectManager.EnsureObjectIsSelected(Rhino.RhinoDoc,System.Guid)
+  commentId: M:Axys.Managers.ObjectHandling.SelectionObjectManager.EnsureObjectIsSelected(Rhino.RhinoDoc,System.Guid)
+  id: EnsureObjectIsSelected(Rhino.RhinoDoc,System.Guid)
+  parent: Axys.Managers.ObjectHandling.SelectionObjectManager
+  langs:
+  - csharp
+  - vb
+  name: EnsureObjectIsSelected(RhinoDoc, Guid)
+  nameWithType: SelectionObjectManager.EnsureObjectIsSelected(RhinoDoc, Guid)
+  fullName: Axys.Managers.ObjectHandling.SelectionObjectManager.EnsureObjectIsSelected(Rhino.RhinoDoc, System.Guid)
+  type: Method
+  source:
+    remote:
+      path: Managers/ObjectHandling/SelectionObjectManager.cs
+      branch: feat/docfx
+      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+    id: EnsureObjectIsSelected
+    path: ../Managers/ObjectHandling/SelectionObjectManager.cs
+    startLine: 22
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys.Managers.ObjectHandling
+  summary: Ensures an object is selected, optionally prompting the user.
+  example: []
+  syntax:
+    content: public static Guid EnsureObjectIsSelected(RhinoDoc doc, Guid currentId)
+    parameters:
+    - id: doc
+      type: Rhino.RhinoDoc
+      description: Active Rhino document.
+    - id: currentId
+      type: System.Guid
+      description: Pre-selected object identifier.
+    return:
+      type: System.Guid
+      description: The confirmed object identifier or <xref href="System.Guid.Empty" data-throw-if-not-resolved="false"></xref> if selection failed.
+    content.vb: Public Shared Function EnsureObjectIsSelected(doc As RhinoDoc, currentId As Guid) As Guid
+  overload: Axys.Managers.ObjectHandling.SelectionObjectManager.EnsureObjectIsSelected*
+- uid: Axys.Managers.ObjectHandling.SelectionObjectManager.ProcessInstanceReference(Rhino.Geometry.InstanceReferenceGeometry,Rhino.RhinoDoc,System.Collections.Generic.List{Rhino.Geometry.Brep},System.Collections.Generic.List{Rhino.Geometry.Mesh},System.Collections.Generic.List{Rhino.Geometry.Curve})
+  commentId: M:Axys.Managers.ObjectHandling.SelectionObjectManager.ProcessInstanceReference(Rhino.Geometry.InstanceReferenceGeometry,Rhino.RhinoDoc,System.Collections.Generic.List{Rhino.Geometry.Brep},System.Collections.Generic.List{Rhino.Geometry.Mesh},System.Collections.Generic.List{Rhino.Geometry.Curve})
+  id: ProcessInstanceReference(Rhino.Geometry.InstanceReferenceGeometry,Rhino.RhinoDoc,System.Collections.Generic.List{Rhino.Geometry.Brep},System.Collections.Generic.List{Rhino.Geometry.Mesh},System.Collections.Generic.List{Rhino.Geometry.Curve})
+  parent: Axys.Managers.ObjectHandling.SelectionObjectManager
+  langs:
+  - csharp
+  - vb
+  name: ProcessInstanceReference(InstanceReferenceGeometry, RhinoDoc, List<Brep>, List<Mesh>, List<Curve>)
+  nameWithType: SelectionObjectManager.ProcessInstanceReference(InstanceReferenceGeometry, RhinoDoc, List<Brep>, List<Mesh>, List<Curve>)
+  fullName: Axys.Managers.ObjectHandling.SelectionObjectManager.ProcessInstanceReference(Rhino.Geometry.InstanceReferenceGeometry, Rhino.RhinoDoc, System.Collections.Generic.List<Rhino.Geometry.Brep>, System.Collections.Generic.List<Rhino.Geometry.Mesh>, System.Collections.Generic.List<Rhino.Geometry.Curve>)
+  type: Method
+  source:
+    remote:
+      path: Managers/ObjectHandling/SelectionObjectManager.cs
+      branch: feat/docfx
+      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+    id: ProcessInstanceReference
+    path: ../Managers/ObjectHandling/SelectionObjectManager.cs
+    startLine: 51
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys.Managers.ObjectHandling
+  summary: Expands an instance reference and collects its geometry into separate lists.
+  example: []
+  syntax:
+    content: public static void ProcessInstanceReference(InstanceReferenceGeometry instanceRef, RhinoDoc doc, List<Brep> breps, List<Mesh> meshes, List<Curve> curves)
+    parameters:
+    - id: instanceRef
+      type: Rhino.Geometry.InstanceReferenceGeometry
+      description: Reference geometry pointing to the block instance.
+    - id: doc
+      type: Rhino.RhinoDoc
+      description: Active Rhino document.
+    - id: breps
+      type: System.Collections.Generic.List{Rhino.Geometry.Brep}
+      description: Collection receiving Brep geometry.
+    - id: meshes
+      type: System.Collections.Generic.List{Rhino.Geometry.Mesh}
+      description: Collection receiving Mesh geometry.
+    - id: curves
+      type: System.Collections.Generic.List{Rhino.Geometry.Curve}
+      description: Collection receiving Curve geometry.
+    content.vb: Public Shared Sub ProcessInstanceReference(instanceRef As InstanceReferenceGeometry, doc As RhinoDoc, breps As List(Of Brep), meshes As List(Of Mesh), curves As List(Of Curve))
+  overload: Axys.Managers.ObjectHandling.SelectionObjectManager.ProcessInstanceReference*
+  nameWithType.vb: SelectionObjectManager.ProcessInstanceReference(InstanceReferenceGeometry, RhinoDoc, List(Of Brep), List(Of Mesh), List(Of Curve))
+  fullName.vb: Axys.Managers.ObjectHandling.SelectionObjectManager.ProcessInstanceReference(Rhino.Geometry.InstanceReferenceGeometry, Rhino.RhinoDoc, System.Collections.Generic.List(Of Rhino.Geometry.Brep), System.Collections.Generic.List(Of Rhino.Geometry.Mesh), System.Collections.Generic.List(Of Rhino.Geometry.Curve))
+  name.vb: ProcessInstanceReference(InstanceReferenceGeometry, RhinoDoc, List(Of Brep), List(Of Mesh), List(Of Curve))
+- uid: Axys.Managers.ObjectHandling.SelectionObjectManager.FindInstanceDefinitionByGuid(Rhino.RhinoDoc,System.Guid)
+  commentId: M:Axys.Managers.ObjectHandling.SelectionObjectManager.FindInstanceDefinitionByGuid(Rhino.RhinoDoc,System.Guid)
+  id: FindInstanceDefinitionByGuid(Rhino.RhinoDoc,System.Guid)
+  parent: Axys.Managers.ObjectHandling.SelectionObjectManager
+  langs:
+  - csharp
+  - vb
+  name: FindInstanceDefinitionByGuid(RhinoDoc, Guid)
+  nameWithType: SelectionObjectManager.FindInstanceDefinitionByGuid(RhinoDoc, Guid)
+  fullName: Axys.Managers.ObjectHandling.SelectionObjectManager.FindInstanceDefinitionByGuid(Rhino.RhinoDoc, System.Guid)
+  type: Method
+  source:
+    remote:
+      path: Managers/ObjectHandling/SelectionObjectManager.cs
+      branch: feat/docfx
+      repo: https://github.com/Apollo-ARTE/RhinoPlugin.git
+    id: FindInstanceDefinitionByGuid
+    path: ../Managers/ObjectHandling/SelectionObjectManager.cs
+    startLine: 83
+  assemblies:
+  - RhinoPlugin
+  namespace: Axys.Managers.ObjectHandling
+  summary: Retrieves an instance definition by Guid to avoid name collisions.
+  example: []
+  syntax:
+    content: public static InstanceDefinition FindInstanceDefinitionByGuid(RhinoDoc doc, Guid id)
+    parameters:
+    - id: doc
+      type: Rhino.RhinoDoc
+      description: Active Rhino document.
+    - id: id
+      type: System.Guid
+      description: Identifier of the instance definition.
+    return:
+      type: Rhino.DocObjects.InstanceDefinition
+      description: The instance definition or null if not found.
+    content.vb: Public Shared Function FindInstanceDefinitionByGuid(doc As RhinoDoc, id As Guid) As InstanceDefinition
+  overload: Axys.Managers.ObjectHandling.SelectionObjectManager.FindInstanceDefinitionByGuid*
+references:
+- uid: Axys.Managers.ObjectHandling
+  commentId: N:Axys.Managers.ObjectHandling
+  href: Axys.html
+  name: Axys.Managers.ObjectHandling
+  nameWithType: Axys.Managers.ObjectHandling
+  fullName: Axys.Managers.ObjectHandling
+  spec.csharp:
+  - uid: Axys
+    name: Axys
+    href: Axys.html
+  - name: .
+  - uid: Axys.Managers
+    name: Managers
+    href: Axys.Managers.html
+  - name: .
+  - uid: Axys.Managers.ObjectHandling
+    name: ObjectHandling
+    href: Axys.Managers.ObjectHandling.html
+  spec.vb:
+  - uid: Axys
+    name: Axys
+    href: Axys.html
+  - name: .
+  - uid: Axys.Managers
+    name: Managers
+    href: Axys.Managers.html
+  - name: .
+  - uid: Axys.Managers.ObjectHandling
+    name: ObjectHandling
+    href: Axys.Managers.ObjectHandling.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Guid.Empty
+  commentId: F:System.Guid.Empty
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid.empty
+  name: Empty
+  nameWithType: Guid.Empty
+  fullName: System.Guid.Empty
+- uid: Axys.Managers.ObjectHandling.SelectionObjectManager.EnsureObjectIsSelected*
+  commentId: Overload:Axys.Managers.ObjectHandling.SelectionObjectManager.EnsureObjectIsSelected
+  href: Axys.Managers.ObjectHandling.SelectionObjectManager.html#Axys_Managers_ObjectHandling_SelectionObjectManager_EnsureObjectIsSelected_Rhino_RhinoDoc_System_Guid_
+  name: EnsureObjectIsSelected
+  nameWithType: SelectionObjectManager.EnsureObjectIsSelected
+  fullName: Axys.Managers.ObjectHandling.SelectionObjectManager.EnsureObjectIsSelected
+- uid: Rhino.RhinoDoc
+  commentId: T:Rhino.RhinoDoc
+  parent: Rhino
+  isExternal: true
+  name: RhinoDoc
+  nameWithType: RhinoDoc
+  fullName: Rhino.RhinoDoc
+- uid: System.Guid
+  commentId: T:System.Guid
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: Guid
+  nameWithType: Guid
+  fullName: System.Guid
+- uid: Rhino
+  commentId: N:Rhino
+  isExternal: true
+  name: Rhino
+  nameWithType: Rhino
+  fullName: Rhino
+- uid: Axys.Managers.ObjectHandling.SelectionObjectManager.ProcessInstanceReference*
+  commentId: Overload:Axys.Managers.ObjectHandling.SelectionObjectManager.ProcessInstanceReference
+  href: Axys.Managers.ObjectHandling.SelectionObjectManager.html#Axys_Managers_ObjectHandling_SelectionObjectManager_ProcessInstanceReference_Rhino_Geometry_InstanceReferenceGeometry_Rhino_RhinoDoc_System_Collections_Generic_List_Rhino_Geometry_Brep__System_Collections_Generic_List_Rhino_Geometry_Mesh__System_Collections_Generic_List_Rhino_Geometry_Curve__
+  name: ProcessInstanceReference
+  nameWithType: SelectionObjectManager.ProcessInstanceReference
+  fullName: Axys.Managers.ObjectHandling.SelectionObjectManager.ProcessInstanceReference
+- uid: Rhino.Geometry.InstanceReferenceGeometry
+  commentId: T:Rhino.Geometry.InstanceReferenceGeometry
+  parent: Rhino.Geometry
+  isExternal: true
+  name: InstanceReferenceGeometry
+  nameWithType: InstanceReferenceGeometry
+  fullName: Rhino.Geometry.InstanceReferenceGeometry
+- uid: System.Collections.Generic.List{Rhino.Geometry.Brep}
+  commentId: T:System.Collections.Generic.List{Rhino.Geometry.Brep}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<Brep>
+  nameWithType: List<Brep>
+  fullName: System.Collections.Generic.List<Rhino.Geometry.Brep>
+  nameWithType.vb: List(Of Brep)
+  fullName.vb: System.Collections.Generic.List(Of Rhino.Geometry.Brep)
+  name.vb: List(Of Brep)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Rhino.Geometry.Brep
+    name: Brep
+    isExternal: true
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Rhino.Geometry.Brep
+    name: Brep
+    isExternal: true
+  - name: )
+- uid: System.Collections.Generic.List{Rhino.Geometry.Mesh}
+  commentId: T:System.Collections.Generic.List{Rhino.Geometry.Mesh}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<Mesh>
+  nameWithType: List<Mesh>
+  fullName: System.Collections.Generic.List<Rhino.Geometry.Mesh>
+  nameWithType.vb: List(Of Mesh)
+  fullName.vb: System.Collections.Generic.List(Of Rhino.Geometry.Mesh)
+  name.vb: List(Of Mesh)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Rhino.Geometry.Mesh
+    name: Mesh
+    isExternal: true
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Rhino.Geometry.Mesh
+    name: Mesh
+    isExternal: true
+  - name: )
+- uid: System.Collections.Generic.List{Rhino.Geometry.Curve}
+  commentId: T:System.Collections.Generic.List{Rhino.Geometry.Curve}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<Curve>
+  nameWithType: List<Curve>
+  fullName: System.Collections.Generic.List<Rhino.Geometry.Curve>
+  nameWithType.vb: List(Of Curve)
+  fullName.vb: System.Collections.Generic.List(Of Rhino.Geometry.Curve)
+  name.vb: List(Of Curve)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Rhino.Geometry.Curve
+    name: Curve
+    isExternal: true
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Rhino.Geometry.Curve
+    name: Curve
+    isExternal: true
+  - name: )
+- uid: Rhino.Geometry
+  commentId: N:Rhino.Geometry
+  isExternal: true
+  name: Rhino.Geometry
+  nameWithType: Rhino.Geometry
+  fullName: Rhino.Geometry
+  spec.csharp:
+  - uid: Rhino
+    name: Rhino
+    isExternal: true
+  - name: .
+  - uid: Rhino.Geometry
+    name: Geometry
+    isExternal: true
+  spec.vb:
+  - uid: Rhino
+    name: Rhino
+    isExternal: true
+  - name: .
+  - uid: Rhino.Geometry
+    name: Geometry
+    isExternal: true
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Axys.Managers.ObjectHandling.SelectionObjectManager.FindInstanceDefinitionByGuid*
+  commentId: Overload:Axys.Managers.ObjectHandling.SelectionObjectManager.FindInstanceDefinitionByGuid
+  href: Axys.Managers.ObjectHandling.SelectionObjectManager.html#Axys_Managers_ObjectHandling_SelectionObjectManager_FindInstanceDefinitionByGuid_Rhino_RhinoDoc_System_Guid_
+  name: FindInstanceDefinitionByGuid
+  nameWithType: SelectionObjectManager.FindInstanceDefinitionByGuid
+  fullName: Axys.Managers.ObjectHandling.SelectionObjectManager.FindInstanceDefinitionByGuid
+- uid: Rhino.DocObjects.InstanceDefinition
+  commentId: T:Rhino.DocObjects.InstanceDefinition
+  parent: Rhino.DocObjects
+  isExternal: true
+  name: InstanceDefinition
+  nameWithType: InstanceDefinition
+  fullName: Rhino.DocObjects.InstanceDefinition
+- uid: Rhino.DocObjects
+  commentId: N:Rhino.DocObjects
+  isExternal: true
+  name: Rhino.DocObjects
+  nameWithType: Rhino.DocObjects
+  fullName: Rhino.DocObjects
+  spec.csharp:
+  - uid: Rhino
+    name: Rhino
+    isExternal: true
+  - name: .
+  - uid: Rhino.DocObjects
+    name: DocObjects
+    isExternal: true
+  spec.vb:
+  - uid: Rhino
+    name: Rhino
+    isExternal: true
+  - name: .
+  - uid: Rhino.DocObjects
+    name: DocObjects
+    isExternal: true

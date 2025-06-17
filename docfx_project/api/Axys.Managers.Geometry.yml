@@ -1,0 +1,84 @@
+### YamlMime:ManagedReference
+items:
+- uid: Axys.Managers.Geometry
+  commentId: N:Axys.Managers.Geometry
+  id: Axys.Managers.Geometry
+  children:
+  - Axys.Managers.Geometry.ExportHelpers
+  - Axys.Managers.Geometry.ExportHelpers.ExportResult
+  - Axys.Managers.Geometry.GeometryConversion
+  langs:
+  - csharp
+  - vb
+  name: Axys.Managers.Geometry
+  nameWithType: Axys.Managers.Geometry
+  fullName: Axys.Managers.Geometry
+  type: Namespace
+  assemblies:
+  - RhinoPlugin
+references:
+- uid: Axys.Managers.Geometry.ExportHelpers
+  commentId: T:Axys.Managers.Geometry.ExportHelpers
+  href: Axys.Managers.Geometry.ExportHelpers.html
+  name: ExportHelpers
+  nameWithType: ExportHelpers
+  fullName: Axys.Managers.Geometry.ExportHelpers
+- uid: Axys.Managers.Geometry.ExportHelpers.ExportResult
+  commentId: T:Axys.Managers.Geometry.ExportHelpers.ExportResult
+  parent: Axys.Managers.Geometry
+  href: Axys.Managers.Geometry.ExportHelpers.html
+  name: ExportHelpers.ExportResult
+  nameWithType: ExportHelpers.ExportResult
+  fullName: Axys.Managers.Geometry.ExportHelpers.ExportResult
+  spec.csharp:
+  - uid: Axys.Managers.Geometry.ExportHelpers
+    name: ExportHelpers
+    href: Axys.Managers.Geometry.ExportHelpers.html
+  - name: .
+  - uid: Axys.Managers.Geometry.ExportHelpers.ExportResult
+    name: ExportResult
+    href: Axys.Managers.Geometry.ExportHelpers.ExportResult.html
+  spec.vb:
+  - uid: Axys.Managers.Geometry.ExportHelpers
+    name: ExportHelpers
+    href: Axys.Managers.Geometry.ExportHelpers.html
+  - name: .
+  - uid: Axys.Managers.Geometry.ExportHelpers.ExportResult
+    name: ExportResult
+    href: Axys.Managers.Geometry.ExportHelpers.ExportResult.html
+- uid: Axys.Managers.Geometry.GeometryConversion
+  commentId: T:Axys.Managers.Geometry.GeometryConversion
+  href: Axys.Managers.Geometry.GeometryConversion.html
+  name: GeometryConversion
+  nameWithType: GeometryConversion
+  fullName: Axys.Managers.Geometry.GeometryConversion
+- uid: Axys.Managers.Geometry
+  commentId: N:Axys.Managers.Geometry
+  href: Axys.html
+  name: Axys.Managers.Geometry
+  nameWithType: Axys.Managers.Geometry
+  fullName: Axys.Managers.Geometry
+  spec.csharp:
+  - uid: Axys
+    name: Axys
+    href: Axys.html
+  - name: .
+  - uid: Axys.Managers
+    name: Managers
+    href: Axys.Managers.html
+  - name: .
+  - uid: Axys.Managers.Geometry
+    name: Geometry
+    href: Axys.Managers.Geometry.html
+  spec.vb:
+  - uid: Axys
+    name: Axys
+    href: Axys.html
+  - name: .
+  - uid: Axys.Managers
+    name: Managers
+    href: Axys.Managers.html
+  - name: .
+  - uid: Axys.Managers.Geometry
+    name: Geometry
+    href: Axys.Managers.Geometry.html

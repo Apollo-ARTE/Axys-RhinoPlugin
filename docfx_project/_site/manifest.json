@@ -1,0 +1,439 @@
+{
+  "source_base_path": "/Users/guillermokramsky/Documents/RhinoPlugin/docfx_project",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.AxysPlugin.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.AxysPlugin.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.AxysPlugin",
+      "Summary": "<p sourcefile=\"api/Axys.AxysPlugin.yml\" sourcestartlinenumber=\"1\">Entry point for the Axys Rhino plug-in. Rhino creates a single instance\nof this class which manages the plug-in life cycle.  The plug-in logs its\nload and shutdown events using <xref href=\"Logger\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Commands.ExportToVision.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Commands.ExportToVision.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Commands.ExportToVision",
+      "Summary": "<p sourcefile=\"api/Axys.Commands.ExportToVision.yml\" sourcestartlinenumber=\"1\">Exports geometry to USDZ format and streams the file to connected Axys\nclients via WebSocket.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Commands.StartAxysCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Commands.StartAxysCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Commands.StartAxysCommand",
+      "Summary": "<p sourcefile=\"api/Axys.Commands.StartAxysCommand.yml\" sourcestartlinenumber=\"1\">Rhino command that starts the local WebSocket server allowing external\nAxys clients to connect and exchange messages.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Commands.TrackObjectCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Commands.TrackObjectCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Commands.TrackObjectCommand",
+      "Summary": "<p sourcefile=\"api/Axys.Commands.TrackObjectCommand.yml\" sourcestartlinenumber=\"1\">Wraps <xref href=\"Axys.Utilities.CommandUtilities.ExecuteTrackObjectLogic(Rhino.RhinoDoc)\" data-throw-if-not-resolved=\"false\"></xref> in a Rhino command\nso object tracking can be invoked interactively.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Commands.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Commands.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Commands",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Managers.Geometry.ExportHelpers.ExportResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Managers.Geometry.ExportHelpers.ExportResult.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Managers.Geometry.ExportHelpers.ExportResult",
+      "Summary": "<p sourcefile=\"api/Axys.Managers.Geometry.ExportHelpers.ExportResult.yml\" sourcestartlinenumber=\"1\">Result information returned from an export operation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Managers.Geometry.ExportHelpers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Managers.Geometry.ExportHelpers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Managers.Geometry.ExportHelpers",
+      "Summary": "<p sourcefile=\"api/Axys.Managers.Geometry.ExportHelpers.yml\" sourcestartlinenumber=\"1\">Helper routines used during USDZ export operations.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Managers.Geometry.GeometryConversion.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Managers.Geometry.GeometryConversion.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Managers.Geometry.GeometryConversion",
+      "Summary": "<p sourcefile=\"api/Axys.Managers.Geometry.GeometryConversion.yml\" sourcestartlinenumber=\"1\">Utility methods that convert Rhino geometry into forms suitable for USDZ export.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Managers.Geometry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Managers.Geometry.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Managers.Geometry",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Managers.Networking.MessageHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Managers.Networking.MessageHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Managers.Networking.MessageHandler",
+      "Summary": "<p sourcefile=\"api/Axys.Managers.Networking.MessageHandler.yml\" sourcestartlinenumber=\"1\">Provides helper methods for creating JSON messages exchanged via WebSocket.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Managers.Networking.USDZExportManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Managers.Networking.USDZExportManager.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Managers.Networking.USDZExportManager",
+      "Summary": "<p sourcefile=\"api/Axys.Managers.Networking.USDZExportManager.yml\" sourcestartlinenumber=\"1\">Sends exported USDZ files to connected clients in chunks over WebSocket.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Managers.Networking.WebSocketServerManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Managers.Networking.WebSocketServerManager.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Managers.Networking.WebSocketServerManager",
+      "Summary": "<p sourcefile=\"api/Axys.Managers.Networking.WebSocketServerManager.yml\" sourcestartlinenumber=\"1\">Manages the WebSocket server used for communicating with Axys clients.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Managers.Networking.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Managers.Networking.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Managers.Networking",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Managers.ObjectHandling.MaterialManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Managers.ObjectHandling.MaterialManager.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Managers.ObjectHandling.MaterialManager",
+      "Summary": "<p sourcefile=\"api/Axys.Managers.ObjectHandling.MaterialManager.yml\" sourcestartlinenumber=\"1\">Utility functions for assigning and selecting materials on Rhino objects.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Managers.ObjectHandling.ObjectPositionManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Managers.ObjectHandling.ObjectPositionManager.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Managers.ObjectHandling.ObjectPositionManager",
+      "Summary": "<p sourcefile=\"api/Axys.Managers.ObjectHandling.ObjectPositionManager.yml\" sourcestartlinenumber=\"1\">Provides helper methods for querying and modifying object positions within the Rhino document.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Managers.ObjectHandling.SelectionObjectManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Managers.ObjectHandling.SelectionObjectManager.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Managers.ObjectHandling.SelectionObjectManager",
+      "Summary": "<p sourcefile=\"api/Axys.Managers.ObjectHandling.SelectionObjectManager.yml\" sourcestartlinenumber=\"1\">Helper methods for selecting geometry and resolving instance definitions.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Managers.ObjectHandling.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Managers.ObjectHandling.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Managers.ObjectHandling",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Models.RhinoObjectInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Models.RhinoObjectInfo.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Models.RhinoObjectInfo",
+      "Summary": "<p sourcefile=\"api/Axys.Models.RhinoObjectInfo.yml\" sourcestartlinenumber=\"1\">Lightweight container used to expose basic object information to clients.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Models.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Models.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Models",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.ScriptPipeMeshBlockCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.ScriptPipeMeshBlockCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.ScriptPipeMeshBlockCommand",
+      "Summary": "<p sourcefile=\"api/Axys.ScriptPipeMeshBlockCommand.yml\" sourcestartlinenumber=\"1\">Automates the creation of a pipe from selected curves, meshes the result\nand defines a block instance from those meshes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Utilities.CommandUtilities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Utilities.CommandUtilities.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Utilities.CommandUtilities",
+      "Summary": "<p sourcefile=\"api/Axys.Utilities.CommandUtilities.yml\" sourcestartlinenumber=\"1\">Shared command implementations that can be invoked from multiple entry points.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.Utilities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.Utilities.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys.Utilities",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Axys.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Axys.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Axys",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RhinoPlugin.GeometryProcessingException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RhinoPlugin.GeometryProcessingException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RhinoPlugin.GeometryProcessingException",
+      "Summary": "<p sourcefile=\"api/RhinoPlugin.GeometryProcessingException.yml\" sourcestartlinenumber=\"1\">Thrown when geometry processing fails during export or conversion.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RhinoPlugin.GeometrySelectionException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RhinoPlugin.GeometrySelectionException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RhinoPlugin.GeometrySelectionException",
+      "Summary": "<p sourcefile=\"api/RhinoPlugin.GeometrySelectionException.yml\" sourcestartlinenumber=\"1\">Thrown when geometry cannot be selected or resolved.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RhinoPlugin.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RhinoPlugin.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "RhinoPlugin",
+      "Summary": null
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "getting-started.md",
+      "output": {
+        ".html": {
+          "relative_path": "getting-started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "introduction.md",
+      "output": {
+        ".html": {
+          "relative_path": "introduction.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

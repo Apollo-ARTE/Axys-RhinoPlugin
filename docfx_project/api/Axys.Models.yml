@@ -1,0 +1,23 @@
+### YamlMime:ManagedReference
+items:
+- uid: Axys.Models
+  commentId: N:Axys.Models
+  id: Axys.Models
+  children:
+  - Axys.Models.RhinoObjectInfo
+  langs:
+  - csharp
+  - vb
+  name: Axys.Models
+  nameWithType: Axys.Models
+  fullName: Axys.Models
+  type: Namespace
+  assemblies:
+  - RhinoPlugin
+references:
+- uid: Axys.Models.RhinoObjectInfo
+  commentId: T:Axys.Models.RhinoObjectInfo
+  href: Axys.Models.RhinoObjectInfo.html
+  name: RhinoObjectInfo
+  nameWithType: RhinoObjectInfo
+  fullName: Axys.Models.RhinoObjectInfo
