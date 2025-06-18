@@ -11,6 +11,7 @@ namespace Axys
     /// </summary>
     public class AxysPlugin : Rhino.PlugIns.PlugIn
     {
+        public override string PluginName => "Axys";
         public AxysPlugin()
         {
             Instance = this;

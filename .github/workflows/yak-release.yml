@@ -19,6 +19,17 @@ jobs:
       with:
         fetch-depth: 0
     
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.10.2
+      with:
+        versionSpec: '5.x'
+    
+    - name: Determine Version
+      id: gitversion
+      uses: gittools/actions/gitversion/execute@v0.10.2
+      with:
+        useConfigFile: true
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
@@ -29,6 +40,9 @@ jobs:
     
     - name: Build
       run: dotnet build --no-restore --configuration Release
+      env:
+        GITVERSION_NUGETVERSIONV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
+        GITVERSION_ASSEMBLYSEMVER: ${{ steps.gitversion.outputs.assemblySemVer }}
     
     - name: Test
       run: dotnet test --no-build --verbosity normal --configuration Release
@@ -41,6 +55,13 @@ jobs:
         
         # Copy built assemblies (adjust paths as needed for your project structure)
         find . -path "*/bin/Release/net*" -name "*.dll" -o -name "*.rhp" -o -name "*.gha" | xargs -I {} cp {} dist/net8.0/ 2>/dev/null || true
+        
+        # Verify the main plugin file was copied
+        if [ ! -f "dist/net8.0/Axys.rhp" ]; then
+          echo "Warning: Axys.rhp not found in dist/net8.0/"
+          echo "Available .rhp files:"
+          find dist/net8.0/ -name "*.rhp" || echo "No .rhp files found"
+        fi
         
         # Copy manifest.yml if it exists (required for Yak)
         if [ -f "manifest.yml" ]; then
@@ -89,10 +110,12 @@ jobs:
         echo "Yak setup complete"
     
     - name: Pack and Push to Yak
-      env:
-        YAK_TOKEN: ${{ secrets.YAK_API_KEY }}
       run: |
         cd dist
+        
+        # Clean the YAK_TOKEN to remove any newlines or whitespace
+        CLEAN_YAK_TOKEN=$(echo "${{ secrets.YAK_API_KEY }}" | tr -d '\n\r' | xargs)
+        export YAK_TOKEN="$CLEAN_YAK_TOKEN"
         
         # Build yak package using full path to yak
         echo "Building Yak package..."
