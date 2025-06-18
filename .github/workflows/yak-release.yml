@@ -90,43 +90,36 @@ jobs:
     
     - name: Pack and Push to Yak
       run: |
-        # Add yak to PATH for this step
-        export PATH="${{ github.workspace }}/yakfolder:$PATH"
-        export YAK_TOKEN=${{ secrets.YAK_API_KEY }}
-        
-        # Verify yak is accessible
-        echo "Checking yak installation..."
-        which yak
-        yak --version
-        
         cd dist
-        
+        export YAK_TOKEN=${{ secrets.YAK_API_KEY }}
+
         # Build yak package
         echo "Building Yak package..."
         yak build
-        
+
         # List files to verify the .yak file was created
         echo "Files in dist directory:"
         ls -la
-        
+
         # Find the .yak package
         yakPackageFile=$(find . -maxdepth 1 -name "*.yak" -type f | head -1)
         if [ -z "$yakPackageFile" ]; then
-          echo "Error: No .yak package was created in the 'dist' directory."
-          echo "Make sure you have a valid manifest.yml file."
-          exit 1
+        echo "Error: No .yak package was created in the 'dist' directory."
+        echo "Make sure you have a valid manifest.yml file."
+        exit 1
         fi
-        
+
         echo "Found package: $yakPackageFile"
-        
+
         # Get just the filename for the release asset name
         yakPackageBasename=$(basename "$yakPackageFile")
         echo "YAK_PACKAGE_BASENAME=$yakPackageBasename" >> $GITHUB_ENV
         echo "YAK_PACKAGE_PATH=$yakPackageFile" >> $GITHUB_ENV
-        
+
         # Push to yak server
         echo "Pushing to Yak server..."
         yak push --source https://test.yak.rhino3d.com axys-0.1.3-any-any.yak "$yakPackageFile"
+
     
     - name: Upload .yak package to GitHub Release
       uses: actions/upload-release-asset@v1
