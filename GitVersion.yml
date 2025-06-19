@@ -7,7 +7,7 @@ branches:
     increment: Patch
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
-    source-branches: ['develop', 'feat']
+    source-branches: ['develop']  # Removed 'feat' from here
   develop:
     regex: ^dev(elop)?(ment)?$
     mode: ContinuousDeployment
@@ -23,7 +23,7 @@ branches:
     increment: Inherit
     prevent-increment-of-merged-branch-version: false
     track-merge-target: false
-    source-branches: ['develop', 'main', 'feat', 'bugfix']
+    source-branches: ['develop', 'main', 'bugfix']  # Removed 'feat' from here too
 ignore:
   sha: []
 merge-message-formats: {}

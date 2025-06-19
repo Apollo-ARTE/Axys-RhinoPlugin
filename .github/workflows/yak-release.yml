@@ -47,6 +47,26 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal --configuration Release
     
+    # NEW STEP: Update manifest.yml with version
+    - name: Update manifest.yml version
+      run: |
+        VERSION="${{ steps.gitversion.outputs.semVer }}"
+        echo "Updating manifest.yml version to: $VERSION"
+        
+        # Create a backup of the original manifest
+        cp manifest.yml manifest.yml.backup
+        
+        # Use sed to replace the version line in manifest.yml
+        sed -i "s/^version: .*/version: $VERSION/" manifest.yml
+        
+        # Verify the change
+        echo "Updated manifest.yml content:"
+        cat manifest.yml
+        
+        # Also make the version available for later steps
+        echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
+      shell: bash
+    
     # Prepare artifacts for Yak
     - name: Prepare Yak Package Structure
       run: |
@@ -63,11 +83,13 @@ jobs:
           find dist/net8.0/ -name "*.rhp" || echo "No .rhp files found"
         fi
         
-        # Copy manifest.yml if it exists (required for Yak)
+        # Copy manifest.yml with updated version (required for Yak)
         if [ -f "manifest.yml" ]; then
           cp manifest.yml dist/
+          echo "Copied updated manifest.yml to dist/"
         else
-          echo "Warning: manifest.yml not found. This is required for Yak publishing."
+          echo "Error: manifest.yml not found. This is required for Yak publishing."
+          exit 1
         fi
         
         # Copy any additional files
@@ -79,7 +101,7 @@ jobs:
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.PLUGIN_NAME }}-build
+        name: ${{ env.PLUGIN_NAME }}-build-v${{ env.PACKAGE_VERSION }}
         path: dist/
         retention-days: 30
 
@@ -94,7 +116,7 @@ jobs:
     - name: Download Build Artifacts
       uses: actions/download-artifact@v4
       with:
-        name: ${{ env.PLUGIN_NAME }}-build
+        name: ${{ env.PLUGIN_NAME }}-build-v${{ needs.build.outputs.version }}
         path: dist
     
     - name: Setup Yak
@@ -116,6 +138,10 @@ jobs:
         # Clean the YAK_TOKEN to remove any newlines or whitespace
         CLEAN_YAK_TOKEN=$(echo "${{ secrets.YAK_API_KEY }}" | tr -d '\n\r' | xargs)
         export YAK_TOKEN="$CLEAN_YAK_TOKEN"
+        
+        # Show manifest version for debugging
+        echo "Manifest.yml version being published:"
+        grep "^version:" manifest.yml || echo "Version line not found in manifest.yml"
         
         # Build yak package using full path to yak
         echo "Building Yak package..."
