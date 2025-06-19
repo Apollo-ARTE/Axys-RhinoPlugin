@@ -92,7 +92,10 @@ jobs:
         [ -f "README.md" ] && cp README.md dist/
         [ -f "LICENSE" ] && cp LICENSE dist/
         find . -maxdepth 1 -name "*.rhi" -exec cp {} dist/ \; 2>/dev/null || true
-        
+
+        # Copy icon files (png, jpg, jpeg, ico, svg)
+        find . -maxdepth 1 \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.ico" -o -name "*.svg" \) -exec cp {} dist/ \; 2>/dev/null || true
+    
         echo "Package contents:"
         ls -la dist/
       shell: bash
