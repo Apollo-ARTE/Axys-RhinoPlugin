@@ -1,17 +1,19 @@
-name: Yak Pre-release Build and Publish
+name: Build and Publish to Yak
 
+# Only run when a version tag is pushed
 on:
   push:
-    branches: [ "feat/yak-release" ]
-  release:
-    types: [published]
+    tags:
+      - 'v*'  # Triggers on tags like v1.0.0, v0.1.4, etc.
 
 env:
-  PLUGIN_NAME: AxysPlugin
+  PLUGIN_NAME: Axys
 
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
     - name: Checkout code
@@ -19,16 +21,15 @@ jobs:
       with:
         fetch-depth: 0
     
-    - name: Install GitVersion
-      uses: gittools/actions/gitversion/setup@v0.10.2
-      with:
-        versionSpec: '5.x'
-    
-    - name: Determine Version
-      id: gitversion
-      uses: gittools/actions/gitversion/execute@v0.10.2
-      with:
-        useConfigFile: true
+    # Extract version from git tag
+    - name: Get version from tag
+      id: version
+      run: |
+        # Remove 'v' prefix from tag to get clean version
+        VERSION=${GITHUB_REF#refs/tags/v}
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+        echo "Publishing version: $VERSION"
     
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
@@ -40,31 +41,24 @@ jobs:
     
     - name: Build
       run: dotnet build --no-restore --configuration Release
-      env:
-        GITVERSION_NUGETVERSIONV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
-        GITVERSION_ASSEMBLYSEMVER: ${{ steps.gitversion.outputs.assemblySemVer }}
     
     - name: Test
       run: dotnet test --no-build --verbosity normal --configuration Release
     
-    # NEW STEP: Update manifest.yml with version
+    # Update manifest.yml with the tag version
     - name: Update manifest.yml version
       run: |
-        VERSION="${{ steps.gitversion.outputs.semVer }}"
         echo "Updating manifest.yml version to: $VERSION"
         
-        # Create a backup of the original manifest
+        # Backup original manifest
         cp manifest.yml manifest.yml.backup
         
-        # Use sed to replace the version line in manifest.yml
+        # Update version in manifest.yml
         sed -i "s/^version: .*/version: $VERSION/" manifest.yml
         
         # Verify the change
-        echo "Updated manifest.yml content:"
-        cat manifest.yml
-        
-        # Also make the version available for later steps
-        echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
+        echo "Updated manifest.yml:"
+        grep "^version:" manifest.yml
       shell: bash
     
     # Prepare artifacts for Yak
@@ -73,110 +67,106 @@ jobs:
         # Create dist directory structure
         mkdir -p dist/net8.0
         
-        # Copy built assemblies (adjust paths as needed for your project structure)
+        # Copy built assemblies
         find . -path "*/bin/Release/net*" -name "*.dll" -o -name "*.rhp" -o -name "*.gha" | xargs -I {} cp {} dist/net8.0/ 2>/dev/null || true
         
         # Verify the main plugin file was copied
         if [ ! -f "dist/net8.0/Axys.rhp" ]; then
           echo "Warning: Axys.rhp not found in dist/net8.0/"
-          echo "Available .rhp files:"
+          echo "Available files:"
           find dist/net8.0/ -name "*.rhp" || echo "No .rhp files found"
         fi
         
-        # Copy manifest.yml with updated version (required for Yak)
+        # Copy manifest.yml with updated version
         if [ -f "manifest.yml" ]; then
           cp manifest.yml dist/
           echo "Copied updated manifest.yml to dist/"
         else
-          echo "Error: manifest.yml not found. This is required for Yak publishing."
+          echo "Error: manifest.yml not found"
           exit 1
         fi
         
-        # Copy any additional files
+        # Copy additional files
         [ -f "README.md" ] && cp README.md dist/
         [ -f "LICENSE" ] && cp LICENSE dist/
         find . -maxdepth 1 -name "*.rhi" -exec cp {} dist/ \; 2>/dev/null || true
+        
+        echo "📦 Package contents:"
+        ls -la dist/
       shell: bash
-    
-    - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ env.PLUGIN_NAME }}-build-v${{ env.PACKAGE_VERSION }}
-        path: dist/
-        retention-days: 30
-
-  publish:
-    name: Publish to Yak and GitHub Release
-    runs-on: ubuntu-latest
-    needs: build
-    permissions:
-      contents: write
-    
-    steps:
-    - name: Download Build Artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: ${{ env.PLUGIN_NAME }}-build-v${{ needs.build.outputs.version }}
-        path: dist
     
     - name: Setup Yak
       run: |
-        # Create a directory for yak
         mkdir -p ${{ github.workspace }}/yakfolder
-        # Download Linux version of yak
         curl -L "https://files.mcneel.com/yak/tools/0.13.0/linux-x64/yak" -o ${{ github.workspace }}/yakfolder/yak
-        # Make it executable
         chmod +x ${{ github.workspace }}/yakfolder/yak
-        # Verify yak is working
         ${{ github.workspace }}/yakfolder/yak --version
-        echo "Yak setup complete"
     
-    - name: Pack and Push to Yak
+    - name: Build and Push to Yak
       run: |
         cd dist
         
-        # Clean the YAK_TOKEN to remove any newlines or whitespace
+        # Clean YAK token
         CLEAN_YAK_TOKEN=$(echo "${{ secrets.YAK_API_KEY }}" | tr -d '\n\r' | xargs)
         export YAK_TOKEN="$CLEAN_YAK_TOKEN"
         
-        # Show manifest version for debugging
-        echo "Manifest.yml version being published:"
-        grep "^version:" manifest.yml || echo "Version line not found in manifest.yml"
+        # Show what we're publishing
+        echo "🚀 Publishing to Yak:"
+        echo "   Package: ${{ env.PLUGIN_NAME }}"
+        echo "   Version: ${{ env.VERSION }}"
+        echo "   Tag: ${{ env.TAG_NAME }}"
         
-        # Build yak package using full path to yak
-        echo "Building Yak package..."
+        # Build yak package
+        echo "📦 Building Yak package..."
         ${{ github.workspace }}/yakfolder/yak build
-
-        # List files to verify the .yak file was created
-        echo "Files in dist directory:"
-        ls -la
-
+        
         # Find the .yak package
         yakPackageFile=$(find . -maxdepth 1 -name "*.yak" -type f | head -1)
         if [ -z "$yakPackageFile" ]; then
-          echo "Error: No .yak package was created in the 'dist' directory."
-          echo "Make sure you have a valid manifest.yml file."
+          echo "Error: No .yak package was created"
+          echo "Files in dist:"
+          ls -la
           exit 1
         fi
-
-        echo "Found package: $yakPackageFile"
-
-        # Get just the filename for the release asset name
-        yakPackageBasename=$(basename "$yakPackageFile")
-        echo "YAK_PACKAGE_BASENAME=$yakPackageBasename" >> $GITHUB_ENV
-        echo "YAK_PACKAGE_PATH=$yakPackageFile" >> $GITHUB_ENV
-
-        # Push to yak server using the dynamically found package file
-        echo "Pushing $yakPackageFile to Yak server..."
+        
+        echo "✅ Created package: $yakPackageFile"
+        
+        # Push to yak server (change to production server if needed)
+        echo "🚀 Pushing to Yak server..."
         ${{ github.workspace }}/yakfolder/yak push --source https://test.yak.rhino3d.com "$yakPackageFile"
+        
+        # Save package info for GitHub release
+        yakPackageBasename=$(basename "$yakPackageFile")
+        echo "YAK_PACKAGE_FILE=$yakPackageFile" >> $GITHUB_ENV
+        echo "YAK_PACKAGE_NAME=$yakPackageBasename" >> $GITHUB_ENV
     
-    - name: Upload .yak package to GitHub Release
-      if: github.event_name == 'release'
-      uses: actions/upload-release-asset@v1
+    # Create GitHub Release with the .yak package
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ env.TAG_NAME }}
+        name: "Release ${{ env.TAG_NAME }}"
+        body: |
+          ## 🚀 Release ${{ env.TAG_NAME }}
+          
+          **Version:** ${{ env.VERSION }}
+          
+          ### 📦 Yak Package
+          - Published to Yak server
+          - Package file: `${{ env.YAK_PACKAGE_NAME }}`
+          
+          ### 🔧 Installation
+          Install directly from Rhino using the Yak package manager:
+          ```
+          _PackageManager
+          ```
+          Or search for "Axys" in the Rhino package manager.
+          
+          ---
+          *This release was automatically built and published from tag `${{ env.TAG_NAME }}`*
+        files: |
+          dist/${{ env.YAK_PACKAGE_NAME }}
+        draft: false
+        prerelease: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: dist/${{ env.YAK_PACKAGE_PATH }}
-        asset_name: ${{ env.YAK_PACKAGE_BASENAME }}
-        asset_content_type: application/zip
