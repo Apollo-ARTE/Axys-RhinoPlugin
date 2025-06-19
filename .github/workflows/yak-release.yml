@@ -1,10 +1,12 @@
-name: Build and Publish to Yak
+name: Yak Pre-Release and Publish Workflow
 
 # Only run when a version tag is pushed
 on:
   push:
-    tags:
-      - 'v*'  # Triggers on tags like v1.0.0, v0.1.4, etc.
+    branches: [ "feat/yak-release" ]
+    tags: [ "v*" ]  # Trigger on version tags like v1.0.0
+  pull_request:
+    branches: [ "feat/yak-release" ]
 
 env:
   PLUGIN_NAME: Axys
