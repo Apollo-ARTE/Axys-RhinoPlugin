@@ -73,7 +73,7 @@ The app features a comprehensive built-in, step-by-step calibration process desi
 
 ![Markers Placement](images/markersok.png) 
 
-1. Print the markers (check resources to download)
+1. Print the [markers](https://github.com/Apollo-ARTE/Axys/releases/tag/v0.1.0)
 2. Place them in the physical space. Make sure to place the 3 markers in a **non-collinear** layout. At least one marker should sit higher/lower for the tracking to work properly.
 
 ### 6.2 Scan Markers
@@ -125,9 +125,6 @@ Axys now knows the transform between Rhino and the real world.
 
 ### Resources
 
-* [AXYS Website](https://github.com/Apollo-ARTE/Axys)  
-* [Axys Source](https://github.com/Apollo-ARTE/Axys)  
-* [Rhino Plugin Source](https://github.com/Apollo-ARTE/Axys-RhinoPlugin) 
-* [Calibration Markers](https://github.com/Apollo-ARTE/Axys) 
-
-
+* [AXYS Website](https://getaxys.netlify.app/)  
+* [Axys Source](https://github.com/Apollo-ARTE/Axys)  
+* [Rhino Plugin Source](https://github.com/Apollo-ARTE/Axys-RhinoPlugin)
