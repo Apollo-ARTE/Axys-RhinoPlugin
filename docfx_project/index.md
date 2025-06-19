@@ -73,8 +73,6 @@ git clone https://github.com/Apollo-ARTE/Axys-RhinoPlugin.git
 
 ### Resources
 
-* [AXYS Website](https://github.com/Apollo-ARTE/Axys)  
-* [Axys Source](https://github.com/Apollo-ARTE/Axys)  
-* [Rhino Plugin Source](https://github.com/Apollo-ARTE/Axys-RhinoPlugin) 
-* [Calibration Markers](https://github.com/Apollo-ARTE/Axys) 
-
+* [AXYS Website](https://getaxys.netlify.app/)  
+* [Axys Source](https://github.com/Apollo-ARTE/Axys)  
+* [Rhino Plugin Source](https://github.com/Apollo-ARTE/Axys-RhinoPlugin)
