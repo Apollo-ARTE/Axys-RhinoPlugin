@@ -91,7 +91,7 @@ jobs:
         [ -f "LICENSE" ] && cp LICENSE dist/
         find . -maxdepth 1 -name "*.rhi" -exec cp {} dist/ \; 2>/dev/null || true
         
-        echo "📦 Package contents:"
+        echo "Package contents:"
         ls -la dist/
       shell: bash
     
@@ -129,7 +129,7 @@ jobs:
           exit 1
         fi
         
-        echo "✅ Created package: $yakPackageFile"
+        echo "Created package: $yakPackageFile"
         
         # Push to yak server (change to production server if needed)
         echo "🚀 Pushing to Yak server..."
