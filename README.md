@@ -4,7 +4,7 @@
 
 ### Documentation
 
-Full setup guide, features, and development notes are available in the [Documentation](https://apollo-arte.github.io/Axys/documentation/axys/)
+Full setup guide, features, and development notes are available in the [Documentation](https://apollo-arte.github.io/Axys-RhinoPlugin)
 
 ### License
 
