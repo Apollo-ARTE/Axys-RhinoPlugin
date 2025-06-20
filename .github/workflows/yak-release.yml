@@ -3,11 +3,11 @@ name: Yak Pre-Release and Publish Workflow
 # Only run when a version tag is pushed
 on:
   push:
-    branches: [ "feat/yak-release" ]
+    branches: [ "main" ]
     tags: [ "v*" ]  # Trigger on version tags like v1.0.0
   pull_request:
-    branches: [ "feat/yak-release" ]
-
+    branches: [ "main" ]
+    
 env:
   PLUGIN_NAME: Axys
 
@@ -27,11 +27,23 @@ jobs:
     - name: Get version from tag
       id: version
       run: |
-        # Remove 'v' prefix from tag to get clean version
-        VERSION=${GITHUB_REF#refs/tags/v}
+        # Default fallback version if no tag is found
+        VERSION="0.0.0-pr-${{ github.run_number }}"
+        TAG_NAME=""
+
+        if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+          VERSION="${GITHUB_REF#refs/tags/v}"
+          TAG_NAME="${GITHUB_REF#refs/tags/}"
+        else
+          # Try to get closest tag for PR builds
+          TAG=$(git describe --tags --abbrev=0 || echo "v0.0.0")
+          VERSION="${TAG#v}-pr-${{ github.run_number }}"
+          TAG_NAME="${TAG}"
+        fi
+
         echo "VERSION=$VERSION" >> $GITHUB_ENV
-        echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
-        echo "Publishing version: $VERSION"
+        echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+        echo "Detected version: $VERSION"
     
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
@@ -116,13 +128,13 @@ jobs:
         export YAK_TOKEN="$CLEAN_YAK_TOKEN"
         
         # Show what we're publishing
-        echo "🚀 Publishing to Yak:"
+        echo "Publishing to Yak:"
         echo "   Package: ${{ env.PLUGIN_NAME }}"
         echo "   Version: ${{ env.VERSION }}"
         echo "   Tag: ${{ env.TAG_NAME }}"
         
         # Build yak package
-        echo "📦 Building Yak package..."
+        echo "Building Yak package..."
         ${{ github.workspace }}/yakfolder/yak build
         
         # Find the .yak package
@@ -137,41 +149,41 @@ jobs:
         echo "Created package: $yakPackageFile"
         
         # Push to yak server (change to production server if needed)
-        echo "🚀 Pushing to Yak server..."
-        ${{ github.workspace }}/yakfolder/yak push --source https://test.yak.rhino3d.com "$yakPackageFile"
+        echo "Pushing to Yak server..."
+        ${{ github.workspace }}/yakfolder/yak push "$yakPackageFile"
         
         # Save package info for GitHub release
         yakPackageBasename=$(basename "$yakPackageFile")
         echo "YAK_PACKAGE_FILE=$yakPackageFile" >> $GITHUB_ENV
         echo "YAK_PACKAGE_NAME=$yakPackageBasename" >> $GITHUB_ENV
     
-    # Create GitHub Release with the .yak package
-    - name: Create GitHub Release
-      uses: softprops/action-gh-release@v1
-      with:
-        tag_name: ${{ env.TAG_NAME }}
-        name: "Release ${{ env.TAG_NAME }}"
-        body: |
-          ## 🚀 Release ${{ env.TAG_NAME }}
+    # # Create GitHub Release with the .yak package
+    # - name: Create GitHub Release
+    #   uses: softprops/action-gh-release@v1
+    #   with:
+    #     tag_name: ${{ env.TAG_NAME }}
+    #     name: "Release ${{ env.TAG_NAME }}"
+    #     body: |
+    #       ## Release ${{ env.TAG_NAME }}
           
-          **Version:** ${{ env.VERSION }}
+    #       **Version:** ${{ env.VERSION }}
           
-          ### 📦 Yak Package
-          - Published to Yak server
-          - Package file: `${{ env.YAK_PACKAGE_NAME }}`
+    #       ### Yak Package
+    #       - Published to Yak server
+    #       - Package file: `${{ env.YAK_PACKAGE_NAME }}`
           
-          ### 🔧 Installation
-          Install directly from Rhino using the Yak package manager:
-          ```
-          _PackageManager
-          ```
-          Or search for "Axys" in the Rhino package manager.
+    #       ### 🔧 Installation
+    #       Install directly from Rhino using the Yak package manager:
+    #       ```
+    #       _PackageManager
+    #       ```
+    #       Or search for "Axys" in the Rhino package manager.
           
-          ---
-          *This release was automatically built and published from tag `${{ env.TAG_NAME }}`*
-        files: |
-          dist/${{ env.YAK_PACKAGE_NAME }}
-        draft: false
-        prerelease: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #       ---
+    #       *This release was automatically built and published from tag `${{ env.TAG_NAME }}`*
+    #     files: |
+    #       dist/${{ env.YAK_PACKAGE_NAME }}
+    #     draft: false
+    #     prerelease: false
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
