@@ -71,6 +71,24 @@ git clone https://github.com/Apollo-ARTE/Axys-RhinoPlugin.git
 
 ---
 
+## Publishing a New Version
+
+To publish a new version of the plugin to the Yak server and create a GitHub release:
+
+### 1. Tag the Release
+
+After the commit, run the following commands, replacing `1.2.3` with the new version:
+
+```bash
+git tag v1.2.3
+git push v1.2.3
+```
+### 2. Open a Pull Request to main branch
+
+Once it’s merged and a version tag is pushed, the release process will run automatically.
+
+---
+
 ### Resources
 
 * [AXYS Website](https://getaxys.netlify.app/)  

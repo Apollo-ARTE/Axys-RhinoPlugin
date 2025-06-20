@@ -1,0 +1,189 @@
+name: Yak Pre-Release and Publish Workflow
+
+# Only run when a version tag is pushed
+on:
+  push:
+    branches: [ "main" ]
+    tags: [ "v*" ]  # Trigger on version tags like v1.0.0
+  pull_request:
+    branches: [ "main" ]
+    
+env:
+  PLUGIN_NAME: Axys
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    # Extract version from git tag
+    - name: Get version from tag
+      id: version
+      run: |
+        # Default fallback version if no tag is found
+        VERSION="0.0.0-pr-${{ github.run_number }}"
+        TAG_NAME=""
+
+        if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+          VERSION="${GITHUB_REF#refs/tags/v}"
+          TAG_NAME="${GITHUB_REF#refs/tags/}"
+        else
+          # Try to get closest tag for PR builds
+          TAG=$(git describe --tags --abbrev=0 || echo "v0.0.0")
+          VERSION="${TAG#v}-pr-${{ github.run_number }}"
+          TAG_NAME="${TAG}"
+        fi
+
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+        echo "Detected version: $VERSION"
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+    
+    - name: Test
+      run: dotnet test --no-build --verbosity normal --configuration Release
+    
+    # Update manifest.yml with the tag version
+    - name: Update manifest.yml version
+      run: |
+        echo "Updating manifest.yml version to: $VERSION"
+        
+        # Backup original manifest
+        cp manifest.yml manifest.yml.backup
+        
+        # Update version in manifest.yml
+        sed -i "s/^version: .*/version: $VERSION/" manifest.yml
+        
+        # Verify the change
+        echo "Updated manifest.yml:"
+        grep "^version:" manifest.yml
+      shell: bash
+    
+    # Prepare artifacts for Yak
+    - name: Prepare Yak Package Structure
+      run: |
+        # Create dist directory structure
+        mkdir -p dist/net8.0
+        
+        # Copy built assemblies
+        find . -path "*/bin/Release/net*" -name "*.dll" -o -name "*.rhp" -o -name "*.gha" | xargs -I {} cp {} dist/net8.0/ 2>/dev/null || true
+        
+        # Verify the main plugin file was copied
+        if [ ! -f "dist/net8.0/Axys.rhp" ]; then
+          echo "Warning: Axys.rhp not found in dist/net8.0/"
+          echo "Available files:"
+          find dist/net8.0/ -name "*.rhp" || echo "No .rhp files found"
+        fi
+        
+        # Copy manifest.yml with updated version
+        if [ -f "manifest.yml" ]; then
+          cp manifest.yml dist/
+          echo "Copied updated manifest.yml to dist/"
+        else
+          echo "Error: manifest.yml not found"
+          exit 1
+        fi
+        
+        # Copy additional files
+        [ -f "README.md" ] && cp README.md dist/
+        [ -f "LICENSE" ] && cp LICENSE dist/
+        find . -maxdepth 1 -name "*.rhi" -exec cp {} dist/ \; 2>/dev/null || true
+
+        # Copy icon files (png, jpg, jpeg, ico, svg)
+        find . -maxdepth 1 \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.ico" -o -name "*.svg" \) -exec cp {} dist/ \; 2>/dev/null || true
+    
+        echo "Package contents:"
+        ls -la dist/
+      shell: bash
+    
+    - name: Setup Yak
+      run: |
+        mkdir -p ${{ github.workspace }}/yakfolder
+        curl -L "https://files.mcneel.com/yak/tools/0.13.0/linux-x64/yak" -o ${{ github.workspace }}/yakfolder/yak
+        chmod +x ${{ github.workspace }}/yakfolder/yak
+        ${{ github.workspace }}/yakfolder/yak --version
+    
+    - name: Build and Push to Yak
+      run: |
+        cd dist
+        
+        # Clean YAK token
+        CLEAN_YAK_TOKEN=$(echo "${{ secrets.YAK_API_KEY }}" | tr -d '\n\r' | xargs)
+        export YAK_TOKEN="$CLEAN_YAK_TOKEN"
+        
+        # Show what we're publishing
+        echo "Publishing to Yak:"
+        echo "   Package: ${{ env.PLUGIN_NAME }}"
+        echo "   Version: ${{ env.VERSION }}"
+        echo "   Tag: ${{ env.TAG_NAME }}"
+        
+        # Build yak package
+        echo "Building Yak package..."
+        ${{ github.workspace }}/yakfolder/yak build
+        
+        # Find the .yak package
+        yakPackageFile=$(find . -maxdepth 1 -name "*.yak" -type f | head -1)
+        if [ -z "$yakPackageFile" ]; then
+          echo "Error: No .yak package was created"
+          echo "Files in dist:"
+          ls -la
+          exit 1
+        fi
+        
+        echo "Created package: $yakPackageFile"
+        
+        # Push to yak server (change to production server if needed)
+        echo "Pushing to Yak server..."
+        ${{ github.workspace }}/yakfolder/yak push "$yakPackageFile"
+        
+        # Save package info for GitHub release
+        yakPackageBasename=$(basename "$yakPackageFile")
+        echo "YAK_PACKAGE_FILE=$yakPackageFile" >> $GITHUB_ENV
+        echo "YAK_PACKAGE_NAME=$yakPackageBasename" >> $GITHUB_ENV
+    
+    # # Create GitHub Release with the .yak package
+    # - name: Create GitHub Release
+    #   uses: softprops/action-gh-release@v1
+    #   with:
+    #     tag_name: ${{ env.TAG_NAME }}
+    #     name: "Release ${{ env.TAG_NAME }}"
+    #     body: |
+    #       ## Release ${{ env.TAG_NAME }}
+          
+    #       **Version:** ${{ env.VERSION }}
+          
+    #       ### Yak Package
+    #       - Published to Yak server
+    #       - Package file: `${{ env.YAK_PACKAGE_NAME }}`
+          
+    #       ### 🔧 Installation
+    #       Install directly from Rhino using the Yak package manager:
+    #       ```
+    #       _PackageManager
+    #       ```
+    #       Or search for "Axys" in the Rhino package manager.
+          
+    #       ---
+    #       *This release was automatically built and published from tag `${{ env.TAG_NAME }}`*
+    #     files: |
+    #       dist/${{ env.YAK_PACKAGE_NAME }}
+    #     draft: false
+    #     prerelease: false
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
