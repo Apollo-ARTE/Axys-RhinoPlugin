@@ -81,7 +81,7 @@ After the commit, run the following commands, replacing `1.2.3` with the new ver
 
 ```bash
 git tag v1.2.3
-git push origin v1.2.3
+git push v1.2.3
 ```
 ### 2. Open a Pull Request to main branch
 
