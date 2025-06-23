@@ -192,12 +192,17 @@ jobs:
           - Package file: `${{ env.YAK_PACKAGE_NAME }}`
           
           ### Installation
-          Install directly from Rhino using the Yak package manager:
+          Install directly from Rhino using the Yak package manager in command line:
           ```
           _PackageManager
           ```
-          Or search for "Axys" in the Rhino package manager.
-          
+          Then find the plugin:
+          ```
+          Axys
+          ```
+          And install the latest version.
+
+          Alternatively, you can download the package directly as a .zip from the assets below.
           ---
           *This release was automatically built and published from tag `${{ env.TAG_NAME }}`*
         files: |
