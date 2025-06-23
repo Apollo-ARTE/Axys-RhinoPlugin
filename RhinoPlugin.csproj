@@ -1,34 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	
-  <PropertyGroup>
-    <!-- Select the framework(s) you wish to target.
-        Rhino 6: net45
-        Rhino 7: net48
-        Rhino 8 Windows: net48, net7.0, net7.0-windows, net7.0-windows10.0.22000.0, etc
-        Rhino 8 Mac: net7.0, net7.0-macos, net7.0-macos12.0, etc
-    -->
-    <TargetFrameworks>net7.0;net8.0</TargetFrameworks>
-    <EnableDynamicLoading>true</EnableDynamicLoading>
-    <TargetExt>.rhp</TargetExt>
-    <NoWarn>NU1701</NoWarn>
-  </PropertyGroup>
-  
-  <PropertyGroup>
-    <!-- Specifies information for Assembly and Yak -->
-    <Version>1.0</Version>
-    <Title>Axys</Title>
-    <Company>Apollo</Company>
-    <Description>Description of Axys</Description>
-  </PropertyGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="Fleck" Version="1.2.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="RhinoCommon" Version="8.13.24107.15001" ExcludeAssets="runtime" />    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
-  
+
+<PropertyGroup>
+<!-- Select the framework(s) you wish to target.
+ Rhino 6: net45
+ Rhino 7: net48
+ Rhino 8 Windows: net48, net7.0, net7.0-windows, net7.0-windows10.0.22000.0, etc
+ Rhino 8 Mac: net7.0, net7.0-macos, net7.0-macos12.0, etc
+ -->
+<TargetFrameworks>net7.0;net8.0</TargetFrameworks>
+<EnableDynamicLoading>true</EnableDynamicLoading>
+<TargetExt>.rhp</TargetExt>
+<NoWarn>NU1701</NoWarn>
+<AssemblyName>Axys</AssemblyName>
+</PropertyGroup>
+
+<PropertyGroup>
+<!-- Specifies information for Assembly and Yak -->
+<!-- Version will be automatically set by GitVersion -->
+<Title>Axys</Title>
+<Company>Apollo</Company>
+<Description>Axys is a plugin for Rhino and Grasshopper that allows to export, view and manipulate 3D models on Vision Pro using the dedicated Axys app.</Description>
+</PropertyGroup>
+
+<ItemGroup>
+<PackageReference Include="Fleck" Version="1.2.0" />
+<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+<PackageReference Include="RhinoCommon" Version="8.13.24107.15001" ExcludeAssets="runtime" /> 
+<PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
+<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+<Reference Include="Microsoft.CSharp" />
+</ItemGroup>
+
 </Project>
